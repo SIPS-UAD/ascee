@@ -62,8 +62,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(JenisMitra::class, 'user_id', 'id_user');
     }
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
 }
