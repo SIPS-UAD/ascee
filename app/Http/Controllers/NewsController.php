@@ -6,6 +6,7 @@ use App\Models\News;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Inertia\Inertia;
 
 class NewsController extends Controller
 {
@@ -15,7 +16,7 @@ class NewsController extends Controller
     public function index()
     {
         $news = News::with('admin')->latest()->paginate(10);
-        return view('admin.news.index', compact('news'));
+        return Inertia::render('admin/news/index', ['news' => $news]);
     }
 
     /**
@@ -24,7 +25,7 @@ class NewsController extends Controller
     public function create()
     {
         $admins = Admin::all();
-        return view('admin.news.create', compact('admins'));
+        return Inertia::render('admin/news/create', ['admins' => $admins]);
     }
 
     /**
@@ -59,7 +60,7 @@ class NewsController extends Controller
     public function show(News $news)
     {
         $news->load('admin');
-        return view('admin.news.show', compact('news'));
+        return Inertia::render('admin/news/show', compact('news'));
     }
 
     /**
@@ -68,7 +69,7 @@ class NewsController extends Controller
     public function edit(News $news)
     {
         $admins = Admin::all();
-        return view('admin.news.edit', compact('news', 'admins'));
+        return Inertia::render('admin/news/edit', compact('news', 'admins'));
     }
 
     /**

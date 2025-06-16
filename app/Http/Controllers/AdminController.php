@@ -6,6 +6,7 @@ use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use Inertia\Inertia;
 
 class AdminController extends Controller
 {
@@ -15,7 +16,7 @@ class AdminController extends Controller
     public function index()
     {
         $admins = Admin::latest()->paginate(10);
-        return view('admin.admins.index', compact('admins'));
+        return Inertia::render('admin/admins/index', ['admins' => $admins]);
     }
 
     /**
@@ -23,7 +24,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        return view('admin.admins.create');
+        return Inertia::render('admin/admins/create');
     }
 
     /**
@@ -52,7 +53,7 @@ class AdminController extends Controller
      */
     public function show(Admin $admin)
     {
-        return view('admin.admins.show', compact('admin'));
+        return Inertia::render('admin/admins/show', compact('admin'));
     }
 
     /**
@@ -60,7 +61,7 @@ class AdminController extends Controller
      */
     public function edit(Admin $admin)
     {
-        return view('admin.admins.edit', compact('admin'));
+        return Inertia::render('admin/admins/edit', compact('admin'));
     }
 
     /**

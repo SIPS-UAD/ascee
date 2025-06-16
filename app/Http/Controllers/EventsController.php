@@ -6,6 +6,7 @@ use App\Models\Events;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Inertia\Inertia;
 
 class EventsController extends Controller
 {
@@ -15,7 +16,7 @@ class EventsController extends Controller
     public function index()
     {
         $events = Events::with('admin')->latest()->paginate(10);
-        return view('admin.events.index', compact('events'));
+        return Inertia::render('admin/events/index', ['events' => $events]);
     }
 
     /**
@@ -24,7 +25,7 @@ class EventsController extends Controller
     public function create()
     {
         $admins = Admin::all();
-        return view('admin.events.create', compact('admins'));
+        return Inertia::render('admin/events/create', ['admins' => $admins]);
     }
 
     /**
@@ -58,7 +59,7 @@ class EventsController extends Controller
     public function show(Events $event)
     {
         $event->load('admin');
-        return view('admin.events.show', compact('event'));
+        return Inertia::render('admin/events/show', ['event' => $event]);
     }
 
     /**
@@ -67,7 +68,10 @@ class EventsController extends Controller
     public function edit(Events $event)
     {
         $admins = Admin::all();
-        return view('admin.events.edit', compact('event', 'admins'));
+        return Inertia::render('admin/events/edit', [
+            'event' => $event,
+            'admins' => $admins
+        ]);
     }
 
     /**
