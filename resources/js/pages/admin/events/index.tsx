@@ -1,13 +1,12 @@
 import { Head, Link, router } from '@inertiajs/react';
 import AppLayout from '@/layouts/app-layout';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Plus, Edit, Trash2, Eye, Calendar, User, MapPin } from 'lucide-react';
 import { type BreadcrumbItem } from '@/types';
 
-interface Admin {
-    id_admin: number;
+interface Admin {    id_admin: number;
     email: string;
     username: string;
 }
