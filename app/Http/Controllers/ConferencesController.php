@@ -6,6 +6,7 @@ use App\Models\Conferences;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Inertia\Inertia;
 
 class ConferencesController extends Controller
 {
@@ -15,7 +16,7 @@ class ConferencesController extends Controller
     public function index()
     {
         $conferences = Conferences::with('admin')->latest()->paginate(10);
-        return view('admin.conferences.index', compact('conferences'));
+        return Inertia::render('admin/conferences/index', ['conferences' => $conferences]);
     }
 
     /**
@@ -24,7 +25,7 @@ class ConferencesController extends Controller
     public function create()
     {
         $admins = Admin::all();
-        return view('admin.conferences.create', compact('admins'));
+        return Inertia::render('admin/conferences/create', ['admins' => $admins]);
     }
 
     /**
@@ -58,7 +59,7 @@ class ConferencesController extends Controller
     public function show(Conferences $conference)
     {
         $conference->load('admin');
-        return view('admin.conferences.show', compact('conference'));
+        return Inertia::render('admin/conferences/show', ['conference' => $conference]);
     }
 
     /**
@@ -67,7 +68,10 @@ class ConferencesController extends Controller
     public function edit(Conferences $conference)
     {
         $admins = Admin::all();
-        return view('admin.conferences.edit', compact('conference', 'admins'));
+        return Inertia::render('admin/conferences/edit', [
+            'conference' => $conference,
+            'admins' => $admins
+        ]);
     }
 
     /**
