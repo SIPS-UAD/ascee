@@ -6,6 +6,7 @@ use App\Models\Journal;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Inertia\Inertia;
 
 class JournalController extends Controller
 {
@@ -15,7 +16,7 @@ class JournalController extends Controller
     public function index()
     {
         $journals = Journal::with('admin')->latest()->paginate(10);
-        return view('admin.journal.index', compact('journals'));
+        return Inertia::render('admin/journal/index', ['journals' => $journals]);
     }
 
     /**
@@ -24,7 +25,7 @@ class JournalController extends Controller
     public function create()
     {
         $admins = Admin::all();
-        return view('admin.journal.create', compact('admins'));
+        return Inertia::render('admin/journal/create', ['admins' => $admins]);
     }
 
     /**
@@ -56,7 +57,7 @@ class JournalController extends Controller
     public function show(Journal $journal)
     {
         $journal->load('admin');
-        return view('admin.journal.show', compact('journal'));
+        return Inertia::render('admin/journal/show', ['journal' => $journal]);
     }
 
     /**
@@ -65,7 +66,10 @@ class JournalController extends Controller
     public function edit(Journal $journal)
     {
         $admins = Admin::all();
-        return view('admin.journal.edit', compact('journal', 'admins'));
+        return Inertia::render('admin/journal/edit', [
+            'journal' => $journal,
+            'admins' => $admins
+        ]);
     }
 
     /**
