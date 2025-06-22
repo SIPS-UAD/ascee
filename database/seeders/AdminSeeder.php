@@ -10,25 +10,14 @@ class AdminSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     */
-    public function run(): void
+     */    public function run(): void
     {
-        Admin::create([
-            'email' => 'admin@ascee.com',
-            'password' => Hash::make('password123'),
-            'username' => 'superadmin'
-        ]);
-
-        Admin::create([
-            'email' => 'admin2@ascee.com',
-            'password' => Hash::make('password123'),
-            'username' => 'admin2'
-        ]);
-
-        Admin::create([
-            'email' => 'editor@ascee.com',
-            'password' => Hash::make('password123'),
-            'username' => 'editor'
-        ]);
+        for ($i = 1; $i <= 5; $i++) {
+            Admin::create([
+                'email' => fake()->unique()->safeEmail(),
+                'password' => Hash::make('password123'),
+                'username' => fake()->unique()->userName()
+            ]);
+        }
     }
 }
