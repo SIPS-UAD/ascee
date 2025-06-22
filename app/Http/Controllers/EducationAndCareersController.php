@@ -6,6 +6,7 @@ use App\Models\EducationAndCareers;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Inertia\Inertia;
 
 class EducationAndCareersController extends Controller
 {
@@ -15,7 +16,7 @@ class EducationAndCareersController extends Controller
     public function index()
     {
         $educations = EducationAndCareers::with('admin')->latest()->paginate(10);
-        return view('admin.education-careers.index', compact('educations'));
+        return Inertia::render('admin/education-careers/index', ['educations' => $educations]);
     }
 
     /**
@@ -24,7 +25,7 @@ class EducationAndCareersController extends Controller
     public function create()
     {
         $admins = Admin::all();
-        return view('admin.education-careers.create', compact('admins'));
+        return Inertia::render('admin/education-careers/create', ['admins' => $admins]);
     }
 
     /**
@@ -59,7 +60,7 @@ class EducationAndCareersController extends Controller
     public function show(EducationAndCareers $educationCareer)
     {
         $educationCareer->load('admin');
-        return view('admin.education-careers.show', compact('educationCareer'));
+        return Inertia::render('admin/education-careers/show', ['educationCareer' => $educationCareer]);
     }
 
     /**
@@ -68,7 +69,10 @@ class EducationAndCareersController extends Controller
     public function edit(EducationAndCareers $educationCareer)
     {
         $admins = Admin::all();
-        return view('admin.education-careers.edit', compact('educationCareer', 'admins'));
+        return Inertia::render('admin/education-careers/edit', [
+            'educationCareer' => $educationCareer,
+            'admins' => $admins
+        ]);
     }
 
     /**
