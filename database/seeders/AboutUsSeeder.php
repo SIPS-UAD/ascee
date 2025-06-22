@@ -10,20 +10,19 @@ class AboutUsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     */    public function run(): void
+     */
+    public function run(): void
     {
         $admins = Admin::all();
-        $sections = ['about', 'research', 'services', 'mission', 'vision'];
 
-        for ($i = 1; $i <= 8; $i++) {
-            AboutUs::create([
-                'description' => fake()->paragraphs(3, true),
-                'visi_misi' => 'Visi: ' . fake()->sentence(12) . ' Misi: ' . fake()->sentence(15),
-                'section' => fake()->randomElement($sections),
-                'people' => fake()->paragraph(2),
-                'contact' => fake()->email() . ' atau hubungi ' . fake()->phoneNumber(),
-                'admin_id' => $admins->random()->id_admin
-            ]);
-        }
+        // Create only one About Us record (singleton)
+        AboutUs::create([
+            'description' => 'ASCEE (Association of Computer Science and Electrical Engineering) adalah organisasi yang didedikasikan untuk memajukan bidang ilmu komputer dan teknik elektro. Kami berkomitmen untuk menyediakan platform bagi para profesional, akademisi, dan mahasiswa untuk berbagi pengetahuan, mengembangkan keterampilan, dan membangun jaringan yang kuat dalam industri teknologi.',
+            'visi_misi' => 'Visi: Menjadi organisasi terdepan dalam memfasilitasi inovasi dan kolaborasi di bidang ilmu komputer dan teknik elektro untuk menciptakan solusi teknologi yang berdampak positif bagi masyarakat. Misi: Menyelenggarakan kegiatan pendidikan, penelitian, dan pengembangan profesional yang berkualitas tinggi, memfasilitasi pertukaran pengetahuan antar anggota, dan mendorong inovasi teknologi yang berkelanjutan.',
+            'section' => 'about',
+            'people' => 'Tim ASCEE terdiri dari para ahli dan praktisi berpengalaman di bidang teknologi informasi, teknik elektro, dan industri terkait. Kami memiliki dewan penasehat yang terdiri dari akademisi terkemuka dan profesional industri yang berpengalaman lebih dari 10 tahun di bidangnya masing-masing.',
+            'contact' => 'info@ascee.org atau hubungi +62 21 1234 5678',
+            'admin_id' => $admins->random()->id_admin
+        ]);
     }
 }
