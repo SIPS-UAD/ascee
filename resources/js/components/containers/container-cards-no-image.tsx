@@ -2,14 +2,13 @@ import CardNoImage from '../atoms/card-no-image';
 
 const ContainerCardsNoImage = () => {
     return (
-        <div className="flex flex-col rounded-lg  w-full gap-1">    
-         
+        <div className="flex w-full flex-col gap-1 rounded-lg">
             <CardNoImage />
             <CardNoImage />
             <CardNoImage />
-            <CardNoImage />
-            <CardNoImage />
-            <CardNoImage />
+            <CardNoImage className="hidden lg:block" />
+            <CardNoImage className="hidden lg:block" />
+            <CardNoImage className="hidden lg:block" />
         </div>
     );
 };

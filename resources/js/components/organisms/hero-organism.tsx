@@ -3,8 +3,11 @@ import ContainerCardsWithImage from '../containers/container-cards-with-image';
 
 const HeroOrganism = () => {
     return (
-        <div className="mx-auto flex flex-col gap-4 w-auto max-w-7xl  px-2 py-8 sm:px-4 lg:px-4">
+        <div className="flex flex-col gap-4 sm:gap-4">
+            {/* Main hero card */}
             <CardMain />
+
+            {/* Cards grid */}
             <ContainerCardsWithImage />
         </div>
     );
