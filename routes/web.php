@@ -74,7 +74,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('admin/conferences/index', ['conferences' => $conferences]);
     })->name('admin.conferences');
 
-    Route::resource('education-careers', EducationAndCareersController::class);
+    Route::resource('careers', EducationAndCareersController::class);
     Route::get('admin/education-careers', function () {
         $educations = \App\Models\EducationAndCareers::with('admin')->latest()->paginate(10);
         return Inertia::render('admin/education-careers/index', ['educations' => $educations]);
