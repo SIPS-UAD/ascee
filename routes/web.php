@@ -14,7 +14,7 @@ use App\Http\Controllers\JenisMitraController;
 use App\Http\Controllers\ContactController;
 
 Route::get('/', function () {
-    return Inertia::render('landingPage');
+    return Inertia::render('homePage');
 })->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {

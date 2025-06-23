@@ -22,65 +22,84 @@ const NavHomepage = () => {
     const CrownIcon = () => <img src="/mdi_crown.svg" alt="Crown icon" className="h-4 w-4" />;
 
     return (
-        <nav className="relative mx-auto px-2 sm:px-6 lg:px-4">
-            <div className="flex h-16 items-center justify-between">
-                {/* Mobile menu button */}
-                <div className="lg:hidden">
-                    <button
-                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                        className="rounded-md p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700"
-                    >
-                        <img src="/sidebar-menu.svg" alt="Menu" className="h-6 w-6" />
-                    </button>
-                </div>
+        <nav className="fixed top-0 right-0 left-0 z-50 w-full bg-white shadow-sm">
+            <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+                <div className="flex h-16 items-center justify-between">
+                    {/* Mobile menu button */}
+                    <div className="lg:hidden">
+                        <button
+                            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                            className="rounded-md p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                        >
+                            <img src="/sidebar-menu.svg" alt="Menu" className="h-6 w-6" />
+                        </button>
+                    </div>
 
-                {/* Left navigation - hidden on mobile */}
-                <div className="hidden  lg:flex">
-                    {navigation.map(
-                        (item, index) =>
-                            index < 6 && (
-                                <NavLink key={item.name} href={item.href} active={url === item.href}>
-                                    {item.name}
-                                </NavLink>
-                            ),
-                    )}
-                </div>
+                    {/* Left navigation - hidden on mobile */}
+                    <div className="hidden lg:flex">
+                        {navigation.map(
+                            (item, index) =>
+                                index < 6 && (
+                                    <NavLink key={item.name} href={item.href} active={url === item.href}>
+                                        {item.name}
+                                    </NavLink>
+                                ),
+                        )}
+                    </div>
 
-                {/* Logo (center) */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                    <NavLogo />
-                </div>
+                    {/* Logo (center) */}
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                        <NavLogo />
+                    </div>
 
-                {/* Placeholder for left nav on mobile to ensure centering */}
-                <div className="w-8 md:hidden"></div>
+                    {/* Placeholder for left nav on mobile to ensure centering */}
+                    <div className="w-8 md:hidden"></div>
 
-                {/* Right navigation */}
-                <div className="flex items-center space-x-4">
-                    {/* Search icon - always visible */}
-                    <button className="p-1">
-                        <img src="/search.svg" alt="Search" className="h-5 w-5" />
-                    </button>
+                    {/* Right navigation */}
+                    <div className="flex items-center space-x-4">
+                        {/* Search icon - always visible */}
+                        <button className="p-1">
+                            <img src="/search.svg" alt="Search" className="h-5 w-5" />
+                        </button>
 
-                    {/* Login / User Menu - visible on all sizes */}
-                    {auth?.user ? (
-                        <Link href={route('dashboard')} className="text-sm font-medium text-gray-700 hover:text-cyan-500 lg:text-tiny">
-                            Dashboard
-                        </Link>
-                    ) : (
-                        <>
-                            <div className="hidden space-x-5 lg:flex">
-                                <Link
-                                    href={route('login')}
-                                    className="m-auto mx-4 text-tiny font-medium text-gray-700 hover:text-cyan-500 lg:text-sm"
-                                >
-                                    LOG IN
-                                </Link>
-                                <NavButton href={route('register')} icon={<CrownIcon />}>
-                                    MEMBERSHIP
-                                </NavButton>
-                            </div>
-                        </>
-                    )}
+                        {/* Login / User Menu - visible on all sizes */}
+                        {auth?.user ?
+                        //  (
+                        //     <Link href={route('dashboard')} className="text-sm font-medium text-gray-700 hover:text-cyan-500 lg:text-tiny">
+                        //         Dashboard
+                        //     </Link>
+                        // ) 
+                        (
+                            <>
+                                <div className="hidden space-x-5 lg:flex">
+                                    <Link
+                                        href={route('login')}
+                                        className="m-auto mx-4 text-tiny font-medium text-gray-700 hover:text-cyan-500 lg:text-sm"
+                                    >
+                                        LOG IN
+                                    </Link>
+                                    <NavButton href={route('register')} icon={<CrownIcon />}>
+                                        MEMBERSHIP
+                                    </NavButton>
+                                </div>
+                            </>
+                        )
+                        : (
+                            <>
+                                <div className="hidden space-x-5 lg:flex">
+                                    <Link
+                                        href={route('login')}
+                                        className="m-auto mx-4 text-tiny font-medium text-gray-700 hover:text-cyan-500 lg:text-sm"
+                                    >
+                                        LOG IN
+                                    </Link>
+                                    <NavButton href={route('register')} icon={<CrownIcon />}>
+                                        MEMBERSHIP
+                                    </NavButton>
+                                </div>
+                            </>
+                        )}
+                    </div>
                 </div>
             </div>
 
@@ -98,11 +117,7 @@ const NavHomepage = () => {
                     ) : (
                         <>
                             <div className="px-4 py-2">
-                                <NavButton
-                                    href={route('register')}
-                                    icon={<CrownIcon />}
-                                    onClick={() => setIsMobileMenuOpen(false)} // <-- add your prop here
-                                >
+                                <NavButton href={route('register')} icon={<CrownIcon />} onClick={() => setIsMobileMenuOpen(false)}>
                                     MEMBERSHIP
                                 </NavButton>
                             </div>
