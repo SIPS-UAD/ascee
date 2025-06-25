@@ -12,7 +12,7 @@ const SecondHeroSectionHomepage = () => {
                         <WithImageOrganism />
                     </div>
                     <div className="w-full lg:w-1/3">
-                        <NoImageOrganism title="CONFERENCE" moreTitle="More Events" />
+                        <NoImageOrganism title="CONFERENCE" moreTitle="More Conferences" />
                     </div>
                 </div>
             </div>

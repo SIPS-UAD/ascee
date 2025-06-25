@@ -93,7 +93,7 @@ export default function NewsIndex({ news, success }: NewsIndexProps) {
                             <CardTitle className="text-sm font-medium">This Month</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold">
+                            <div className="text-2xl font-bold text-green-600">
                                 {news.data.filter(item => 
                                     new Date(item.created_at).getMonth() === new Date().getMonth()
                                 ).length}
@@ -105,7 +105,7 @@ export default function NewsIndex({ news, success }: NewsIndexProps) {
                             <CardTitle className="text-sm font-medium">With Images</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold">
+                            <div className="text-2xl font-bold text-purple-600">
                                 {news.data.filter(item => item.image).length}
                             </div>
                         </CardContent>
@@ -115,7 +115,7 @@ export default function NewsIndex({ news, success }: NewsIndexProps) {
                             <CardTitle className="text-sm font-medium">Publishers</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold">
+                            <div className="text-2xl font-bold text-blue-600">
                                 {new Set(news.data.map(item => item.publisher)).size}
                             </div>
                         </CardContent>
