@@ -2,7 +2,7 @@ const CardMain = () => {
     return (
         <div className="group relative h-80 w-full overflow-hidden rounded-xl">
             <img
-                src="/images/conference.jpg"
+                src="astronout.png"
                 alt="ASCEE Conference"
                 className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
             />

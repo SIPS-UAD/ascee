@@ -1,6 +1,7 @@
 import HeroSectionHomepage from '@/components/common/hero-section-homepage';
 import HomepageHeaderLayout from '@/layouts/homepages/homepage-header-layout';
 import HomepageMainLayout from '@/layouts/homepages/homepage-main-layout';
+import SecondHeroSectionHomepage from '@/components/common/secondHero-section-homepage';
 import { Head } from '@inertiajs/react';
 
 export default function HomePage() {
@@ -14,6 +15,7 @@ export default function HomePage() {
                 <HomepageMainLayout>
                     {/* Hero Section */}
                     <HeroSectionHomepage />
+                    <SecondHeroSectionHomepage />
 
                     {/* Additional homepage sections can be added here */}
                     {/* <NewsSection /> */}

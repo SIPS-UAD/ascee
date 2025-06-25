@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 
 interface CardWithImageProps {
     type?: 'EVENT' | 'NEWS' | 'ANNOUNCEMENT';
@@ -15,32 +14,16 @@ const CardWithImage: React.FC<CardWithImageProps> = ({
     date = '14 JUNI 2024',
     title = 'Pengumuman Penerima ASCEE Grants',
     organization = 'ASCEE',
-    imageSrc,
-    useRandomImage = false,
     className = '',
 }) => {
-    const [imageUrl, setImageUrl] = useState('/images/event-placeholder.jpg');
+    // const imageUrl ='/images/event-placeholder.jpg';
 
-    useEffect(() => {
-        // If an image is provided, use it
-        if (imageSrc) {
-            setImageUrl(imageSrc);
-            return;
-        }
-
-        // For random image if requested
-        if (useRandomImage) {
-            const randomId = Math.floor(Math.random() * 1000);
-            const typeKeyword = type.toLowerCase();
-            setImageUrl(`https://source.unsplash.com/300x200/?${typeKeyword},ascee&${randomId}`);
-        }
-    }, [type, imageSrc, useRandomImage]);
 
     return (
         <div className={`group overflow-hidden rounded-lg border border-gray-100 transition-shadow hover:shadow-md ${className}`}>
             <div className="relative h-32 overflow-hidden">
                 <img
-                    src={imageUrl}
+                    src='astronout.png'
                     alt={title}
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     onError={(e) => {
