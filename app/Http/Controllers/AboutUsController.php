@@ -5,93 +5,55 @@ namespace App\Http\Controllers;
 use App\Models\AboutUs;
 use App\Models\Admin;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class AboutUsController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display the about us page.
      */
     public function index()
     {
-        $aboutUs = AboutUs::with('admin')->latest()->paginate(10);
-        return view('admin.about-us.index', compact('aboutUs'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
+        $aboutUs = AboutUs::with('admin')->first();
         $admins = Admin::all();
-        return view('admin.about-us.create', compact('admins'));
+        
+        return Inertia::render('admin/about-us/index', [
+            'aboutUs' => $aboutUs,
+            'admins' => $admins,
+            'success' => session('success')
+        ]);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store or update the about us information.
      */
     public function store(Request $request)
     {
         $request->validate([
             'description' => 'required|string',
             'visi_misi' => 'required|string',
-            'section' => 'required|string|max:255',
             'people' => 'nullable|string',
             'contact' => 'nullable|string',
             'admin_id' => 'required|exists:admins,id_admin',
         ]);
 
-        AboutUs::create($request->all());
-
-        return redirect()->route('about-us.index')
-            ->with('success', 'About Us content created successfully.');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(AboutUs $aboutUs)
-    {
-        $aboutUs->load('admin');
-        return view('admin.about-us.show', compact('aboutUs'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(AboutUs $aboutUs)
-    {
-        $admins = Admin::all();
-        return view('admin.about-us.edit', compact('aboutUs', 'admins'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, AboutUs $aboutUs)
-    {
-        $request->validate([
-            'description' => 'required|string',
-            'visi_misi' => 'required|string',
-            'section' => 'required|string|max:255',
-            'people' => 'nullable|string',
-            'contact' => 'nullable|string',
-            'admin_id' => 'required|exists:admins,id_admin',
-        ]);
-
-        $aboutUs->update($request->all());
-
-        return redirect()->route('about-us.index')
-            ->with('success', 'About Us content updated successfully.');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(AboutUs $aboutUs)
-    {
-        $aboutUs->delete();
+        $aboutUs = AboutUs::first();
         
+        // Add default section value
+        $data = $request->all();
+        $data['section'] = 'about';
+        
+        if ($aboutUs) {
+            // Update existing record
+            $aboutUs->update($data);
+            $message = 'About Us information updated successfully.';
+        } else {
+            // Create new record
+            AboutUs::create($data);
+            $message = 'About Us information created successfully.';
+        }
+
         return redirect()->route('about-us.index')
-            ->with('success', 'About Us content deleted successfully.');
+            ->with('success', $message);
     }
 }

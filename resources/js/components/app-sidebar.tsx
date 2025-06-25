@@ -6,7 +6,6 @@ import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
 import {
     BookOpen,
-    Building2,
     Calendar,
     Folder,
     GraduationCap,
@@ -14,7 +13,6 @@ import {
     LayoutGrid,
     Newspaper,
     Users,
-    UserSearch,
     Video,
 } from 'lucide-react';
 import AppLogo from './app-logo';
@@ -56,19 +54,9 @@ const mainNavItems: NavItem[] = [
         icon: Video,
     },
     {
-        title: 'Education & Careers',
-        href: '/education-careers',
+        title: 'Careers',
+        href: '/careers',
         icon: GraduationCap,
-    },
-    {
-        title: 'Members',
-        href: '/pencarian-members',
-        icon: UserSearch,
-    },
-    {
-        title: 'Partners',
-        href: '/jenis-mitra',
-        icon: Building2,
     },
 ];
 
