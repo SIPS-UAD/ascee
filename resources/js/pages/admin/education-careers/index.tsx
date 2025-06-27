@@ -40,7 +40,7 @@ interface EducationCareersIndexProps {
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Education & Careers Management', href: '/education-careers' },
+    { title: 'Careers Management', href: '/education-careers' },
 ];
 
 export default function EducationCareersIndex({ educations, success }: EducationCareersIndexProps) {
@@ -52,19 +52,19 @@ export default function EducationCareersIndex({ educations, success }: Education
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Education & Careers Management" />
+            <Head title="Careers Management" />
 
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-2xl font-bold tracking-tight">Education & Careers Management</h1>
-                        <p className="text-muted-foreground">Manage educational and career content</p>
+                        <h1 className="text-2xl font-bold tracking-tight">Careers Management</h1>
+                        <p className="text-muted-foreground">Manage career content</p>
                     </div>
                     <Link href="/education-careers/create">
                         <Button>
                             <Plus className="mr-2 h-4 w-4" />
-                            Add Education/Career
+                            Add Career
                         </Button>
                     </Link>
                 </div>
@@ -80,7 +80,7 @@ export default function EducationCareersIndex({ educations, success }: Education
                 <div className="grid gap-4 md:grid-cols-4">
                     <Card>
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                            <CardTitle className="text-sm font-medium">Total Education & Careers</CardTitle>
+                            <CardTitle className="text-sm font-medium">Total Careers</CardTitle>
                         </CardHeader>
                         <CardContent>
                             <div className="text-2xl font-bold">{educations.total}</div>
@@ -91,8 +91,8 @@ export default function EducationCareersIndex({ educations, success }: Education
                 {/* Educations Table */}
                 <Card>
                     <CardHeader>
-                        <CardTitle>Education & Careers</CardTitle>
-                        <CardDescription>A list of all education and career entries</CardDescription>
+                        <CardTitle>Careers</CardTitle>
+                        <CardDescription>A list of all career entries</CardDescription>
                     </CardHeader>
                     <CardContent>
                         <div className="relative overflow-x-auto">
@@ -145,7 +145,7 @@ export default function EducationCareersIndex({ educations, success }: Education
                                     ) : (
                                         <tr>
                                             <td colSpan={6} className="px-6 py-4 text-center text-gray-500">
-                                                No education or career entries found
+                                                No career entries found
                                             </td>
                                         </tr>
                                     )}
