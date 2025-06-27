@@ -101,7 +101,7 @@ export default function JournalsIndex({ journals, success }: JournalsIndexProps)
                             <CardTitle className="text-sm font-medium">Admins</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold">
+                            <div className="text-2xl font-bold text-blue-600">
                                 {new Set(journals.data.map(journal => journal.admin.username)).size}
                             </div>
                         </CardContent>
