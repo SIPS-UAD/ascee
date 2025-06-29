@@ -15,7 +15,10 @@ class EducationAndCareersController extends Controller
      */
     public function index()
     {
-        $educations = EducationAndCareers::with('admin')->latest()->paginate(10);
+        $educations = EducationAndCareers::with('admin')
+            ->orderBy('date', 'desc') 
+            ->paginate(10);
+
         return Inertia::render('admin/education-careers/index', ['educations' => $educations]);
     }
 

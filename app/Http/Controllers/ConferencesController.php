@@ -15,7 +15,7 @@ class ConferencesController extends Controller
      */
     public function index()
     {
-        $conferences = Conferences::with('admin')->latest()->paginate(9);
+        $conferences = Conferences::with('admin')->orderBy('updated_at', 'desc')->paginate(9);
         return Inertia::render('admin/conferences/index', ['conferences' => $conferences]);
     }
 
