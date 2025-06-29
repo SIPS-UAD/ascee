@@ -15,7 +15,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $admins = Admin::latest()->paginate(10);
+        $admins = Admin::orderBy('id_admin', 'asc')->paginate(10);
         return Inertia::render('admin/admins/index', ['admins' => $admins]);
     }
 
