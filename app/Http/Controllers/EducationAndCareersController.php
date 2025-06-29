@@ -50,7 +50,7 @@ class EducationAndCareersController extends Controller
 
         EducationAndCareers::create($data);
 
-        return redirect()->route('education-careers.index')
+        return redirect()->route('careers.index')
             ->with('success', 'Education & Career content created successfully.');
     }
 
@@ -100,7 +100,7 @@ class EducationAndCareersController extends Controller
 
         $educationCareer->update($data);
 
-        return redirect()->route('education-careers.index')
+        return redirect()->route('careers.index')
             ->with('success', 'Education & Career content updated successfully.');
     }
 
@@ -115,7 +115,7 @@ class EducationAndCareersController extends Controller
 
         $educationCareer->delete();
         
-        return redirect()->route('education-careers.index')
+        return redirect()->route('careers.index')
             ->with('success', 'Education & Career content deleted successfully.');
     }
 }

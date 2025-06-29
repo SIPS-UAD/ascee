@@ -44,7 +44,7 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'Careers',
-        href: '/careers',
+        href: '/careers', // Tetap /careers
         icon: GraduationCap,
     },
 ];

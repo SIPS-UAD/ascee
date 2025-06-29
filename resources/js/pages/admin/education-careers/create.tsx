@@ -21,8 +21,8 @@ interface EducationCareersCreateProps {
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Education & Careers Management', href: '/education-careers' },
-    { title: 'Create Education & Career', href: '/education-careers/create' },
+    { title: 'Careers Management', href: '/careers' }, 
+    { title: 'Create Career', href: '/careers/create' }, 
 ];
 
 export default function EducationCareersCreate({ admins }: EducationCareersCreateProps) {
@@ -54,9 +54,10 @@ export default function EducationCareersCreate({ admins }: EducationCareersCreat
         setImagePreview(null);
     };
 
+    // Ubah form submit endpoint
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post('/education-careers');
+        post('/careers'); // Ubah ke /careers
     };
 
     return (
@@ -66,16 +67,16 @@ export default function EducationCareersCreate({ admins }: EducationCareersCreat
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 {/* Header */}
                 <div className="flex items-center gap-4">
-                    <Link href="/education-careers">
+                    <Link href="/careers">
                         <Button variant="ghost" size="sm">
                             <ArrowLeft className="h-4 w-4 mr-2" />
-                            Back to Education & Careers
+                            Back to Careers
                         </Button>
                     </Link>
                     <div>
-                        <h1 className="text-2xl font-bold tracking-tight">Create Education & Career</h1>
+                        <h1 className="text-2xl font-bold tracking-tight">Create Career</h1>
                         <p className="text-muted-foreground">
-                            Add a new education or career entry
+                            Add a new career entry
                         </p>
                     </div>
                 </div>
@@ -85,9 +86,9 @@ export default function EducationCareersCreate({ admins }: EducationCareersCreat
                     <div className="lg:col-span-2">
                         <Card>
                             <CardHeader>
-                                <CardTitle>Education & Career Information</CardTitle>
+                                <CardTitle>Career Information</CardTitle>
                                 <CardDescription>
-                                    Fill in the details for the new education or career entry
+                                    Fill in the details for the new career entry
                                 </CardDescription>
                             </CardHeader>
                             <CardContent>
@@ -180,9 +181,9 @@ export default function EducationCareersCreate({ admins }: EducationCareersCreat
                                     {/* Submit Buttons */}
                                     <div className="flex items-center gap-4 pt-4">
                                         <Button type="submit" disabled={processing}>
-                                            {processing ? 'Creating...' : 'Create Education & Career'}
+                                            {processing ? 'Creating...' : 'Create Career'}
                                         </Button>
-                                        <Link href="/education-careers">
+                                        <Link href="/careers">
                                             <Button variant="outline" type="button">
                                                 Cancel
                                             </Button>

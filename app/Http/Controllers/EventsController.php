@@ -15,7 +15,7 @@ class EventsController extends Controller
      */
     public function index()
     {
-        $events = Events::with('admin')->latest()->paginate(10);
+        $events = Events::with('admin')->latest()->paginate(9);
         return Inertia::render('admin/events/index', ['events' => $events]);
     }
 

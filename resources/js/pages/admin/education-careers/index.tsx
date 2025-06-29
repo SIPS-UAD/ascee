@@ -38,15 +38,17 @@ interface EducationCareersIndexProps {
     success?: string;
 }
 
+// Ubah breadcrumbs
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Careers Management', href: '/education-careers' },
+    { title: 'Careers Management', href: '/careers' }, // Ubah ke /careers
 ];
 
 export default function EducationCareersIndex({ educations, success }: EducationCareersIndexProps) {
+    // Ubah handleDelete
     const handleDelete = (education: EducationCareer) => {
         if (confirm(`Are you sure you want to delete "${education.title}"?`)) {
-            router.delete(`/education-careers/${education.id_education}`);
+            router.delete(`/careers/${education.id_education}`);
         }
     };
 
@@ -61,7 +63,8 @@ export default function EducationCareersIndex({ educations, success }: Education
                         <h1 className="text-2xl font-bold tracking-tight">Careers Management</h1>
                         <p className="text-muted-foreground">Manage career content</p>
                     </div>
-                    <Link href="/education-careers/create">
+                    {/* Ubah button Add Career */}
+                    <Link href="/careers/create">
                         <Button>
                             <Plus className="mr-2 h-4 w-4" />
                             Add Career
@@ -111,7 +114,7 @@ export default function EducationCareersIndex({ educations, success }: Education
                                     {educations.data.length > 0 ? (
                                         educations.data.map((education) => (
                                             <tr key={education.id_education} className="border-b hover:bg-gray-50 dark:hover:bg-gray-700">
-                                                <td className="px-6 py-4 font-medium">
+                                            <td className="px-6 py-4 font-medium">
                                                     <Badge variant="outline">#{education.id_education}</Badge>
                                                 </td>
                                                 <td className="px-6 py-4 font-medium">{education.title}</td>
@@ -120,12 +123,12 @@ export default function EducationCareersIndex({ educations, success }: Education
                                                 <td className="px-6 py-4">{education.admin.username}</td>
                                                 <td className="px-6 py-4">
                                                     <div className="flex items-center gap-2">
-                                                        <Link href={`/education-careers/${education.id_education}`}>
+                                                        <Link href={`/careers/${education.id_education}`}>
                                                             <Button variant="ghost" size="sm">
                                                                 <Eye className="h-4 w-4" />
                                                             </Button>
                                                         </Link>
-                                                        <Link href={`/education-careers/${education.id_education}/edit`}>
+                                                        <Link href={`/careers/${education.id_education}/edit`}>
                                                             <Button variant="ghost" size="sm">
                                                                 <Edit className="h-4 w-4" />
                                                             </Button>
@@ -162,14 +165,14 @@ export default function EducationCareersIndex({ educations, success }: Education
                                 </div>
                                 <div className="flex gap-2">
                                     {educations.prev_page_url && (
-                                        <Link href={educations.prev_page_url.replace('/educations', '/education-careers')}>
+                                        <Link href={educations.prev_page_url.replace('/educations', '/careers')}>
                                             <Button variant="outline" size="sm">
                                                 Previous
                                             </Button>
                                         </Link>
                                     )}
                                     {educations.next_page_url && (
-                                        <Link href={educations.next_page_url.replace('/educations', '/education-careers')}>
+                                        <Link href={educations.next_page_url.replace('/educations', '/careers')}>
                                             <Button variant="outline" size="sm">
                                                 Next
                                             </Button>

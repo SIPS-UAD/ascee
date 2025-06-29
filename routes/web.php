@@ -20,18 +20,88 @@ Route::get('/', function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     // Dashboard
     Route::get('dashboard', function () {
+        // Collect latest news
+        $latestNews = \App\Models\News::select('id_news as id', 'title', \DB::raw("'news' as category"), 'created_at as date')
+            ->orderBy('created_at', 'desc')
+            ->take(5)
+            ->get()
+            ->map(function($item) {
+                return [
+                    'id' => $item->id,
+                    'title' => $item->title,
+                    'category' => 'news',
+                    'date' => $item->date,
+                    'url' => '/news/' . $item->id,
+                ];
+            });
+        
+        // Collect latest events
+        $latestEvents = \App\Models\Events::select('id_events as id', 'title', \DB::raw("'events' as category"), 'created_at as date')
+            ->orderBy('created_at', 'desc')
+            ->take(5)
+            ->get()
+            ->map(function($item) {
+                return [
+                    'id' => $item->id,
+                    'title' => $item->title,
+                    'category' => 'events',
+                    'date' => $item->date,
+                    'url' => '/events/' . $item->id,
+                ];
+            });
+        
+        // Collect latest conferences
+        $latestConferences = \App\Models\Conferences::select('id_conferences as id', 'title', \DB::raw("'conferences' as category"), 'created_at as date')
+            ->orderBy('created_at', 'desc')
+            ->take(5)
+            ->get()
+            ->map(function($item) {
+                return [
+                    'id' => $item->id,
+                    'title' => $item->title,
+                    'category' => 'conferences',
+                    'date' => $item->date,
+                    'url' => '/conferences/' . $item->id,
+                ];
+            });
+        
+        // Collect latest careers
+        $latestCareers = \App\Models\EducationAndCareers::select('id_education as id', 'title', \DB::raw("'careers' as category"), 'created_at as date')
+            ->orderBy('created_at', 'desc')
+            ->take(5)
+            ->get()
+            ->map(function($item) {
+                return [
+                    'id' => $item->id,
+                    'title' => $item->title,
+                    'category' => 'careers',
+                    'date' => $item->date,
+                    'url' => '/careers/' . $item->id,
+                ];
+            });
+        
+        // Merge all posts and sort by date
+        $latestPosts = $latestNews->concat($latestEvents)
+            ->concat($latestConferences)
+            ->concat($latestCareers)
+            ->sortByDesc('date')
+            ->take(10)
+            ->values()
+            ->toArray();
+        
         return Inertia::render('dashboard', [
             'counts' => [
                 'news' => \App\Models\News::count(),
                 'events' => \App\Models\Events::count(),
                 'conferences' => \App\Models\Conferences::count(),
-                'users' => \App\Models\User::count(),
+                'careers' => \App\Models\EducationAndCareers::count(),
             ],
             'recentActivity' => \App\Models\User::select('id_user as id', 'email', 'full_name', 'last_login_at')
                 ->whereNotNull('last_login_at')
                 ->orderBy('last_login_at', 'desc')
-                ->take(10)
+                ->take(5)
                 ->get(),
+            'latestPosts' => $latestPosts,
         ]);
     })->name('dashboard');
 
@@ -46,7 +116,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Content Management Routes with Inertia rendering
     Route::resource('about-us', AboutUsController::class);
     Route::get('admin/about-us', function () {
-        $aboutUs = \App\Models\AboutUs::with('admin')->latest()->paginate(10);
+    $aboutUs = \App\Models\AboutUs::with('admin')->latest()->paginate(10);
         return Inertia::render('admin/about-us/index', ['aboutUs' => $aboutUs]);
     })->name('admin.about-us');
 
@@ -74,7 +144,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('admin/conferences/index', ['conferences' => $conferences]);
     })->name('admin.conferences');
 
-    Route::resource('careers', EducationAndCareersController::class);
+    Route::resource('careers', EducationAndCareersController::class)->parameters([
+        'careers' => 'educationCareer'
+    ]);
     Route::get('admin/education-careers', function () {
         $educations = \App\Models\EducationAndCareers::with('admin')->latest()->paginate(10);
         return Inertia::render('admin/education-careers/index', ['educations' => $educations]);
