@@ -45,7 +45,7 @@ export default function EducationCareersShow({ educationCareer }: EducationCaree
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title={`Education & Career: ${educationCareer.title}`} />
+            <Head title={`Career: ${educationCareer.title}`} />
 
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 {/* Header */}
@@ -58,8 +58,8 @@ export default function EducationCareersShow({ educationCareer }: EducationCaree
                             </Button>
                         </Link>
                         <div>
-                            <h1 className="text-2xl font-bold tracking-tight">Education & Career Details</h1>
-                            <p className="text-muted-foreground">View education/career entry information and activity</p>
+                            <h1 className="text-2xl font-bold tracking-tight">Career Details</h1>
+                            <p className="text-muted-foreground">View career entry information and activity</p>
                         </div>
                     </div>
                     <div className="flex items-center gap-2">
@@ -81,7 +81,7 @@ export default function EducationCareersShow({ educationCareer }: EducationCaree
                     <Card>
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
-                                Education & Career Information
+                                Career Information
                                 <Badge variant="outline">#{educationCareer.id_education}</Badge>
                             </CardTitle>
                             <CardDescription>Basic information about this entry</CardDescription>
