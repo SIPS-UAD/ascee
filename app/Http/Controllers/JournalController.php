@@ -15,7 +15,7 @@ class JournalController extends Controller
      */
     public function index()
     {
-        $journals = Journal::with('admin')->latest()->paginate(10);
+        $journals = Journal::with('admin')->latest()->paginate(9);
         return Inertia::render('admin/journal/index', ['journals' => $journals]);
     }
 

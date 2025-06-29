@@ -35,8 +35,8 @@ interface EducationCareersEditProps {
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Education & Careers Management', href: '/education-careers' },
-    { title: 'Edit Education & Career', href: '#' },
+    { title: 'Careers Management', href: '/careers' }, // Ubah ke /careers
+    { title: 'Career', href: '#' },
 ];
 
 export default function EducationCareersEdit({ educationCareer, admins }: EducationCareersEditProps) {
@@ -73,25 +73,25 @@ export default function EducationCareersEdit({ educationCareer, admins }: Educat
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post(`/education-careers/${educationCareer.id_education}`);
+        post(`/careers/${educationCareer.id_education}`);
     };
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title={`Edit Education & Career: ${educationCareer.title}`} />
+            <Head title={`Career: ${educationCareer.title}`} />
 
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 {/* Header */}
                 <div className="flex items-center gap-4">
-                    <Link href="/education-careers">
+                    <Link href="/careers">
                         <Button variant="ghost" size="sm">
                             <ArrowLeft className="mr-2 h-4 w-4" />
-                            Back to Education & Careers
+                            Back to Careers
                         </Button>
                     </Link>
                     <div>
-                        <h1 className="text-2xl font-bold tracking-tight">Edit Education & Career</h1>
-                        <p className="text-muted-foreground">Update education or career entry information</p>
+                        <h1 className="text-2xl font-bold tracking-tight">Career</h1>
+                        <p className="text-muted-foreground">Update career entry information</p>
                     </div>
                 </div>
 
@@ -100,7 +100,7 @@ export default function EducationCareersEdit({ educationCareer, admins }: Educat
                     <div className="lg:col-span-2">
                         <Card>
                             <CardHeader>
-                                <CardTitle>Education & Career Information</CardTitle>
+                                <CardTitle>Career Information</CardTitle>
                                 <CardDescription>Update the details for this entry</CardDescription>
                             </CardHeader>
                             <CardContent>
@@ -193,9 +193,9 @@ export default function EducationCareersEdit({ educationCareer, admins }: Educat
                                     {/* Submit Buttons */}
                                     <div className="flex items-center gap-4 pt-4">
                                         <Button type="submit" disabled={processing}>
-                                            {processing ? 'Updating...' : 'Update Education & Career'}
+                                            {processing ? 'Updating...' : 'Update Career'}
                                         </Button>
-                                        <Link href="/education-careers">
+                                        <Link href="/careers">
                                             <Button variant="outline" type="button">
                                                 Cancel
                                             </Button>

@@ -31,14 +31,15 @@ interface EducationCareersShowProps {
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Education & Careers Management', href: '/education-careers' },
-    { title: 'Education & Career Details', href: '#' },
+    { title: 'Careers Management', href: '/careers' }, // Ubah ke /careers
+    { title: 'Career Details', href: '#' },
 ];
 
 export default function EducationCareersShow({ educationCareer }: EducationCareersShowProps) {
+    // Ubah handleDelete
     const handleDelete = () => {
         if (confirm(`Are you sure you want to delete "${educationCareer.title}"?`)) {
-            router.delete(`/education-careers/${educationCareer.id_education}`);
+            router.delete(`/careers/${educationCareer.id_education}`);
         }
     };
 
@@ -50,10 +51,10 @@ export default function EducationCareersShow({ educationCareer }: EducationCaree
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                        <Link href="/education-careers">
+                        <Link href="/careers">
                             <Button variant="ghost" size="sm">
                                 <ArrowLeft className="mr-2 h-4 w-4" />
-                                Back to Education & Careers
+                                Back to Careers
                             </Button>
                         </Link>
                         <div>
@@ -62,7 +63,7 @@ export default function EducationCareersShow({ educationCareer }: EducationCaree
                         </div>
                     </div>
                     <div className="flex items-center gap-2">
-                        <Link href={`/education-careers/${educationCareer.id_education}/edit`}>
+                        <Link href={`/careers/${educationCareer.id_education}/edit`}>
                             <Button variant="outline">
                                 <Edit className="mr-2 h-4 w-4" />
                                 Edit
