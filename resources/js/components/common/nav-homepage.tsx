@@ -12,11 +12,11 @@ const NavHomepage = () => {
 
     const navigation = [
         { name: 'HOME', href: '/' },
-        { name: 'NEWS', href: '/news' },
-        { name: 'EVENTS', href: '/events' },
-        { name: 'CAREERS', href: '/careers' },
-        { name: 'CONFERENCE', href: '/conference' },
-        { name: 'JOURNALS', href: '/journals' },
+        { name: 'NEWS', href: '/landing/news' },
+        { name: 'EVENTS', href: '/landing/events' },
+        { name: 'CAREERS', href: '/landing/careers' },
+        { name: 'CONFERENCE', href: '/landing/conference' },
+        { name: 'JOURNALS', href: '/landing/journals' },
     ];
 
     const CrownIcon = () => <img src="/mdi_crown.svg" alt="Crown icon" className="h-4 w-4" />;
@@ -63,13 +63,12 @@ const NavHomepage = () => {
                         </button>
 
                         {/* Login / User Menu - visible on all sizes */}
-                        {auth?.user ?
-                        //  (
-                        //     <Link href={route('dashboard')} className="text-sm font-medium text-gray-700 hover:text-cyan-500 lg:text-tiny">
-                        //         Dashboard
-                        //     </Link>
-                        // ) 
-                        (
+                        {auth?.user ? (
+                            //  (
+                            //     <Link href={route('dashboard')} className="text-sm font-medium text-gray-700 hover:text-cyan-500 lg:text-tiny">
+                            //         Dashboard
+                            //     </Link>
+                            // )
                             <>
                                 <div className="hidden space-x-5 lg:flex">
                                     <Link
@@ -83,8 +82,7 @@ const NavHomepage = () => {
                                     </NavButton>
                                 </div>
                             </>
-                        )
-                        : (
+                        ) : (
                             <>
                                 <div className="hidden space-x-5 lg:flex">
                                     <Link

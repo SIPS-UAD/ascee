@@ -14,8 +14,38 @@ use App\Http\Controllers\JenisMitraController;
 use App\Http\Controllers\ContactController;
 
 Route::get('/', function () {
-    return Inertia::render('homePage');
-})->name('home');
+    return Inertia::render('Landing/homePage/index', [
+        'news' => \App\Models\News::with('admin')->latest()->take(3)->get(),
+        'events' => \App\Models\Events::with('admin')->latest()->take(3)->get(),
+        'conferences' => \App\Models\Conferences::with('admin')->latest()->take(3)->get(),
+        'journals' => \App\Models\Journal::with('admin')->latest()->take(3)->get(),
+    ]);
+})->name('homePage.index');
+
+Route::get('landing/news' , function () {
+    $news = \App\Models\News::with('admin')->latest()->paginate(10);
+    return Inertia::render('Landing/news/index', ['news' => $news]);
+})->name('public.news.index');
+
+Route::get('landing/events', function () {
+    $events = \App\Models\Events::with('admin')->latest()->paginate(10);
+    return Inertia::render('Landing/events/index', ['events' => $events]);
+})->name('public.events.index');
+
+Route::get('landing/careers', function () {
+    $careers = \App\Models\EducationAndCareers::with('admin')->latest()->paginate(10);
+    return Inertia::render('Landing/careers/index', ['careers' => $careers]);
+})->name('public.careers.index');
+
+Route::get('landing/conference', function () {
+    $conferences = \App\Models\Conferences::with('admin')->latest()->paginate(10);
+    return Inertia::render('Landing/conference/index', ['conferences' => $conferences]);
+})->name('public.conference.index');
+
+Route::get('landing/journals', function () {
+    $journals = \App\Models\Journal::with('admin')->latest()->paginate(10);
+    return Inertia::render('Landing/journals/index', ['journals' => $journals]);
+})->name('public.journals.index');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     // Dashboard
