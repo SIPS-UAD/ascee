@@ -1,14 +1,15 @@
-
 import HeaderLayout from '@/layouts/layout-pages/header-layout';
 
 import { Head } from '@inertiajs/react';
 
-export default function AppPage() {
+export default function Index() {
     return (
         <>
             <Head title="ASCEE" />
             <HeaderLayout />
-            <h1/>career<h1/>
+            <div className="h-svh w-full bg-green-700 flex justify-center">
+                <h1 className="m-auto text-white text-xl">CAREERS</h1>
+            </div>
         </>
     );
 }

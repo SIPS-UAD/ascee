@@ -1,12 +1,15 @@
 import HeaderLayout from '@/layouts/layout-pages/header-layout';
 
-const index = () => {
+import { Head } from '@inertiajs/react';
+
+export default function Index() {
     return (
         <>
+            <Head title="ASCEE" />
             <HeaderLayout />
-            <div>index NEWS</div>
+            <div className="h-svh w-full bg-green-700 flex justify-center">
+                <h1 className="m-auto text-white text-xl">NEWS</h1>
+            </div>
         </>
     );
-};
-
-export default index;
+}
