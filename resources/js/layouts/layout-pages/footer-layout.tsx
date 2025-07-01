@@ -114,7 +114,7 @@ const FooterLayout = () => {
                     <div className="flex flex-col items-center lg:items-start">
                         <div className="mb-4 flex items-center">
                             <div className="mr-2 h-5 w-5 rotate-45 bg-white"></div>
-                            <h2 className="text-3xl font-bold">ASCEE</h2>
+                            <h2 className="text-3xl font-bold">ASCEE</h2> 
                         </div>
                         <p className="text-center text-sm lg:text-left">
                             Association for Scientific
@@ -134,7 +134,7 @@ const FooterLayout = () => {
                     <div className="mt-4 flex space-x-4 md:mt-0 ">
                         {/* Placeholder for partner logos */}
                         <div className="flex h-8 w-24 items-center justify-center rounded bg-white/10 text-xs"><img src="/BDClogo.png" alt="" /></div>
-                        <div className="flex h-8 w-24 items-center justify-center rounded bg-white/10 text-xs"><img src="/logo-ascee.svg" alt="" /></div>
+                        <div className="flex h-8 w-16 items-center justify-center rounded bg-white/10 text-xs"><img src="/logoascee.png" alt="" /></div>
                     </div>
                 </div>
             </div>
