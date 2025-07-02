@@ -20,9 +20,9 @@ interface JournalCreateProps {
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Journal Management', href: '/journal' },
-    { title: 'Create Journal', href: '/journal/create' },
+    { title: 'Dashboard', href: '/admin/dashboard' },
+    { title: 'Journal Management', href: '/admin/journal' },
+    { title: 'Create Journal', href: '/admin/journal/create' },
 ];
 
 export default function JournalCreate({ admins }: JournalCreateProps) {
@@ -63,7 +63,7 @@ export default function JournalCreate({ admins }: JournalCreateProps) {
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 {/* Header */}
                 <div className="flex items-center gap-4">
-                    <Link href="/journal">
+                    <Link href="/admin/journal">
                         <Button variant="ghost" size="sm">
                             <ArrowLeft className="h-4 w-4 mr-2" />
                             Back to Journal
@@ -132,7 +132,7 @@ export default function JournalCreate({ admins }: JournalCreateProps) {
                                         <Button type="submit" disabled={processing}>
                                             {processing ? 'Creating...' : 'Create Journal'}
                                         </Button>
-                                        <Link href="/journal">
+                                        <Link href="/admin/journal">
                                             <Button variant="outline" type="button">
                                                 Cancel
                                             </Button>

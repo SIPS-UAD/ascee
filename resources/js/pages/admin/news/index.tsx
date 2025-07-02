@@ -39,14 +39,14 @@ interface NewsIndexProps {
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Dashboard', href: '/dashboard' },
-    { title: 'News Management', href: '/news' },
+    { title: 'Dashboard', href: '/admin/dashboard' },
+    { title: 'News Management', href: '/admin/news' },
 ];
 
 export default function NewsIndex({ news, success }: NewsIndexProps) {
     const handleDelete = (newsItem: NewsItem) => {
         if (confirm(`Are you sure you want to delete "${newsItem.title}"?`)) {
-            router.delete(`/news/${newsItem.id_news}`);
+            router.delete(`/admin/news/${newsItem.id_news}`);
         }
     };
 
@@ -63,7 +63,7 @@ export default function NewsIndex({ news, success }: NewsIndexProps) {
                             Manage news articles and publications
                         </p>
                     </div>
-                    <Link href="/news/create">
+                    <Link href="/admin/news/create">
                         <Button>
                             <Plus className="h-4 w-4 mr-2" />
                             Add News
@@ -186,12 +186,12 @@ export default function NewsIndex({ news, success }: NewsIndexProps) {
                                                 </td>
                                                 <td className="px-6 py-4">
                                                     <div className="flex items-center gap-2">
-                                                        <Link href={`/news/${newsItem.id_news}`}>
+                                                        <Link href={`/admin/news/${newsItem.id_news}`}>
                                                             <Button variant="ghost" size="sm">
                                                                 <Eye className="h-4 w-4" />
                                                             </Button>
                                                         </Link>
-                                                        <Link href={`/news/${newsItem.id_news}/edit`}>
+                                                        <Link href={`/admin/news/${newsItem.id_news}/edit`}>
                                                             <Button variant="ghost" size="sm">
                                                                 <Edit className="h-4 w-4" />
                                                             </Button>

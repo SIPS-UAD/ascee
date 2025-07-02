@@ -32,8 +32,8 @@ interface ConferenceEditProps {
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Conferences Management', href: '/conferences' },
+    { title: 'Dashboard', href: '/admin/dashboard' },
+    { title: 'Conferences Management', href: '/admin/conferences' },
     { title: 'Edit Conference', href: '#' },
 ];
 
@@ -80,7 +80,7 @@ export default function ConferenceEdit({ conference, admins }: ConferenceEditPro
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 {/* Header */}
                 <div className="flex items-center gap-4">
-                    <Link href="/conferences">
+                    <Link href="/admin/conferences">
                         <Button variant="ghost" size="sm">
                             <ArrowLeft className="mr-2 h-4 w-4" />
                             Back to Conferences
@@ -175,7 +175,7 @@ export default function ConferenceEdit({ conference, admins }: ConferenceEditPro
                                             <Button type="submit" disabled={processing}>
                                                 {processing ? 'Updating...' : 'Update Conference'}
                                             </Button>
-                                            <Link href="/conferences">
+                                            <Link href="/admin/conferences">
                                                 <Button variant="outline" type="button">
                                                     Cancel
                                                 </Button>

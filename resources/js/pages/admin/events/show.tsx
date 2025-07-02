@@ -29,15 +29,15 @@ interface EventsShowProps {
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Events Management', href: '/events' },
+    { title: 'Dashboard', href: '/admin/dashboard' },
+    { title: 'Events Management', href: '/admin/events' },
     { title: 'Event Details', href: '#' },
 ];
 
 export default function EventsShow({ event }: EventsShowProps) {
     const handleDelete = () => {
         if (confirm(`Are you sure you want to delete "${event.title}"?`)) {
-            router.delete(`/events/${event.id_events}`);
+            router.delete(`/admin/events/${event.id_events}`);
         }
     };
 
@@ -49,7 +49,7 @@ export default function EventsShow({ event }: EventsShowProps) {
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                        <Link href="/events">
+                        <Link href="/admin/events">
                             <Button variant="ghost" size="sm">
                                 <ArrowLeft className="mr-2 h-4 w-4" />
                                 Back to Events
@@ -61,7 +61,7 @@ export default function EventsShow({ event }: EventsShowProps) {
                         </div>
                     </div>
                     <div className="flex items-center gap-2">
-                        <Link href={`/events/${event.id_events}/edit`}>
+                        <Link href={`/admin/events/${event.id_events}/edit`}>
                             <Button variant="outline">
                                 <Edit className="mr-2 h-4 w-4" />
                                 Edit

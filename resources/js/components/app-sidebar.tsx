@@ -9,42 +9,42 @@ import AppLogo from './app-logo';
 const mainNavItems: NavItem[] = [
     {
         title: 'Dashboard',
-        href: '/dashboard',
+        href: '/admin/dashboard',
         icon: LayoutGrid,
     },
     {
         title: 'Admin Management',
-        href: '/admins',
+        href: '/admin/admins',
         icon: Users,
     },
     {
         title: 'About Us',
-        href: '/about-us',
+        href: '/admin/about-us',
         icon: Newspaper,
     },
     {
         title: 'News',
-        href: '/news',
+        href: '/admin/news',
         icon: Newspaper,
     },
     {
         title: 'Journal',
-        href: '/journal',
+        href: '/admin/journal',
         icon: Journal,
     },
     {
         title: 'Events',
-        href: '/events',
+        href: '/admin/events',
         icon: Calendar,
     },
     {
         title: 'Conferences',
-        href: '/conferences',
+        href: '/admin/conferences',
         icon: Video,
     },
     {
         title: 'Careers',
-        href: '/careers', // Tetap /careers
+        href: '/admin/careers', // Tetap /careers
         icon: GraduationCap,
     },
 ];
@@ -56,7 +56,7 @@ export function AppSidebar() {
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
-                            <Link href="/dashboard" prefetch>
+                            <Link href="/admin/dashboard" prefetch>
                                 <AppLogo />
                             </Link>
                         </SidebarMenuButton>

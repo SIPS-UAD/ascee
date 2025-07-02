@@ -30,15 +30,15 @@ interface NewsShowProps {
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Dashboard', href: '/dashboard' },
-    { title: 'News Management', href: '/news' },
+    { title: 'Dashboard', href: '/admin/dashboard' },
+    { title: 'News Management', href: '/admin/news' },
     { title: 'News Details', href: '#' },
 ];
 
 export default function NewsShow({ news }: NewsShowProps) {
     const handleDelete = () => {
         if (confirm(`Are you sure you want to delete "${news.title}"?`)) {
-            router.delete(`/news/${news.id_news}`);
+            router.delete(`/admin/news/${news.id_news}`);
         }
     };
 
@@ -50,7 +50,7 @@ export default function NewsShow({ news }: NewsShowProps) {
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                        <Link href="/news">
+                        <Link href="/admin/news">
                             <Button variant="ghost" size="sm">
                                 <ArrowLeft className="mr-2 h-4 w-4" />
                                 Back to News
@@ -62,7 +62,7 @@ export default function NewsShow({ news }: NewsShowProps) {
                         </div>
                     </div>
                     <div className="flex items-center gap-2">
-                        <Link href={`/news/${news.id_news}/edit`}>
+                        <Link href={`/admin/news/${news.id_news}/edit`}>
                             <Button variant="outline">
                                 <Edit className="mr-2 h-4 w-4" />
                                 Edit

@@ -38,14 +38,14 @@ interface ConferencesIndexProps {
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Conferences Management', href: '/conferences' },
+    { title: 'Dashboard', href: '/admin/dashboard' },
+    { title: 'Conferences Management', href: '/admin/conferences' },
 ];
 
 export default function ConferencesIndex({ conferences, success }: ConferencesIndexProps) {
     const handleDelete = (conference: Conference) => {
         if (confirm(`Are you sure you want to delete "${conference.title}"?`)) {
-            router.delete(`/conferences/${conference.id_conferences}`);
+            router.delete(`/admin/conferences/${conference.id_conferences}`);
         }
     };
 
@@ -71,7 +71,7 @@ export default function ConferencesIndex({ conferences, success }: ConferencesIn
                             Manage online and offline conferences
                         </p>
                     </div>
-                    <Link href="/conferences/create">
+                    <Link href="/admin/conferences/create">
                         <Button>
                             <Plus className="h-4 w-4 mr-2" />
                             Add Conference
@@ -177,12 +177,12 @@ export default function ConferencesIndex({ conferences, success }: ConferencesIn
                                             {conference.description}
                                         </p>
                                         <div className="flex items-center gap-2">
-                                            <Link href={`/conferences/${conference.id_conferences}`}>
+                                            <Link href={`/admin/conferences/${conference.id_conferences}`}>
                                                 <Button variant="ghost" size="sm">
                                                     <Eye className="h-4 w-4" />
                                                 </Button>
                                             </Link>
-                                            <Link href={`/conferences/${conference.id_conferences}/edit`}>
+                                            <Link href={`/admin/conferences/${conference.id_conferences}/edit`}>
                                                 <Button variant="ghost" size="sm">
                                                     <Edit className="h-4 w-4" />
                                                 </Button>
@@ -205,7 +205,7 @@ export default function ConferencesIndex({ conferences, success }: ConferencesIn
                             <Video className="mx-auto h-12 w-12 text-gray-400 mb-4" />
                             <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">No conferences found</h3>
                             <p className="text-gray-500 mb-4">Get started by creating your first conference.</p>
-                            <Link href="/conferences/create">
+                            <Link href="/admin/conferences/create">
                                 <Button>
                                     <Plus className="h-4 w-4 mr-2" />
                                     Create Conference

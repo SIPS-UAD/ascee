@@ -36,14 +36,14 @@ interface JournalsIndexProps {
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Journal Management', href: '/journal' },
+    { title: 'Dashboard', href: '/admin/dashboard' },
+    { title: 'Journal Management', href: '/admin/journal' },
 ];
 
 export default function JournalsIndex({ journals, success }: JournalsIndexProps) {
     const handleDelete = (journal: Journal) => {
         if (confirm(`Are you sure you want to delete "${journal.title}"?`)) {
-            router.delete(`/journal/${journal.id_journal}`);
+            router.delete(`/admin/journal/${journal.id_journal}`);
         }
     };
 
@@ -60,7 +60,7 @@ export default function JournalsIndex({ journals, success }: JournalsIndexProps)
                             Manage journal entries and publications
                         </p>
                     </div>
-                    <Link href="/journal/create">
+                    <Link href="/admin/journal/create">
                         <Button>
                             <Plus className="h-4 w-4 mr-2" />
                             Add Journal
@@ -146,12 +146,12 @@ export default function JournalsIndex({ journals, success }: JournalsIndexProps)
                                 </CardHeader>
                                 <CardContent className="pt-0">
                                     <div className="flex items-center gap-2">
-                                        <Link href={`/journal/${journal.id_journal}`}>
+                                        <Link href={`/admin/journal/${journal.id_journal}`}>
                                             <Button variant="ghost" size="sm">
                                                 <Eye className="h-4 w-4" />
                                             </Button>
                                         </Link>
-                                        <Link href={`/journal/${journal.id_journal}/edit`}>
+                                        <Link href={`/admin/journal/${journal.id_journal}/edit`}>
                                             <Button variant="ghost" size="sm">
                                                 <Edit className="h-4 w-4" />
                                             </Button>
@@ -173,7 +173,7 @@ export default function JournalsIndex({ journals, success }: JournalsIndexProps)
                             <BookOpen className="mx-auto h-12 w-12 text-gray-400 mb-4" />
                             <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">No journals found</h3>
                             <p className="text-gray-500 mb-4">Get started by creating your first journal entry.</p>
-                            <Link href="/journal/create">
+                            <Link href="/admin/journal/create">
                                 <Button>
                                     <Plus className="h-4 w-4 mr-2" />
                                     Create Journal

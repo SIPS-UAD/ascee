@@ -29,7 +29,7 @@ interface DashboardProps {
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Dashboard',
-        href: '/dashboard',
+        href: '/admin/dashboard',
     },
 ];
 
@@ -40,7 +40,7 @@ export default function Dashboard({ counts, recentActivity, latestPosts = [] }: 
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
                 {/* Stats Cards */}
                 <div className="grid gap-4 md:grid-cols-4">
-                    <Link href="/news" className="no-underline">
+                    <Link href="/admin/news" className="no-underline">
                         <Card >
                             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                                 <CardTitle className="text-sm font-medium">Total News</CardTitle>
@@ -53,7 +53,7 @@ export default function Dashboard({ counts, recentActivity, latestPosts = [] }: 
                         </Card>
                     </Link>
 
-                    <Link href="/events" className="no-underline">
+                    <Link href="/admin/events" className="no-underline">
                         <Card>
                             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                                 <CardTitle className="text-sm font-medium">Total Events</CardTitle>
@@ -66,7 +66,7 @@ export default function Dashboard({ counts, recentActivity, latestPosts = [] }: 
                         </Card>
                     </Link>
 
-                    <Link href="/conferences" className="no-underline">
+                    <Link href="/admin/conferences" className="no-underline">
                         <Card>
                             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                                 <CardTitle className="text-sm font-medium">Conferences</CardTitle>
@@ -79,7 +79,7 @@ export default function Dashboard({ counts, recentActivity, latestPosts = [] }: 
                         </Card>
                     </Link>
 
-                    <Link href="/careers" className="no-underline">
+                    <Link href="/admin/careers" className="no-underline">
                         <Card>
                             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                                 <CardTitle className="text-sm font-medium">Careers</CardTitle>

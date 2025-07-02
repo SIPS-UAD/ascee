@@ -20,9 +20,9 @@ interface ConferenceCreateProps {
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Conferences Management', href: '/conferences' },
-    { title: 'Create Conference', href: '/conferences/create' },
+    { title: 'Dashboard', href: '/admin/dashboard' },
+    { title: 'Conferences Management', href: '/admin/conferences' },
+    { title: 'Create Conference', href: '/admin/conferences/create' },
 ];
 
 export default function ConferenceCreate({ admins }: ConferenceCreateProps) {
@@ -65,7 +65,7 @@ export default function ConferenceCreate({ admins }: ConferenceCreateProps) {
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 {/* Header */}
                 <div className="flex items-center gap-4">
-                    <Link href="/conferences">
+                    <Link href="/admin/conferences">
                         <Button variant="ghost" size="sm">
                             <ArrowLeft className="h-4 w-4 mr-2" />
                             Back to Conferences
@@ -165,7 +165,7 @@ export default function ConferenceCreate({ admins }: ConferenceCreateProps) {
                                         <Button type="submit" disabled={processing}>
                                             {processing ? 'Creating...' : 'Create Conference'}
                                         </Button>
-                                        <Link href="/conferences">
+                                        <Link href="/admin/conferences">
                                             <Button variant="outline" type="button">
                                                 Cancel
                                             </Button>

@@ -30,8 +30,8 @@ interface EducationCareersShowProps {
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Careers Management', href: '/careers' }, // Ubah ke /careers
+    { title: 'Dashboard', href: '/admin/dashboard' },
+    { title: 'Careers Management', href: '/admin/careers' }, // Ubah ke /careers
     { title: 'Career Details', href: '#' },
 ];
 
@@ -39,7 +39,7 @@ export default function EducationCareersShow({ educationCareer }: EducationCaree
     // Ubah handleDelete
     const handleDelete = () => {
         if (confirm(`Are you sure you want to delete "${educationCareer.title}"?`)) {
-            router.delete(`/careers/${educationCareer.id_education}`);
+            router.delete(`/admin/careers/${educationCareer.id_education}`);
         }
     };
 
@@ -51,7 +51,7 @@ export default function EducationCareersShow({ educationCareer }: EducationCaree
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                        <Link href="/careers">
+                        <Link href="/admin/careers">
                             <Button variant="ghost" size="sm">
                                 <ArrowLeft className="mr-2 h-4 w-4" />
                                 Back to Careers
@@ -63,7 +63,7 @@ export default function EducationCareersShow({ educationCareer }: EducationCaree
                         </div>
                     </div>
                     <div className="flex items-center gap-2">
-                        <Link href={`/careers/${educationCareer.id_education}/edit`}>
+                        <Link href={`/admin/careers/${educationCareer.id_education}/edit`}>
                             <Button variant="outline">
                                 <Edit className="mr-2 h-4 w-4" />
                                 Edit

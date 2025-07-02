@@ -20,9 +20,9 @@ interface NewsCreateProps {
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Dashboard', href: '/dashboard' },
-    { title: 'News Management', href: '/news' },
-    { title: 'Create News', href: '/news/create' },
+    { title: 'Dashboard', href: '/admin/dashboard' },
+    { title: 'News Management', href: '/admin/news' },
+    { title: 'Create News', href: '/admin/news/create' },
 ];
 
 export default function NewsCreate({ admins }: NewsCreateProps) {
@@ -66,7 +66,7 @@ export default function NewsCreate({ admins }: NewsCreateProps) {
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 {/* Header */}
                 <div className="flex items-center gap-4">
-                    <Link href="/news">
+                    <Link href="/admin/news">
                         <Button variant="ghost" size="sm">
                             <ArrowLeft className="h-4 w-4 mr-2" />
                             Back to News
@@ -183,7 +183,7 @@ export default function NewsCreate({ admins }: NewsCreateProps) {
                                         <Button type="submit" disabled={processing}>
                                             {processing ? 'Creating...' : 'Create News'}
                                         </Button>
-                                        <Link href="/news">
+                                        <Link href="/admin/news">
                                             <Button variant="outline" type="button">
                                                 Cancel
                                             </Button>

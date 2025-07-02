@@ -9,9 +9,9 @@ import { ArrowLeft } from 'lucide-react';
 import { FormEventHandler } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Admin Management', href: '/admins' },
-    { title: 'Create Admin', href: '/admins/create' },
+    { title: 'Dashboard', href: '/admin/dashboard' },
+    { title: 'Admin Management', href: '/admin/admins' },
+    { title: 'Create Admin', href: '/admin/admins/create' },
 ];
 
 export default function AdminCreate() {
@@ -34,7 +34,7 @@ export default function AdminCreate() {
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 {/* Header */}
                 <div className="flex items-center gap-4">
-                    <Link href="/admins">
+                    <Link href="/admin/admins">
                         <Button variant="ghost" size="sm">
                             <ArrowLeft className="mr-2 h-4 w-4" />
                             Back to Admins
@@ -117,7 +117,7 @@ export default function AdminCreate() {
                                 <Button type="submit" disabled={processing}>
                                     {processing ? 'Creating...' : 'Create Admin'}
                                 </Button>
-                                <Link href="/admins">
+                                <Link href="/admin/admins">
                                     <Button variant="outline" type="button">
                                         Cancel
                                     </Button>

@@ -37,14 +37,14 @@ interface EventsIndexProps {
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Events Management', href: '/events' },
+    { title: 'Dashboard', href: '/admin/dashboard' },
+    { title: 'Events Management', href: '/admin/events' },
 ];
 
 export default function EventsIndex({ events, success }: EventsIndexProps) {
     const handleDelete = (event: Event) => {
         if (confirm(`Are you sure you want to delete "${event.title}"?`)) {
-            router.delete(`/events/${event.id_events}`);
+            router.delete(`/admin/events/${event.id_events}`);
         }
     };
 
@@ -70,7 +70,7 @@ export default function EventsIndex({ events, success }: EventsIndexProps) {
                             Manage events, conferences, and activities
                         </p>
                     </div>
-                    <Link href="/events/create">
+                    <Link href="/admin/events/create">
                         <Button>
                             <Plus className="h-4 w-4 mr-2" />
                             Add Event
@@ -176,12 +176,12 @@ export default function EventsIndex({ events, success }: EventsIndexProps) {
                                             {event.description}
                                         </p>
                                         <div className="flex items-center gap-2">
-                                            <Link href={`/events/${event.id_events}`}>
+                                            <Link href={`/admin/events/${event.id_events}`}>
                                                 <Button variant="ghost" size="sm">
                                                     <Eye className="h-4 w-4" />
                                                 </Button>
                                             </Link>
-                                            <Link href={`/events/${event.id_events}/edit`}>
+                                            <Link href={`/admin/events/${event.id_events}/edit`}>
                                                 <Button variant="ghost" size="sm">
                                                     <Edit className="h-4 w-4" />
                                                 </Button>
@@ -204,7 +204,7 @@ export default function EventsIndex({ events, success }: EventsIndexProps) {
                             <MapPin className="mx-auto h-12 w-12 text-gray-400 mb-4" />
                             <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">No events found</h3>
                             <p className="text-gray-500 mb-4">Get started by creating your first event.</p>
-                            <Link href="/events/create">
+                            <Link href="/admin/events/create">
                                 <Button>
                                     <Plus className="h-4 w-4 mr-2" />
                                     Create Event
