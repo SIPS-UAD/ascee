@@ -47,6 +47,16 @@ Route::get('journals', function () {
     return Inertia::render('Landing/journals/index', ['journals' => $journals]);
 })->name('public.journals.index');
 
+Route::get('about_us', function () {
+    $about_us = \App\Models\Journal::with('admin')->latest()->paginate(10);
+    return Inertia::render('Landing/about_us/index', ['about_us' => $about_us]);
+})->name('public.about_us.index');
+
+Route::get('team', function () {
+    $team = \App\Models\Journal::with('admin')->latest()->paginate(10);
+    return Inertia::render('Landing/team/index', ['team' => $team]);
+})->name('public.team.index');
+
 Route::middleware(['auth', 'verified'])->group(function () {
     // Dashboard
     Route::get('admin/dashboard', function () {

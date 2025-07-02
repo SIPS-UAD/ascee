@@ -5,10 +5,10 @@ import { Head } from '@inertiajs/react';
 export default function Index() {
     return (
         <>
-            <Head title="CONFERENCES" />
+            <Head title="TEAM" />
             <HeaderLayout />
             <div className="h-svh w-full bg-green-700 flex justify-center">
-                <h1 className="m-auto text-white text-xl">CONFERENCE</h1>
+                <h1 className="m-auto text-white text-xl">TEAM</h1>
             </div>
             <FooterLayout/>
         </>
