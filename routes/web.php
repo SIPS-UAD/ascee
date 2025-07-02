@@ -15,10 +15,11 @@ use App\Http\Controllers\ContactController;
 
 Route::get('/', function () {
     return Inertia::render('Landing/homePage/index', [
-        'news' => \App\Models\News::with('admin')->latest()->take(3)->get(),
-        'events' => \App\Models\Events::with('admin')->latest()->take(3)->get(),
-        'conferences' => \App\Models\Conferences::with('admin')->latest()->take(3)->get(),
-        'journals' => \App\Models\Journal::with('admin')->latest()->take(3)->get(),
+    ])->with([
+        'sharedNews' => \App\Models\News::with('admin')->latest()->take(6)->get(),
+        'sharedEvents' => \App\Models\Events::with('admin')->latest()->take(3)->get(),
+        'sharedConferences' => \App\Models\Conferences::with('admin')->latest()->take(3)->get(),
+        'sharedJournals' => \App\Models\Journal::with('admin')->latest()->take(3)->get(),
     ]);
 })->name('homePage.index');
 
@@ -55,7 +56,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             ->orderBy('created_at', 'desc')
             ->take(5)
             ->get()
-            ->map(function($item) {
+            ->map(function ($item) {
                 return [
                     'id' => $item->id,
                     'title' => $item->title,
@@ -64,13 +65,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
                     'url' => '/news/' . $item->id,
                 ];
             });
-        
+
         // Collect latest events
         $latestEvents = \App\Models\Events::select('id_events as id', 'title', \DB::raw("'events' as category"), 'created_at as date')
             ->orderBy('created_at', 'desc')
             ->take(5)
             ->get()
-            ->map(function($item) {
+            ->map(function ($item) {
                 return [
                     'id' => $item->id,
                     'title' => $item->title,
@@ -79,13 +80,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
                     'url' => '/events/' . $item->id,
                 ];
             });
-        
+
         // Collect latest conferences
         $latestConferences = \App\Models\Conferences::select('id_conferences as id', 'title', \DB::raw("'conferences' as category"), 'created_at as date')
             ->orderBy('created_at', 'desc')
             ->take(5)
             ->get()
-            ->map(function($item) {
+            ->map(function ($item) {
                 return [
                     'id' => $item->id,
                     'title' => $item->title,
@@ -94,13 +95,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
                     'url' => '/conferences/' . $item->id,
                 ];
             });
-        
+
         // Collect latest careers
         $latestCareers = \App\Models\EducationAndCareers::select('id_education as id', 'title', \DB::raw("'careers' as category"), 'created_at as date')
             ->orderBy('created_at', 'desc')
             ->take(5)
             ->get()
-            ->map(function($item) {
+            ->map(function ($item) {
                 return [
                     'id' => $item->id,
                     'title' => $item->title,
@@ -109,7 +110,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
                     'url' => '/careers/' . $item->id,
                 ];
             });
-        
+
         // Merge all posts and sort by date
         $latestPosts = $latestNews->concat($latestEvents)
             ->concat($latestConferences)
@@ -118,7 +119,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             ->take(10)
             ->values()
             ->toArray();
-        
+
         return Inertia::render('dashboard', [
             'counts' => [
                 'news' => \App\Models\News::count(),
@@ -136,11 +137,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 
     // Content Management Routes with Inertia rendering
-    Route::prefix('admin')->group(function() {
+    Route::prefix('admin')->group(function () {
         // About Us routes
         Route::get('/about-us', [AboutUsController::class, 'index'])->name('about-us.index');
         Route::post('/about-us', [AboutUsController::class, 'store'])->name('about-us.store');
-        
+
         // News routes
         Route::resource('news', NewsController::class)->names([
             'index' => 'news.index',
@@ -151,25 +152,25 @@ Route::middleware(['auth', 'verified'])->group(function () {
             'update' => 'news.update',
             'destroy' => 'news.destroy',
         ]);
-        
+
         // Journal routes
         Route::resource('journal', JournalController::class);
-        
+
         // Events routes
         Route::resource('events', EventsController::class);
-        
+
         // Conferences routes
         Route::resource('conferences', ConferencesController::class);
-        
+
         // Careers routes
         Route::resource('careers', EducationAndCareersController::class)
             ->parameters(['careers' => 'educationCareer']);
-            
+
         // User Management Routes
         Route::resource('pencarian-members', PencarianMemberController::class);
         Route::resource('jenis-mitra', JenisMitraController::class);
         Route::resource('contacts', ContactController::class);
-        
+
         // Admin Management Routes
         Route::resource('admins', AdminController::class);
     });

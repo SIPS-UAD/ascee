@@ -14,7 +14,7 @@ export default function Index({news}:DataProps) {
         <>
             <Head title="ASCEE" />
             <HeaderLayout />
-            <HomepageMainLayout />
+            <HomepageMainLayout  />
             <FooterLayout/>
         </>
     );
