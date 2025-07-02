@@ -98,12 +98,12 @@ const FooterLayout = () => {
                         <h3 className="mb-6 text-center font-bold sm:text-left">ABOUT</h3>
                         <ul className="space-y-3 text-center sm:text-left">
                             <li>
-                                <a href="#" className="hover:underline">
+                                <a href="/about_us" className="hover:underline">
                                     ABOUT ASCEE
                                 </a>
                             </li>
                             <li>
-                                <a href="#" className="hover:underline">
+                                <a href="/team" className="hover:underline">
                                     TEAM
                                 </a>
                             </li>

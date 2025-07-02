@@ -5,7 +5,7 @@ import { Head } from '@inertiajs/react';
 export default function Index() {
     return (
         <>
-            <Head title="ASCEE" />
+            <Head title="JOUNALS" />
             <HeaderLayout />
             <div className="h-svh w-full bg-green-700 flex justify-center">
                 <h1 className="m-auto text-white text-xl">JOURNALS</h1>
