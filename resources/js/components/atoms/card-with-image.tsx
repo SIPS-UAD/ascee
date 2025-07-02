@@ -16,8 +16,6 @@ const CardWithImage: React.FC<CardWithImageProps> = ({
     organization = 'ASCEE',
     className = '',
 }) => {
-    // const imageUrl ='/images/event-placeholder.jpg';
-
 
     return (
         <div className={`group overflow-hidden rounded-lg border border-gray-100 transition-shadow hover:shadow-md ${className}`}>
