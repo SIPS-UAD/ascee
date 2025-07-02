@@ -35,8 +35,8 @@ interface AboutUsIndexProps {
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Dashboard', href: '/dashboard' },
-    { title: 'About Us Management', href: '/about-us' },
+    { title: 'Dashboard', href: '/admin/dashboard' },
+    { title: 'About Us Management', href: '/admin/about-us' },
 ];
 
 export default function AboutUsIndex({ aboutUs, admins, success }: AboutUsIndexProps) {

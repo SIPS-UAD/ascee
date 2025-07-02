@@ -21,8 +21,8 @@ interface AdminEditProps {
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Admin Management', href: '/admins' },
+    { title: 'Dashboard', href: '/admin/dashboard' },
+    { title: 'Admin Management', href: '/admin/admins' },
     { title: 'Edit Admin', href: '#' },
 ];
 
@@ -46,7 +46,7 @@ export default function AdminEdit({ admin }: AdminEditProps) {
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 {/* Header */}
                 <div className="flex items-center gap-4">
-                    <Link href="/admins">
+                    <Link href="/admin/admins">
                         <Button variant="ghost" size="sm">
                             <ArrowLeft className="mr-2 h-4 w-4" />
                             Back to Admins
@@ -145,7 +145,7 @@ export default function AdminEdit({ admin }: AdminEditProps) {
                                 <Button type="submit" disabled={processing}>
                                     {processing ? 'Updating...' : 'Update Admin'}
                                 </Button>
-                                <Link href="/admins">
+                                <Link href="/admin/admins">
                                     <Button variant="outline" type="button">
                                         Cancel
                                     </Button>

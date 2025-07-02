@@ -20,9 +20,9 @@ interface EducationCareersCreateProps {
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Careers Management', href: '/careers' }, 
-    { title: 'Create Career', href: '/careers/create' }, 
+    { title: 'Dashboard', href: '/admin/dashboard' },
+    { title: 'Careers Management', href: '/admin/careers' }, 
+    { title: 'Create Career', href: '/admin/careers/create' }, 
 ];
 
 export default function EducationCareersCreate({ admins }: EducationCareersCreateProps) {
@@ -67,7 +67,7 @@ export default function EducationCareersCreate({ admins }: EducationCareersCreat
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 {/* Header */}
                 <div className="flex items-center gap-4">
-                    <Link href="/careers">
+                    <Link href="/admin/careers">
                         <Button variant="ghost" size="sm">
                             <ArrowLeft className="h-4 w-4 mr-2" />
                             Back to Careers
@@ -183,7 +183,7 @@ export default function EducationCareersCreate({ admins }: EducationCareersCreat
                                         <Button type="submit" disabled={processing}>
                                             {processing ? 'Creating...' : 'Create Career'}
                                         </Button>
-                                        <Link href="/careers">
+                                        <Link href="/admin/careers">
                                             <Button variant="outline" type="button">
                                                 Cancel
                                             </Button>

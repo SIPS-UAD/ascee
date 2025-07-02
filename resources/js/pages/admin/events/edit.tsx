@@ -32,8 +32,8 @@ interface EventsEditProps {
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Events Management', href: '/events' },
+    { title: 'Dashboard', href: '/admin/dashboard' },
+    { title: 'Events Management', href: '/admin/events' },
     { title: 'Edit Event', href: '#' },
 ];
 
@@ -80,7 +80,7 @@ export default function EventsEdit({ event, admins }: EventsEditProps) {
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 {/* Header */}
                 <div className="flex items-center gap-4">
-                    <Link href="/events">
+                    <Link href="/admin/events">
                         <Button variant="ghost" size="sm">
                             <ArrowLeft className="mr-2 h-4 w-4" />
                             Back to Events
@@ -176,7 +176,7 @@ export default function EventsEdit({ event, admins }: EventsEditProps) {
                                         <Button type="submit" disabled={processing}>
                                             {processing ? 'Updating...' : 'Update Event'}
                                         </Button>
-                                        <Link href="/events">
+                                        <Link href="/admin/events">
                                             <Button variant="outline" type="button">
                                                 Cancel
                                             </Button>

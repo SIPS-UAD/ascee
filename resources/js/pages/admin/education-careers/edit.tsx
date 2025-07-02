@@ -34,8 +34,8 @@ interface EducationCareersEditProps {
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Careers Management', href: '/careers' }, // Ubah ke /careers
+    { title: 'Dashboard', href: '/admin/dashboard' },
+    { title: 'Careers Management', href: '/admin/careers' }, // Ubah ke /careers
     { title: 'Career', href: '#' },
 ];
 
@@ -83,7 +83,7 @@ export default function EducationCareersEdit({ educationCareer, admins }: Educat
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 {/* Header */}
                 <div className="flex items-center gap-4">
-                    <Link href="/careers">
+                    <Link href="/admin/careers">
                         <Button variant="ghost" size="sm">
                             <ArrowLeft className="mr-2 h-4 w-4" />
                             Back to Careers
@@ -195,7 +195,7 @@ export default function EducationCareersEdit({ educationCareer, admins }: Educat
                                         <Button type="submit" disabled={processing}>
                                             {processing ? 'Updating...' : 'Update Career'}
                                         </Button>
-                                        <Link href="/careers">
+                                        <Link href="/admin/careers">
                                             <Button variant="outline" type="button">
                                                 Cancel
                                             </Button>

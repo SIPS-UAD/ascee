@@ -19,15 +19,15 @@ interface AdminShowProps {
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Admin Management', href: '/admins' },
+    { title: 'Dashboard', href: '/admin/dashboard' },
+    { title: 'Admin Management', href: '/admin/admins' },
     { title: 'Admin Details', href: '#' },
 ];
 
 export default function AdminShow({ admin }: AdminShowProps) {
     const handleDelete = () => {
         if (confirm(`Are you sure you want to delete admin ${admin.username}?`)) {
-            router.delete(`/admins/${admin.id_admin}`);
+            router.delete(`/admin/admins/${admin.id_admin}`);
         }
     };
 
@@ -39,7 +39,7 @@ export default function AdminShow({ admin }: AdminShowProps) {
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                        <Link href="/admins">
+                        <Link href="/admin/admins">
                             <Button variant="ghost" size="sm">
                                 <ArrowLeft className="mr-2 h-4 w-4" />
                                 Back to Admins
@@ -51,7 +51,7 @@ export default function AdminShow({ admin }: AdminShowProps) {
                         </div>
                     </div>
                     <div className="flex items-center gap-2">
-                        <Link href={`/admins/${admin.id_admin}/edit`}>
+                        <Link href={`/admin/admins/${admin.id_admin}/edit`}>
                             <Button variant="outline">
                                 <Edit className="mr-2 h-4 w-4" />
                                 Edit

@@ -29,15 +29,15 @@ interface ConferenceShowProps {
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Conferences Management', href: '/conferences' },
+    { title: 'Dashboard', href: '/admin/dashboard' },
+    { title: 'Conferences Management', href: '/admin/conferences' },
     { title: 'Conference Details', href: '#' },
 ];
 
 export default function ConferenceShow({ conference }: ConferenceShowProps) {
     const handleDelete = () => {
         if (confirm(`Are you sure you want to delete "${conference.title}"?`)) {
-            router.delete(`/conferences/${conference.id_conferences}`);
+            router.delete(`/admin/conferences/${conference.id_conferences}`);
         }
     };
 
@@ -49,7 +49,7 @@ export default function ConferenceShow({ conference }: ConferenceShowProps) {
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                        <Link href="/conferences">
+                        <Link href="/admin/conferences">
                             <Button variant="ghost" size="sm">
                                 <ArrowLeft className="mr-2 h-4 w-4" />
                                 Back to Conferences
@@ -61,7 +61,7 @@ export default function ConferenceShow({ conference }: ConferenceShowProps) {
                         </div>
                     </div>
                     <div className="flex items-center gap-2">
-                        <Link href={`/conferences/${conference.id_conferences}/edit`}>
+                        <Link href={`/admin/conferences/${conference.id_conferences}/edit`}>
                             <Button variant="outline">
                                 <Edit className="mr-2 h-4 w-4" />
                                 Edit

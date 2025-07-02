@@ -27,15 +27,15 @@ interface JournalShowProps {
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Journal Management', href: '/journal' },
+    { title: 'Dashboard', href: '/admin/dashboard' },
+    { title: 'Journal Management', href: '/admin/journal' },
     { title: 'Journal Details', href: '#' },
 ];
 
 export default function JournalShow({ journal }: JournalShowProps) {
     const handleDelete = () => {
         if (confirm(`Are you sure you want to delete "${journal.title}"?`)) {
-            router.delete(`/journal/${journal.id_journal}`);
+            router.delete(`/admin/journal/${journal.id_journal}`);
         }
     };
 
@@ -47,7 +47,7 @@ export default function JournalShow({ journal }: JournalShowProps) {
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                        <Link href="/journal">
+                        <Link href="/admin/journal">
                             <Button variant="ghost" size="sm">
                                 <ArrowLeft className="mr-2 h-4 w-4" />
                                 Back to Journal
@@ -59,7 +59,7 @@ export default function JournalShow({ journal }: JournalShowProps) {
                         </div>
                     </div>
                     <div className="flex items-center gap-2">
-                        <Link href={`/journal/${journal.id_journal}/edit`}>
+                        <Link href={`/admin/journal/${journal.id_journal}/edit`}>
                             <Button variant="outline">
                                 <Edit className="mr-2 h-4 w-4" />
                                 Edit

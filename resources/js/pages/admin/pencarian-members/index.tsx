@@ -42,7 +42,7 @@ interface PencarianMemberIndexProps {
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Dashboard', href: '/dashboard' },
+    { title: 'Dashboard', href: '/admin/dashboard' },
     { title: 'Member Management', href: '/pencarian-members' },
 ];
 

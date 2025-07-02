@@ -40,15 +40,15 @@ interface EducationCareersIndexProps {
 
 // Ubah breadcrumbs
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Careers Management', href: '/careers' }, // Ubah ke /careers
+    { title: 'Dashboard', href: '/admin/dashboard' },
+    { title: 'Careers Management', href: '/admin/careers' }, // Ubah ke /careers
 ];
 
 export default function EducationCareersIndex({ educations, success }: EducationCareersIndexProps) {
     // Ubah handleDelete
     const handleDelete = (education: EducationCareer) => {
         if (confirm(`Are you sure you want to delete "${education.title}"?`)) {
-            router.delete(`/careers/${education.id_education}`);
+            router.delete(`/admin/careers/${education.id_education}`);
         }
     };
 
@@ -64,7 +64,7 @@ export default function EducationCareersIndex({ educations, success }: Education
                         <p className="text-muted-foreground">Manage career content</p>
                     </div>
                     {/* Ubah button Add Career */}
-                    <Link href="/careers/create">
+                    <Link href="/admin/careers/create">
                         <Button>
                             <Plus className="mr-2 h-4 w-4" />
                             Add Career
@@ -123,12 +123,12 @@ export default function EducationCareersIndex({ educations, success }: Education
                                                 <td className="px-6 py-4">{education.admin.username}</td>
                                                 <td className="px-6 py-4">
                                                     <div className="flex items-center gap-2">
-                                                        <Link href={`/careers/${education.id_education}`}>
+                                                        <Link href={`/admin/careers/${education.id_education}`}>
                                                             <Button variant="ghost" size="sm">
                                                                 <Eye className="h-4 w-4" />
                                                             </Button>
                                                         </Link>
-                                                        <Link href={`/careers/${education.id_education}/edit`}>
+                                                        <Link href={`/admin/careers/${education.id_education}/edit`}>
                                                             <Button variant="ghost" size="sm">
                                                                 <Edit className="h-4 w-4" />
                                                             </Button>

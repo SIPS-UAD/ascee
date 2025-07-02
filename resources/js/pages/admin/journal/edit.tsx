@@ -30,8 +30,8 @@ interface JournalEditProps {
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Journal Management', href: '/journal' },
+    { title: 'Dashboard', href: '/admin/dashboard' },
+    { title: 'Journal Management', href: '/admin/journal' },
     { title: 'Edit Journal', href: '#' },
 ];
 
@@ -76,7 +76,7 @@ export default function JournalEdit({ journal, admins }: JournalEditProps) {
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 {/* Header */}
                 <div className="flex items-center gap-4">
-                    <Link href="/journal">
+                    <Link href="/admin/journal">
                         <Button variant="ghost" size="sm">
                             <ArrowLeft className="mr-2 h-4 w-4" />
                             Back to Journal
@@ -140,7 +140,7 @@ export default function JournalEdit({ journal, admins }: JournalEditProps) {
                                             <Button type="submit" disabled={processing}>
                                                 {processing ? 'Updating...' : 'Update Journal'}
                                             </Button>
-                                            <Link href="/journal">
+                                            <Link href="/admin/journal">
                                                 <Button variant="outline" type="button">
                                                     Cancel
                                                 </Button>

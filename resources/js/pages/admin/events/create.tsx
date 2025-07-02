@@ -20,9 +20,9 @@ interface EventsCreateProps {
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Events Management', href: '/events' },
-    { title: 'Create Event', href: '/events/create' },
+    { title: 'Dashboard', href: '/admin/dashboard' },
+    { title: 'Events Management', href: '/admin/events' },
+    { title: 'Create Event', href: '/admin/events/create' },
 ];
 
 export default function EventsCreate({ admins }: EventsCreateProps) {
@@ -65,7 +65,7 @@ export default function EventsCreate({ admins }: EventsCreateProps) {
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 {/* Header */}
                 <div className="flex items-center gap-4">
-                    <Link href="/events">
+                    <Link href="/admin/events">
                         <Button variant="ghost" size="sm">
                             <ArrowLeft className="h-4 w-4 mr-2" />
                             Back to Events
@@ -165,7 +165,7 @@ export default function EventsCreate({ admins }: EventsCreateProps) {
                                         <Button type="submit" disabled={processing}>
                                             {processing ? 'Creating...' : 'Create Event'}
                                         </Button>
-                                        <Link href="/events">
+                                        <Link href="/admin/events">
                                             <Button variant="outline" type="button">
                                                 Cancel
                                             </Button>

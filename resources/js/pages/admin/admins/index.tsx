@@ -28,14 +28,14 @@ interface AdminIndexProps {
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Admin Management', href: '/admins' },
+    { title: 'Dashboard', href: '/admin/dashboard' },
+    { title: 'Admin Management', href: '/admin/admins' },
 ];
 
 export default function AdminIndex({ admins, success }: AdminIndexProps) {
     const handleDelete = (admin: Admin) => {
         if (confirm(`Are you sure you want to delete admin ${admin.username}?`)) {
-            router.delete(`/admins/${admin.id_admin}`);
+            router.delete(`/admin/admins/${admin.id_admin}`);
         }
     };
 
@@ -50,7 +50,7 @@ export default function AdminIndex({ admins, success }: AdminIndexProps) {
                         <h1 className="text-2xl font-bold tracking-tight">Admin Management</h1>
                         <p className="text-muted-foreground">Manage system administrators and their permissions</p>
                     </div>
-                    <Link href="/admins/create">
+                    <Link href="/admin/admins/create">
                         <Button>
                             <Plus className="mr-2 h-4 w-4" />
                             Add Admin
@@ -107,12 +107,12 @@ export default function AdminIndex({ admins, success }: AdminIndexProps) {
                                                 <td className="px-6 py-4">{new Date(admin.created_at).toLocaleDateString()}</td>
                                                 <td className="px-6 py-4">
                                                     <div className="flex items-center gap-2">
-                                                        <Link href={`/admins/${admin.id_admin}`}>
+                                                        <Link href={`/admin/admins/${admin.id_admin}`}>
                                                             <Button variant="ghost" size="sm">
                                                                 <Eye className="h-4 w-4" />
                                                             </Button>
                                                         </Link>
-                                                        <Link href={`/admins/${admin.id_admin}/edit`}>
+                                                        <Link href={`/admin/admins/${admin.id_admin}/edit`}>
                                                             <Button variant="ghost" size="sm">
                                                                 <Edit className="h-4 w-4" />
                                                             </Button>
