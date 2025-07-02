@@ -12,11 +12,11 @@ const NavHomepage = () => {
 
     const navigation = [
         { name: 'HOME', href: '/' },
-        { name: 'NEWS', href: '/landing/news' },
-        { name: 'EVENTS', href: '/landing/events' },
-        { name: 'CAREERS', href: '/landing/careers' },
-        { name: 'CONFERENCE', href: '/landing/conference' },
-        { name: 'JOURNALS', href: '/landing/journals' },
+        { name: 'NEWS', href: '/news' },
+        { name: 'EVENTS', href: '/events' },
+        { name: 'CAREERS', href: '/careers' },
+        { name: 'CONFERENCE', href: '/conference' },
+        { name: 'JOURNALS', href: '/journals' },
     ];
 
     const CrownIcon = () => <img src="/mdi_crown.svg" alt="Crown icon" className="h-4 w-4" />;

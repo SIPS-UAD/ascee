@@ -22,27 +22,27 @@ Route::get('/', function () {
     ]);
 })->name('homePage.index');
 
-Route::get('landing/news' , function () {
+Route::get('news' , function () {
     $news = \App\Models\News::with('admin')->latest()->paginate(10);
     return Inertia::render('Landing/news/index', ['news' => $news]);
 })->name('public.news.index');
 
-Route::get('landing/events', function () {
+Route::get('events', function () {
     $events = \App\Models\Events::with('admin')->latest()->paginate(10);
     return Inertia::render('Landing/events/index', ['events' => $events]);
 })->name('public.events.index');
 
-Route::get('landing/careers', function () {
+Route::get('careers', function () {
     $careers = \App\Models\EducationAndCareers::with('admin')->latest()->paginate(10);
     return Inertia::render('Landing/careers/index', ['careers' => $careers]);
 })->name('public.careers.index');
 
-Route::get('landing/conference', function () {
+Route::get('conference', function () {
     $conferences = \App\Models\Conferences::with('admin')->latest()->paginate(10);
     return Inertia::render('Landing/conference/index', ['conferences' => $conferences]);
 })->name('public.conference.index');
 
-Route::get('landing/journals', function () {
+Route::get('journals', function () {
     $journals = \App\Models\Journal::with('admin')->latest()->paginate(10);
     return Inertia::render('Landing/journals/index', ['journals' => $journals]);
 })->name('public.journals.index');
