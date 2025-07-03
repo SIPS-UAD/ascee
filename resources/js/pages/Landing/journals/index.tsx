@@ -1,16 +1,15 @@
-import HeaderLayout from '@/layouts/layout-pages/header-layout';
 import FooterLayout from '@/layouts/layout-pages/footer-layout';
+import HeaderLayout from '@/layouts/layout-pages/header-layout';
+import PageMainLayout from '@/layouts/layout-pages/page-main-layout';
 import { Head } from '@inertiajs/react';
 
 export default function Index() {
     return (
         <>
-            <Head title="JOUNALS" />
+            <Head title="JOURNALS" />
             <HeaderLayout />
-            <div className="h-svh w-full bg-green-700 flex justify-center">
-                <h1 className="m-auto text-white text-xl">JOURNALS</h1>
-            </div>
-            <FooterLayout/>
+            <PageMainLayout nameTag='JOURNALS'/>
+            <FooterLayout />
         </>
     );
 }

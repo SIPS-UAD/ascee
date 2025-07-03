@@ -5,10 +5,10 @@ import SecondHeroSectionHomepage from '../../components/common/secondHero-sectio
 
 const HomepageMainLayout = () => {
     return (
-        <>
+        <main>
             <HeroSectionHomepage />
             <SecondHeroSectionHomepage />
-        </>
+        </main>
     );
 };
 
