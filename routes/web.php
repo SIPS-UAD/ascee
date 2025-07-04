@@ -18,7 +18,7 @@ Route::get('/', function () {
     ])->with([
         'sharedNews' => \App\Models\News::with('admin')->latest()->take(6)->get(),
         'sharedEvents' => \App\Models\Events::with('admin')->latest()->take(3)->get(),
-        'sharedConferences' => \App\Models\Conferences::with('admin')->latest()->take(3)->get(),
+        'sharedConferences' => \App\Models\Conferences::with('admin')->latest()->take(6)->get(),
         'sharedJournals' => \App\Models\Journal::with('admin')->latest()->take(3)->get(),
     ]);
 })->name('homePage.index');
