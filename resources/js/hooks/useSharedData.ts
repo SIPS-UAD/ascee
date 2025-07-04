@@ -6,6 +6,7 @@ interface SharedData {
     sharedEvents: Event[];
     sharedConferences: Conference[];
     sharedJournals: Journal[];
+    [key: string]: unknown; 
 }
 
 export function useSharedData() {
