@@ -94,3 +94,12 @@ export interface Admin {
     email: string;
     username: string;
 }
+
+export interface CardLandscape{
+    id: number;
+    title: string;
+    description: string;
+    image?: string;
+    date?: string;
+    publisher?: string;
+}
