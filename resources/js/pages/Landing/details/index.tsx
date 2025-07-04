@@ -3,12 +3,16 @@ import HeaderLayout from '@/layouts/layout-pages/header-layout';
 import PageMainLayout from '@/layouts/layout-pages/page-main-layout';
 import { Head } from '@inertiajs/react';
 
-export default function Index() {
+interface DataProps {
+    nameTag: string;
+}
+
+export default function Index({ nameTag }: DataProps) {
     return (
         <>
-            <Head title="JOURNALS" />
+            <Head title="DETAIL" />
             <HeaderLayout />
-            <PageMainLayout nameTag='JOURNALS'/>
+            <PageMainLayout nameTag={nameTag} />
             <FooterLayout />
         </>
     );
