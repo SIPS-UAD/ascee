@@ -49,9 +49,11 @@ Route::get('journals', function () {
 })->name('public.journals.index');
 
 Route::get('about_us', function () {
-    $about_us = \App\Models\Journal::with('admin')->latest()->paginate(10);
-    return Inertia::render('Landing/about_us/index', ['about_us' => $about_us]);
-})->name('public.about_us.index');
+    $about_us = \App\Models\AboutUs::first(); // atau AboutUs::with('admin')->first();
+    return Inertia::render('Landing/about_us/index', [
+        'aboutUs' => $about_us
+    ]);
+});
 
 Route::get('team', function () {
     $team = \App\Models\Journal::with('admin')->latest()->paginate(10);
