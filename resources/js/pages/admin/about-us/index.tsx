@@ -2,7 +2,6 @@ import { Head, useForm } from '@inertiajs/react';
 import AppLayout from '@/layouts/app-layout';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { FileText, Users, Mail, Save } from 'lucide-react';
@@ -17,11 +16,11 @@ interface Admin {
 
 interface AboutUsItem {
     id_about: number;
-    description: string;
-    visi_misi: string;
+    overview: string;
+    vision: string;
+    mission: string;
+    corporate_offices: string;
     section: string;
-    people: string;
-    contact: string;
     admin_id: number;
     admin: Admin;
     created_at: string;
@@ -41,10 +40,10 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function AboutUsIndex({ aboutUs, admins, success }: AboutUsIndexProps) {
     const { data, setData, post, processing, errors } = useForm({
-        description: aboutUs?.description || '',
-        visi_misi: aboutUs?.visi_misi || '',
-        people: aboutUs?.people || '',
-        contact: aboutUs?.contact || '',
+        overview: aboutUs?.overview || '',
+        vision: aboutUs?.vision || '',
+        mission: aboutUs?.mission || '',
+        corporate_offices: aboutUs?.corporate_offices || '',
         admin_id: aboutUs?.admin_id?.toString() || '',
     });
 
@@ -85,69 +84,70 @@ export default function AboutUsIndex({ aboutUs, admins, success }: AboutUsIndexP
                                     {aboutUs ? 'Update the about us page content' : 'Create the about us page content'}
                                 </CardDescription>
                             </CardHeader>
-                            <CardContent>                                <form onSubmit={submit} className="space-y-6">
+                            <CardContent>
+                                <form onSubmit={submit} className="space-y-6">
                                     <div className="grid gap-4">
-                                        {/* Description */}
+                                        {/* Overview */}
                                         <div className="space-y-2">
-                                            <Label htmlFor="description">Description</Label>
+                                            <Label htmlFor="overview">Overview</Label>
                                             <textarea
-                                                id="description"
-                                                value={data.description}
-                                                onChange={(e) => setData('description', e.target.value)}
-                                                placeholder="Enter about us description"
+                                                id="overview"
+                                                value={data.overview}
+                                                onChange={(e) => setData('overview', e.target.value)}
+                                                placeholder="Enter company overview"
                                                 rows={4}
-                                                className={`flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${errors.description ? 'border-red-500' : ''}`}
+                                                className={`flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${errors.overview ? 'border-red-500' : ''}`}
                                             />
-                                            {errors.description && (
-                                                <p className="text-sm text-red-600">{errors.description}</p>
+                                            {errors.overview && (
+                                                <p className="text-sm text-red-600">{errors.overview}</p>
                                             )}
                                         </div>
 
-                                        {/* Vision & Mission */}
+                                        {/* Vision */}
                                         <div className="space-y-2">
-                                            <Label htmlFor="visi_misi">Vision & Mission</Label>
+                                            <Label htmlFor="vision">Vision</Label>
                                             <textarea
-                                                id="visi_misi"
-                                                value={data.visi_misi}
-                                                onChange={(e) => setData('visi_misi', e.target.value)}
-                                                placeholder="Enter vision and mission statement"
+                                                id="vision"
+                                                value={data.vision}
+                                                onChange={(e) => setData('vision', e.target.value)}
+                                                placeholder="Enter company vision"
                                                 rows={3}
-                                                className={`flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${errors.visi_misi ? 'border-red-500' : ''}`}
+                                                className={`flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${errors.vision ? 'border-red-500' : ''}`}
                                             />
-                                            {errors.visi_misi && (
-                                                <p className="text-sm text-red-600">{errors.visi_misi}</p>
+                                            {errors.vision && (
+                                                <p className="text-sm text-red-600">{errors.vision}</p>
                                             )}
                                         </div>
 
-                                        {/* People */}
+                                        {/* Mission */}
                                         <div className="space-y-2">
-                                            <Label htmlFor="people">People Information</Label>
+                                            <Label htmlFor="mission">Mission</Label>
                                             <textarea
-                                                id="people"
-                                                value={data.people}
-                                                onChange={(e) => setData('people', e.target.value)}
-                                                placeholder="Enter information about people involved (optional)"
+                                                id="mission"
+                                                value={data.mission}
+                                                onChange={(e) => setData('mission', e.target.value)}
+                                                placeholder="Enter company mission"
                                                 rows={3}
-                                                className={`flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${errors.people ? 'border-red-500' : ''}`}
+                                                className={`flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${errors.mission ? 'border-red-500' : ''}`}
                                             />
-                                            {errors.people && (
-                                                <p className="text-sm text-red-600">{errors.people}</p>
+                                            {errors.mission && (
+                                                <p className="text-sm text-red-600">{errors.mission}</p>
                                             )}
                                         </div>
 
-                                        {/* Contact */}
+                                        {/* Corporate Offices */}
                                         <div className="space-y-2">
-                                            <Label htmlFor="contact">Contact Information</Label>
+                                            <Label htmlFor="corporate_offices">Corporate Offices</Label>
                                             <textarea
-                                                id="contact"
-                                                value={data.contact}
-                                                onChange={(e) => setData('contact', e.target.value)}
-                                                placeholder="Enter contact information (optional)"
-                                                rows={2}
-                                                className={`flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${errors.contact ? 'border-red-500' : ''}`}
+                                                id="corporate_offices"
+                                                value={data.corporate_offices}
+                                                onChange={(e) => setData('corporate_offices', e.target.value)}
+                                                placeholder="Enter corporate office locations"
+                                                rows={3}
+                                                className={`flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${errors.corporate_offices ? 'border-red-500' : ''}`}
                                             />
-                                            {errors.contact && (
-                                                <p className="text-sm text-red-600">{errors.contact}</p>
+                                            {errors.corporate_offices && (
+                                                <p className="text-sm text-red-600">{errors.corporate_offices}</p>
                                             )}
                                         </div>
 
