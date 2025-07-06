@@ -1,11 +1,14 @@
-import { Head, useForm } from '@inertiajs/react';
-import AppLayout from '@/layouts/app-layout';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { FileText, Users, Mail, Save } from 'lucide-react';
+import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
+import { Head, useForm } from '@inertiajs/react';
+import Link from '@tiptap/extension-link';
+import { EditorContent, useEditor } from '@tiptap/react';
+import StarterKit from '@tiptap/starter-kit';
+import { FileText, Mail, Save, Users } from 'lucide-react';
 import { FormEventHandler } from 'react';
 
 interface Admin {
@@ -38,6 +41,91 @@ const breadcrumbs: BreadcrumbItem[] = [
     { title: 'About Us Management', href: '/admin/about-us' },
 ];
 
+// Create a reusable RichTextEditor component
+function RichTextEditor({
+    value,
+    onChange,
+    placeholder,
+    className,
+    error = false,
+}: {
+    value: string;
+    onChange: (value: string) => void;
+    placeholder?: string;
+    className?: string;
+    error?: boolean;
+}) {
+    const editor = useEditor({
+        extensions: [
+            StarterKit.configure({
+                bulletList: {
+                    keepMarks: true,
+                    keepAttributes: false,
+                },
+                orderedList: {
+                    keepMarks: true,
+                    keepAttributes: false,
+                },
+            }),
+            Link.configure({
+                openOnClick: false,
+            }),
+        ],
+        content: value,
+        editorProps: {
+            attributes: {
+                class: `focus:outline-none min-h-[150px] ${className}`,
+                placeholder: placeholder,
+            },
+        },
+        onUpdate: ({ editor }) => {
+            onChange(editor.getHTML());
+        },
+    });
+
+    return (
+        <div className={`rounded-md border ${error ? 'border-red-500' : 'border-input'}`}>
+            <div className="flex flex-wrap gap-2 border-b p-2">
+                <button
+                    type="button"
+                    onClick={() => editor?.chain().focus().toggleBold().run()}
+                    className={`rounded p-1 hover:bg-gray-100 ${editor?.isActive('bold') ? 'bg-gray-100' : ''}`}
+                >
+                    Bold
+                </button>
+                <button
+                    type="button"
+                    onClick={() => editor?.chain().focus().toggleItalic().run()}
+                    className={`rounded p-1 hover:bg-gray-100 ${editor?.isActive('italic') ? 'bg-gray-100' : ''}`}
+                >
+                    Italic
+                </button>
+                <button
+                    type="button"
+                    onClick={() => {
+                        editor?.chain().focus().toggleBulletList().run();
+                        console.log('Bullet list toggled:', editor?.isActive('bulletList'));
+                    }}
+                    className={`rounded p-1 hover:bg-gray-100 ${editor?.isActive('bulletList') ? 'bg-gray-100' : ''}`}
+                >
+                    Bullet List
+                </button>
+                <button
+                    type="button"
+                    onClick={() => {
+                        editor?.chain().focus().toggleOrderedList().run();
+                        console.log('Ordered list toggled:', editor?.isActive('orderedList'));
+                    }}
+                    className={`rounded p-1 hover:bg-gray-100 ${editor?.isActive('orderedList') ? 'bg-gray-100' : ''}`}
+                >
+                    Ordered List
+                </button>
+            </div>
+            <EditorContent editor={editor} className="p-3" />
+        </div>
+    );
+}
+
 export default function AboutUsIndex({ aboutUs, admins, success }: AboutUsIndexProps) {
     const { data, setData, post, processing, errors } = useForm({
         overview: aboutUs?.overview || '',
@@ -55,15 +143,13 @@ export default function AboutUsIndex({ aboutUs, admins, success }: AboutUsIndexP
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="About Us Management" />
-            
+
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div>
                         <h1 className="text-2xl font-bold tracking-tight">About Us Management</h1>
-                        <p className="text-muted-foreground">
-                            {aboutUs ? 'Update' : 'Create'} the about us page information
-                        </p>
+                        <p className="text-muted-foreground">{aboutUs ? 'Update' : 'Create'} the about us page information</p>
                     </div>
                 </div>
 
@@ -80,9 +166,7 @@ export default function AboutUsIndex({ aboutUs, admins, success }: AboutUsIndexP
                         <Card>
                             <CardHeader>
                                 <CardTitle>About Us Information</CardTitle>
-                                <CardDescription>
-                                    {aboutUs ? 'Update the about us page content' : 'Create the about us page content'}
-                                </CardDescription>
+                                <CardDescription>{aboutUs ? 'Update the about us page content' : 'Create the about us page content'}</CardDescription>
                             </CardHeader>
                             <CardContent>
                                 <form onSubmit={submit} className="space-y-6">
@@ -90,65 +174,53 @@ export default function AboutUsIndex({ aboutUs, admins, success }: AboutUsIndexP
                                         {/* Overview */}
                                         <div className="space-y-2">
                                             <Label htmlFor="overview">Overview</Label>
-                                            <textarea
-                                                id="overview"
+                                            <RichTextEditor
                                                 value={data.overview}
-                                                onChange={(e) => setData('overview', e.target.value)}
+                                                onChange={(value) => setData('overview', value)}
                                                 placeholder="Enter company overview"
-                                                rows={4}
-                                                className={`flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${errors.overview ? 'border-red-500' : ''}`}
+                                                className="min-h-[200px]"
+                                                error={!!errors.overview}
                                             />
-                                            {errors.overview && (
-                                                <p className="text-sm text-red-600">{errors.overview}</p>
-                                            )}
+                                            {errors.overview && <p className="text-sm text-red-600">{errors.overview}</p>}
                                         </div>
 
                                         {/* Vision */}
                                         <div className="space-y-2">
                                             <Label htmlFor="vision">Vision</Label>
-                                            <textarea
-                                                id="vision"
+                                            <RichTextEditor
                                                 value={data.vision}
-                                                onChange={(e) => setData('vision', e.target.value)}
+                                                onChange={(value) => setData('vision', value)}
                                                 placeholder="Enter company vision"
-                                                rows={3}
-                                                className={`flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${errors.vision ? 'border-red-500' : ''}`}
+                                                className="min-h-[150px]"
+                                                error={!!errors.vision}
                                             />
-                                            {errors.vision && (
-                                                <p className="text-sm text-red-600">{errors.vision}</p>
-                                            )}
+                                            {errors.vision && <p className="text-sm text-red-600">{errors.vision}</p>}
                                         </div>
 
                                         {/* Mission */}
                                         <div className="space-y-2">
                                             <Label htmlFor="mission">Mission</Label>
-                                            <textarea
-                                                id="mission"
+                                            <RichTextEditor
                                                 value={data.mission}
-                                                onChange={(e) => setData('mission', e.target.value)}
+                                                onChange={(value) => setData('mission', value)}
                                                 placeholder="Enter company mission"
-                                                rows={3}
-                                                className={`flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${errors.mission ? 'border-red-500' : ''}`}
+                                                className="min-h-[150px]"
+                                                error={!!errors.mission}
                                             />
-                                            {errors.mission && (
-                                                <p className="text-sm text-red-600">{errors.mission}</p>
-                                            )}
+                                            {errors.mission && <p className="text-sm text-red-600">{errors.mission}</p>}
                                         </div>
 
                                         {/* Corporate Offices */}
                                         <div className="space-y-2">
                                             <Label htmlFor="corporate_offices">Corporate Offices</Label>
-                                            <textarea
-                                                id="corporate_offices"
+                                            <RichTextEditor
                                                 value={data.corporate_offices}
-                                                onChange={(e) => setData('corporate_offices', e.target.value)}
+                                                onChange={(value) => setData('corporate_offices', value)}
                                                 placeholder="Enter corporate office locations"
-                                                rows={3}
-                                                className={`flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${errors.corporate_offices ? 'border-red-500' : ''}`}
+                                                className="min-h-[150px]"
+                                                error={!!errors.corporate_offices}
                                             />
-                                            {errors.corporate_offices && (
-                                                <p className="text-sm text-red-600">{errors.corporate_offices}</p>
-                                            )}
+                                            {errors.corporate_offices && <p className="text-sm text-red-600">{errors.corporate_offices}</p>}
                                         </div>
 
                                         {/* Admin Selection */}
@@ -166,17 +238,15 @@ export default function AboutUsIndex({ aboutUs, admins, success }: AboutUsIndexP
                                                     ))}
                                                 </SelectContent>
                                             </Select>
-                                            {errors.admin_id && (
-                                                <p className="text-sm text-red-600">{errors.admin_id}</p>
-                                            )}
+                                            {errors.admin_id && <p className="text-sm text-red-600">{errors.admin_id}</p>}
                                         </div>
                                     </div>
 
                                     {/* Submit Button */}
                                     <div className="flex items-center gap-4 pt-4">
                                         <Button type="submit" disabled={processing}>
-                                            <Save className="h-4 w-4 mr-2" />
-                                            {processing ? 'Saving...' : (aboutUs ? 'Update Information' : 'Create Information')}
+                                            <Save className="mr-2 h-4 w-4" />
+                                            {processing ? 'Saving...' : aboutUs ? 'Update Information' : 'Create Information'}
                                         </Button>
                                     </div>
                                 </form>
@@ -189,42 +259,36 @@ export default function AboutUsIndex({ aboutUs, admins, success }: AboutUsIndexP
                         <Card>
                             <CardHeader>
                                 <CardTitle>Information</CardTitle>
-                                <CardDescription>
-                                    About the about us page management
-                                </CardDescription>
+                                <CardDescription>About the about us page management</CardDescription>
                             </CardHeader>
                             <CardContent className="space-y-4">
                                 {aboutUs && (
                                     <>
                                         <div className="flex items-start gap-3">
-                                            <FileText className="h-5 w-5 text-blue-500 mt-0.5" />
+                                            <FileText className="mt-0.5 h-5 w-5 text-blue-500" />
                                             <div>
                                                 <h4 className="text-sm font-medium">Current Status</h4>
-                                                <p className="text-xs text-gray-600 dark:text-gray-400">
-                                                    Information exists and can be updated
-                                                </p>
+                                                <p className="text-xs text-gray-600 dark:text-gray-400">Information exists and can be updated</p>
                                             </div>
                                         </div>
-                                        
+
                                         <div className="flex items-start gap-3">
-                                            <Users className="h-5 w-5 text-green-500 mt-0.5" />
+                                            <Users className="mt-0.5 h-5 w-5 text-green-500" />
                                             <div>
                                                 <h4 className="text-sm font-medium">Created By</h4>
-                                                <p className="text-xs text-gray-600 dark:text-gray-400">
-                                                    {aboutUs.admin.username}
-                                                </p>
+                                                <p className="text-xs text-gray-600 dark:text-gray-400">{aboutUs.admin.username}</p>
                                             </div>
                                         </div>
-                                        
+
                                         <div className="flex items-start gap-3">
-                                            <Mail className="h-5 w-5 text-purple-500 mt-0.5" />
+                                            <Mail className="mt-0.5 h-5 w-5 text-purple-500" />
                                             <div>
                                                 <h4 className="text-sm font-medium">Last Updated</h4>
                                                 <p className="text-xs text-gray-600 dark:text-gray-400">
                                                     {new Date(aboutUs.updated_at).toLocaleDateString('en-US', {
                                                         year: 'numeric',
                                                         month: 'long',
-                                                        day: 'numeric'
+                                                        day: 'numeric',
                                                     })}
                                                 </p>
                                             </div>
@@ -232,7 +296,7 @@ export default function AboutUsIndex({ aboutUs, admins, success }: AboutUsIndexP
                                     </>
                                 )}
 
-                                <div className="mt-6 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                                <div className="mt-6 rounded-lg bg-blue-50 p-3 dark:bg-blue-900/20">
                                     <p className="text-xs text-blue-700 dark:text-blue-400">
                                         <strong>Note:</strong> This page manages a single about us information that will be displayed on the website.
                                     </p>
