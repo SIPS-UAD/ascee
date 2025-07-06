@@ -1,10 +1,10 @@
-import { Head, Link, router } from '@inertiajs/react';
-import AppLayout from '@/layouts/app-layout';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Plus, Edit, Trash2, Eye, Calendar, User } from 'lucide-react';
+import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
+import { Head, Link, router } from '@inertiajs/react';
+import { Edit, Eye, Plus, Trash2 } from 'lucide-react';
 
 interface Admin {
     id_admin: number;
@@ -53,19 +53,17 @@ export default function NewsIndex({ news, success }: NewsIndexProps) {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="News Management" />
-            
+
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div>
                         <h1 className="text-2xl font-bold tracking-tight">News Management</h1>
-                        <p className="text-muted-foreground">
-                            Manage news articles and publications
-                        </p>
+                        <p className="text-muted-foreground">Manage news articles and publications</p>
                     </div>
                     <Link href="/admin/news/create">
                         <Button>
-                            <Plus className="h-4 w-4 mr-2" />
+                            <Plus className="mr-2 h-4 w-4" />
                             Add News
                         </Button>
                     </Link>
@@ -94,9 +92,7 @@ export default function NewsIndex({ news, success }: NewsIndexProps) {
                         </CardHeader>
                         <CardContent>
                             <div className="text-2xl font-bold text-green-600">
-                                {news.data.filter(item => 
-                                    new Date(item.created_at).getMonth() === new Date().getMonth()
-                                ).length}
+                                {news.data.filter((item) => new Date(item.created_at).getMonth() === new Date().getMonth()).length}
                             </div>
                         </CardContent>
                     </Card>
@@ -105,9 +101,7 @@ export default function NewsIndex({ news, success }: NewsIndexProps) {
                             <CardTitle className="text-sm font-medium">With Images</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold text-purple-600">
-                                {news.data.filter(item => item.image).length}
-                            </div>
+                            <div className="text-2xl font-bold text-purple-600">{news.data.filter((item) => item.image).length}</div>
                         </CardContent>
                     </Card>
                     <Card>
@@ -115,9 +109,7 @@ export default function NewsIndex({ news, success }: NewsIndexProps) {
                             <CardTitle className="text-sm font-medium">Publishers</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold text-blue-600">
-                                {new Set(news.data.map(item => item.publisher)).size}
-                            </div>
+                            <div className="text-2xl font-bold text-blue-600">{new Set(news.data.map((item) => item.publisher)).size}</div>
                         </CardContent>
                     </Card>
                 </div>
@@ -126,20 +118,18 @@ export default function NewsIndex({ news, success }: NewsIndexProps) {
                 <Card>
                     <CardHeader>
                         <CardTitle>News Articles</CardTitle>
-                        <CardDescription>
-                            Manage all news articles and publications
-                        </CardDescription>
+                        <CardDescription>Manage all news articles and publications</CardDescription>
                     </CardHeader>
                     <CardContent>
                         <div className="relative overflow-x-auto">
-                            <table className="w-full text-sm text-left">
-                                <thead className="text-xs uppercase bg-gray-50 dark:bg-gray-700">
+                            <table className="w-full text-left text-sm">
+                                <thead className="bg-gray-50 text-xs uppercase dark:bg-gray-700">
                                     <tr>
+                                        <th className="px-6 py-3">ID</th>
                                         <th className="px-6 py-3">Title</th>
                                         <th className="px-6 py-3">Publisher</th>
                                         <th className="px-6 py-3">Date</th>
                                         <th className="px-6 py-3">Admin</th>
-                                        <th className="px-6 py-3">Status</th>
                                         <th className="px-6 py-3">Actions</th>
                                     </tr>
                                 </thead>
@@ -147,43 +137,13 @@ export default function NewsIndex({ news, success }: NewsIndexProps) {
                                     {news.data.length > 0 ? (
                                         news.data.map((newsItem) => (
                                             <tr key={newsItem.id_news} className="border-b hover:bg-gray-50 dark:hover:bg-gray-700">
-                                                <td className="px-6 py-4">
-                                                    <div className="flex items-center gap-3">
-                                                        {newsItem.image && (
-                                                            <img 
-                                                                src={`/storage/${newsItem.image}`} 
-                                                                alt={newsItem.title}
-                                                                className="w-10 h-10 rounded object-cover"
-                                                            />
-                                                        )}
-                                                        <div>
-                                                            <div className="font-medium">{newsItem.title}</div>
-                                                            <div className="text-xs text-gray-500 truncate max-w-xs">
-                                                                {newsItem.description}
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                <td className="px-6 py-4 font-medium">
+                                                    <Badge variant="outline">#{newsItem.id_news}</Badge>
                                                 </td>
-                                                <td className="px-6 py-4">
-                                                    <div className="flex items-center gap-1">
-                                                        <User className="h-3 w-3" />
-                                                        {newsItem.publisher}
-                                                    </div>
-                                                </td>
-                                                <td className="px-6 py-4">
-                                                    <div className="flex items-center gap-1">
-                                                        <Calendar className="h-3 w-3" />
-                                                        {new Date(newsItem.date).toLocaleDateString()}
-                                                    </div>
-                                                </td>
-                                                <td className="px-6 py-4">
-                                                    <Badge variant="outline">{newsItem.admin.username}</Badge>
-                                                </td>
-                                                <td className="px-6 py-4">
-                                                    <Badge variant={newsItem.image ? "default" : "secondary"}>
-                                                        {newsItem.image ? "With Image" : "Text Only"}
-                                                    </Badge>
-                                                </td>
+                                                <td className="px-6 py-4 font-medium">{newsItem.title}</td>
+                                                <td className="px-6 py-4">{newsItem.publisher}</td>
+                                                <td className="px-6 py-4">{new Date(newsItem.date).toLocaleDateString()}</td>
+                                                <td className="px-6 py-4">{newsItem.admin.username}</td>
                                                 <td className="px-6 py-4">
                                                     <div className="flex items-center gap-2">
                                                         <Link href={`/admin/news/${newsItem.id_news}`}>
@@ -221,16 +181,17 @@ export default function NewsIndex({ news, success }: NewsIndexProps) {
 
                         {/* Pagination */}
                         {news.last_page > 1 && (
-                            <div className="flex items-center justify-between mt-6">
+                            <div className="mt-6 flex items-center justify-between">
                                 <div className="text-sm text-gray-700 dark:text-gray-300">
-                                    Showing {((news.current_page - 1) * news.per_page) + 1} to{' '}
-                                    {Math.min(news.current_page * news.per_page, news.total)} of{' '}
-                                    {news.total} results
+                                    Showing {(news.current_page - 1) * news.per_page + 1} to {Math.min(news.current_page * news.per_page, news.total)}{' '}
+                                    of {news.total} results
                                 </div>
                                 <div className="flex gap-2">
                                     {news.prev_page_url && (
                                         <Link href={news.prev_page_url}>
-                                            <Button variant="outline" size="sm">Previous</Button>
+                                            <Button variant="outline" size="sm">
+                                                Previous
+                                            </Button>
                                         </Link>
                                     )}
                                     <span className="flex items-center px-4 py-2 text-sm">
@@ -238,7 +199,9 @@ export default function NewsIndex({ news, success }: NewsIndexProps) {
                                     </span>
                                     {news.next_page_url && (
                                         <Link href={news.next_page_url}>
-                                            <Button variant="outline" size="sm">Next</Button>
+                                            <Button variant="outline" size="sm">
+                                                Next
+                                            </Button>
                                         </Link>
                                     )}
                                 </div>
