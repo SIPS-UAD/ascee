@@ -56,7 +56,7 @@ Route::get('about_us', function () {
 });
 
 Route::get('team', function () {
-    $team = \App\Models\Journal::with('admin')->latest()->paginate(10);
+    $team = \App\Models\Team::all();
     return Inertia::render('Landing/team/index', ['team' => $team]);
 })->name('public.team.index');
 
