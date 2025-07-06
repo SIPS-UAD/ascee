@@ -12,6 +12,7 @@ use App\Http\Controllers\EducationAndCareersController;
 use App\Http\Controllers\PencarianMemberController;
 use App\Http\Controllers\JenisMitraController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\TeamController;
 
 Route::get('/', function () {
     return Inertia::render('Landing/homePage/index', [
@@ -173,6 +174,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // Conferences routes
         Route::resource('conferences', ConferencesController::class);
+
+        Route::resource('teams', TeamController::class);
 
         // Careers routes
         Route::resource('careers', EducationAndCareersController::class)
