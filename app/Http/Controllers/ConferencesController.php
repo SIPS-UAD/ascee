@@ -16,7 +16,22 @@ class ConferencesController extends Controller
     public function index()
     {
         $conferences = Conferences::with('admin')->orderBy('updated_at', 'desc')->paginate(9);
-        return Inertia::render('admin/conferences/index', ['conferences' => $conferences]);
+
+        $now = now();
+        $totalConferences = Conferences::count();
+        $thisMonth = Conferences::whereMonth('created_at', $now->month)->whereYear('created_at', $now->year)->count();
+        $withImages = Conferences::whereNotNull('image')->count();
+        $admins = Conferences::distinct('admin_id')->count('admin_id');
+
+        return Inertia::render('admin/conferences/index', [
+            'conferences' => $conferences,
+            'stats' => [
+                'total' => $totalConferences,
+                'thisMonth' => $thisMonth,
+                'withImages' => $withImages,
+                'admins' => $admins,
+            ],
+        ]);
     }
 
     /**

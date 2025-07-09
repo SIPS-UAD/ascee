@@ -16,7 +16,22 @@ class NewsController extends Controller
     public function index()
     {
         $news = News::with('admin')->latest()->paginate(10);
-        return Inertia::render('admin/news/index', ['news' => $news]);
+
+        $now = now();
+        $totalNewsCount = News::count();
+        $thisMonthCount = News::whereMonth('created_at', $now->month)->whereYear('created_at', $now->year)->count();
+        $withImagesCount = News::whereNotNull('image')->count();
+        $publishersCount = News::distinct('publisher')->count('publisher');
+
+        return Inertia::render('admin/news/index', [
+            'news' => $news,
+            'stats' => [
+                'total' => $totalNewsCount,
+                'thisMonth' => $thisMonthCount,
+                'withImages' => $withImagesCount,
+                'publishers' => $publishersCount,
+            ],
+        ]);
     }
 
     /**

@@ -33,6 +33,12 @@ interface EventsIndexProps {
         prev_page_url?: string;
         next_page_url?: string;
     };
+    stats: {
+        total: number;
+        upcoming: number;
+        today: number;
+        withImages: number;
+    };
     success?: string;
 }
 
@@ -41,7 +47,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Events Management', href: '/admin/events' },
 ];
 
-export default function EventsIndex({ events, success }: EventsIndexProps) {
+export default function EventsIndex({ events, stats, success }: EventsIndexProps) {
     const handleDelete = (event: Event) => {
         if (confirm(`Are you sure you want to delete "${event.title}"?`)) {
             router.delete(`/admin/events/${event.id_events}`);
@@ -92,7 +98,7 @@ export default function EventsIndex({ events, success }: EventsIndexProps) {
                             <CardTitle className="text-sm font-medium">Total Events</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold">{events.total}</div>
+                            <div className="text-2xl font-bold">{stats.total}</div>
                         </CardContent>
                     </Card>
                     <Card>
@@ -100,9 +106,7 @@ export default function EventsIndex({ events, success }: EventsIndexProps) {
                             <CardTitle className="text-sm font-medium">Upcoming</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold text-green-600">
-                                {events.data.filter(event => new Date(event.date) > new Date()).length}
-                            </div>
+                            <div className="text-2xl font-bold text-green-600">{stats.upcoming}</div>
                         </CardContent>
                     </Card>
                     <Card>
@@ -110,11 +114,7 @@ export default function EventsIndex({ events, success }: EventsIndexProps) {
                             <CardTitle className="text-sm font-medium">Today</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold text-blue-600">
-                                {events.data.filter(event => 
-                                    new Date(event.date).toDateString() === new Date().toDateString()
-                                ).length}
-                            </div>
+                            <div className="text-2xl font-bold text-blue-600">{stats.today}</div>
                         </CardContent>
                     </Card>
                     <Card>
@@ -122,9 +122,7 @@ export default function EventsIndex({ events, success }: EventsIndexProps) {
                             <CardTitle className="text-sm font-medium">With Images</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold text-purple-600">
-                                {events.data.filter(event => event.image).length}
-                            </div>
+                            <div className="text-2xl font-bold text-purple-600">{stats.withImages}</div>
                         </CardContent>
                     </Card>
                 </div>

@@ -34,6 +34,12 @@ interface ConferencesIndexProps {
         prev_page_url?: string;
         next_page_url?: string;
     };
+    stats: {
+        total: number;
+        thisMonth: number;
+        withImages: number;
+        admins: number;
+    };
     success?: string;
 }
 
@@ -42,7 +48,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Conferences Management', href: '/admin/conferences' },
 ];
 
-export default function ConferencesIndex({ conferences, success }: ConferencesIndexProps) {
+export default function ConferencesIndex({ conferences, stats, success }: ConferencesIndexProps) {
     const handleDelete = (conference: Conference) => {
         if (confirm(`Are you sure you want to delete "${conference.title}"?`)) {
             router.delete(`/admin/conferences/${conference.id_conferences}`);
@@ -93,29 +99,15 @@ export default function ConferencesIndex({ conferences, success }: ConferencesIn
                             <CardTitle className="text-sm font-medium">Total Conferences</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold">{conferences.total}</div>
+                            <div className="text-2xl font-bold">{stats.total}</div>
                         </CardContent>
                     </Card>
                     <Card>
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                            <CardTitle className="text-sm font-medium">Upcoming</CardTitle>
+                            <CardTitle className="text-sm font-medium">This Month</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold text-green-600">
-                                {conferences.data.filter(conference => new Date(conference.date) > new Date()).length}
-                            </div>
-                        </CardContent>
-                    </Card>
-                    <Card>
-                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                            <CardTitle className="text-sm font-medium">Today</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <div className="text-2xl font-bold text-blue-600">
-                                {conferences.data.filter(conference => 
-                                    new Date(conference.date).toDateString() === new Date().toDateString()
-                                ).length}
-                            </div>
+                            <div className="text-2xl font-bold text-green-600">{stats.thisMonth}</div>
                         </CardContent>
                     </Card>
                     <Card>
@@ -123,9 +115,15 @@ export default function ConferencesIndex({ conferences, success }: ConferencesIn
                             <CardTitle className="text-sm font-medium">With Images</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold text-purple-600">
-                                {conferences.data.filter(conference => conference.image).length}
-                            </div>
+                            <div className="text-2xl font-bold text-purple-600">{stats.withImages}</div>
+                        </CardContent>
+                    </Card>
+                    <Card>
+                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                            <CardTitle className="text-sm font-medium">Admins</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="text-2xl font-bold text-blue-600">{stats.admins}</div>
                         </CardContent>
                     </Card>
                 </div>
