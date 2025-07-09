@@ -44,6 +44,24 @@ const JournalSectionMain = ({ journals = [] }: JournalSectionMainProps) => {
             image: '/journal-5.jpg',
             category: 'Medical Research',
         },
+                {
+            id: 6,
+            title: 'Translational Medicine',
+            image: '/journal-5.jpg',
+            category: 'Medical Research',
+        },
+                {
+            id: 7,
+            title: 'Translational Medicine',
+            image: '/journal-5.jpg',
+            category: 'Medical Research',
+        },
+                {
+            id: 8,
+            title: 'Translational Medicine',
+            image: '/journal-5.jpg',
+            category: 'Medical Research',
+        },
     ];
 
     const displayJournals = journals.length > 0 ? journals : defaultJournals;
@@ -107,22 +125,6 @@ const JournalSectionMain = ({ journals = [] }: JournalSectionMainProps) => {
                 </div>
             </div>
 
-            {/* Custom scrollbar styles */}
-            <style jsx>{`
-                .scrollbar-hide {
-                    -ms-overflow-style: none;
-                    scrollbar-width: none;
-                }
-                .scrollbar-hide::-webkit-scrollbar {
-                    display: none;
-                }
-                .line-clamp-2 {
-                    display: -webkit-box;
-                    -webkit-line-clamp: 2;
-                    -webkit-box-orient: vertical;
-                    overflow: hidden;
-                }
-            `}</style>
         </section>
     );
 };
