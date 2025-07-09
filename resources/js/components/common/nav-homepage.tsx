@@ -58,9 +58,9 @@ const NavHomepage = () => {
                     {/* Right navigation */}
                     <div className="flex items-center space-x-4">
                         {/* Search icon - always visible */}
-                        <button className="p-1">
+                        {/* <button className="p-1">
                             <img src="/search.svg" alt="Search" className="h-5 w-5" />
-                        </button>
+                        </button> */}
 
                         {/* Login / User Menu - visible on all sizes */}
                         {auth?.user ? (
