@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             PencarianMemberSeeder::class,
             JenisMitraSeeder::class,
             ContactSeeder::class,
+            TeamSeeder::class,  // Add this line
         ]);
     }
 }

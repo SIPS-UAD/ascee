@@ -32,6 +32,12 @@ interface JournalsIndexProps {
         prev_page_url?: string;
         next_page_url?: string;
     };
+    stats: {
+        total: number;
+        withImages: number;
+        thisMonth: number;
+        admins: number;
+    };
     success?: string;
 }
 
@@ -40,7 +46,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Journal Management', href: '/admin/journal' },
 ];
 
-export default function JournalsIndex({ journals, success }: JournalsIndexProps) {
+export default function JournalsIndex({ journals, stats, success }: JournalsIndexProps) {
     const handleDelete = (journal: Journal) => {
         if (confirm(`Are you sure you want to delete "${journal.title}"?`)) {
             router.delete(`/admin/journal/${journal.id_journal}`);
@@ -76,14 +82,22 @@ export default function JournalsIndex({ journals, success }: JournalsIndexProps)
                 )}
 
                 {/* Stats */}
-                <div className="grid gap-4 md:grid-cols-3">
+                <div className="grid gap-4 md:grid-cols-4">
                     <Card>
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                             <CardTitle className="text-sm font-medium">Total Journals</CardTitle>
                             <BookOpen className="h-4 w-4 text-muted-foreground" />
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold">{journals.total}</div>
+                            <div className="text-2xl font-bold">{stats.total}</div>
+                        </CardContent>
+                    </Card>
+                    <Card>
+                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                            <CardTitle className="text-sm font-medium">This Month</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="text-2xl font-bold text-green-600">{stats.thisMonth}</div>
                         </CardContent>
                     </Card>
                     <Card>
@@ -91,9 +105,7 @@ export default function JournalsIndex({ journals, success }: JournalsIndexProps)
                             <CardTitle className="text-sm font-medium">With Images</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold text-purple-600">
-                                {journals.data.filter(journal => journal.image).length}
-                            </div>
+                            <div className="text-2xl font-bold text-purple-600">{stats.withImages}</div>
                         </CardContent>
                     </Card>
                     <Card>
@@ -101,9 +113,7 @@ export default function JournalsIndex({ journals, success }: JournalsIndexProps)
                             <CardTitle className="text-sm font-medium">Admins</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold text-blue-600">
-                                {new Set(journals.data.map(journal => journal.admin.username)).size}
-                            </div>
+                            <div className="text-2xl font-bold text-blue-600">{stats.admins}</div>
                         </CardContent>
                     </Card>
                 </div>

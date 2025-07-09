@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link, router } from '@inertiajs/react';
-import { Edit, Eye, Plus, Trash2 } from 'lucide-react';
+import { Edit, Eye, Plus, Trash2, Users, Award, Briefcase } from 'lucide-react';
 
 interface Admin {
     id_admin: number;
@@ -12,30 +12,22 @@ interface Admin {
     username: string;
 }
 
-interface NewsItem {
-    id_news: number;
-    title: string;
-    date: string;
-    publisher: string;
-    description: string;
-    image?: string;
+interface TeamMember {
+    id_team: number;
+    name: string;
+    position: string;
+    credentials: string;
+    category: string;
+    society?: string | null;
     admin_id: number;
     admin: Admin;
     created_at: string;
     updated_at: string;
 }
 
-interface TotalNews {
-    data: NewsItem[];
-    current_page: number;
-    last_page: number;
-    per_page: number;
-    total: number;
-}
-
-interface NewsIndexProps {
-    news: {
-        data: NewsItem[];
+interface TeamIndexProps {
+    team: {
+        data: TeamMember[];
         current_page: number;
         last_page: number;
         per_page: number;
@@ -45,40 +37,40 @@ interface NewsIndexProps {
     };
     stats: {
         total: number;
-        thisMonth: number;
-        withImages: number;
-        publishers: number;
+        executiveOfficers: number;
+        societyMembers: number;
+        categories: number;
     };
     success?: string;
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Dashboard', href: '/admin/dashboard' },
-    { title: 'News Management', href: '/admin/news' },
+    { title: 'Team Management', href: '/admin/teams' },
 ];
 
-export default function NewsIndex({ news, success, stats }: NewsIndexProps) {
-    const handleDelete = (newsItem: NewsItem) => {
-        if (confirm(`Are you sure you want to delete "${newsItem.title}"?`)) {
-            router.delete(`/admin/news/${newsItem.id_news}`);
+export default function TeamIndex({ team, stats, success }: TeamIndexProps) {
+    const handleDelete = (teamMember: TeamMember) => {
+        if (confirm(`Are you sure you want to delete "${teamMember.name}"?`)) {
+            router.delete(`/admin/teams/${teamMember.id_team}`);
         }
     };
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="News Management" />
+            <Head title="Team Management" />
 
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-2xl font-bold tracking-tight">News Management</h1>
-                        <p className="text-muted-foreground">Manage news articles and publications</p>
+                        <h1 className="text-2xl font-bold tracking-tight">Team Management</h1>
+                        <p className="text-muted-foreground">Manage team members and organization structure</p>
                     </div>
-                    <Link href="/admin/news/create">
+                    <Link href="/admin/teams/create">
                         <Button>
                             <Plus className="mr-2 h-4 w-4" />
-                            Add News
+                            Add Team Member
                         </Button>
                     </Link>
                 </div>
@@ -94,7 +86,8 @@ export default function NewsIndex({ news, success, stats }: NewsIndexProps) {
                 <div className="grid gap-4 md:grid-cols-4">
                     <Card>
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                            <CardTitle className="text-sm font-medium">Total News</CardTitle>
+                            <CardTitle className="text-sm font-medium">Total Members</CardTitle>
+                            <Users className="h-4 w-4 text-muted-foreground" />
                         </CardHeader>
                         <CardContent>
                             <div className="text-2xl font-bold">{stats.total}</div>
@@ -102,35 +95,37 @@ export default function NewsIndex({ news, success, stats }: NewsIndexProps) {
                     </Card>
                     <Card>
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                            <CardTitle className="text-sm font-medium">This Month</CardTitle>
+                            <CardTitle className="text-sm font-medium">Executive Officers</CardTitle>
+                            <Award className="h-4 w-4 text-muted-foreground" />
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold text-green-600">{stats.thisMonth}</div>
+                            <div className="text-2xl font-bold text-blue-600">{stats.executiveOfficers}</div>
                         </CardContent>
                     </Card>
                     <Card>
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                            <CardTitle className="text-sm font-medium">With Images</CardTitle>
+                            <CardTitle className="text-sm font-medium">Society Members</CardTitle>
+                            <Briefcase className="h-4 w-4 text-muted-foreground" />
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold text-purple-600">{stats.withImages}</div>
+                            <div className="text-2xl font-bold text-purple-600">{stats.societyMembers}</div>
                         </CardContent>
                     </Card>
                     <Card>
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                            <CardTitle className="text-sm font-medium">Publishers</CardTitle>
+                            <CardTitle className="text-sm font-medium">Categories</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold text-blue-600">{stats.publishers}</div>
+                            <div className="text-2xl font-bold text-green-600">{stats.categories}</div>
                         </CardContent>
                     </Card>
                 </div>
 
-                {/* News Table */}
+                {/* Team Table */}
                 <Card>
                     <CardHeader>
-                        <CardTitle>News Articles</CardTitle>
-                        <CardDescription>Manage all news articles and publications</CardDescription>
+                        <CardTitle>Team Members</CardTitle>
+                        <CardDescription>Manage all team members and their roles</CardDescription>
                     </CardHeader>
                     <CardContent>
                         <div className="relative overflow-x-auto">
@@ -138,32 +133,41 @@ export default function NewsIndex({ news, success, stats }: NewsIndexProps) {
                                 <thead className="bg-gray-50 text-xs uppercase dark:bg-gray-700">
                                     <tr>
                                         <th className="px-6 py-3">ID</th>
-                                        <th className="px-6 py-3">Title</th>
-                                        <th className="px-6 py-3">Publisher</th>
-                                        <th className="px-6 py-3">Date</th>
+                                        <th className="px-6 py-3">Name</th>
+                                        <th className="px-6 py-3">Position</th>
+                                        <th className="px-6 py-3">Category</th>
+                                        <th className="px-6 py-3">Society</th>
                                         <th className="px-6 py-3">Admin</th>
                                         <th className="px-6 py-3">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {news.data.length > 0 ? (
-                                        news.data.map((newsItem) => (
-                                            <tr key={newsItem.id_news} className="border-b hover:bg-gray-50 dark:hover:bg-gray-700">
+                                    {team.data.length > 0 ? (
+                                        team.data.map((member) => (
+                                            <tr key={member.id_team} className="border-b hover:bg-gray-50 dark:hover:bg-gray-700">
                                                 <td className="px-6 py-4 font-medium">
-                                                    <Badge variant="outline">#{newsItem.id_news}</Badge>
+                                                    <Badge variant="outline">#{member.id_team}</Badge>
                                                 </td>
-                                                <td className="px-6 py-4 font-medium">{newsItem.title}</td>
-                                                <td className="px-6 py-4">{newsItem.publisher}</td>
-                                                <td className="px-6 py-4">{new Date(newsItem.date).toLocaleDateString()}</td>
-                                                <td className="px-6 py-4">{newsItem.admin.username}</td>
+                                                <td className="px-6 py-4 font-medium">
+                                                    {member.name}
+                                                    {member.credentials && <span className="text-xs text-gray-500 ml-1">({member.credentials})</span>}
+                                                </td>
+                                                <td className="px-6 py-4">{member.position}</td>
+                                                <td className="px-6 py-4">
+                                                    <Badge variant="secondary" className="capitalize">
+                                                        {member.category}
+                                                    </Badge>
+                                                </td>
+                                                <td className="px-6 py-4">{member.society || '-'}</td>
+                                                <td className="px-6 py-4">{member.admin.username}</td>
                                                 <td className="px-6 py-4">
                                                     <div className="flex items-center gap-2">
-                                                        <Link href={`/admin/news/${newsItem.id_news}`}>
+                                                        <Link href={`/admin/teams/${member.id_team}`}>
                                                             <Button variant="ghost" size="sm">
                                                                 <Eye className="h-4 w-4" />
                                                             </Button>
                                                         </Link>
-                                                        <Link href={`/admin/news/${newsItem.id_news}/edit`}>
+                                                        <Link href={`/admin/teams/${member.id_team}/edit`}>
                                                             <Button variant="ghost" size="sm">
                                                                 <Edit className="h-4 w-4" />
                                                             </Button>
@@ -171,7 +175,7 @@ export default function NewsIndex({ news, success, stats }: NewsIndexProps) {
                                                         <Button
                                                             variant="ghost"
                                                             size="sm"
-                                                            onClick={() => handleDelete(newsItem)}
+                                                            onClick={() => handleDelete(member)}
                                                             className="text-red-600 hover:text-red-900"
                                                         >
                                                             <Trash2 className="h-4 w-4" />
@@ -182,8 +186,8 @@ export default function NewsIndex({ news, success, stats }: NewsIndexProps) {
                                         ))
                                     ) : (
                                         <tr>
-                                            <td colSpan={6} className="px-6 py-4 text-center text-gray-500">
-                                                No news articles found
+                                            <td colSpan={7} className="px-6 py-4 text-center text-gray-500">
+                                                No team members found
                                             </td>
                                         </tr>
                                     )}
@@ -192,25 +196,25 @@ export default function NewsIndex({ news, success, stats }: NewsIndexProps) {
                         </div>
 
                         {/* Pagination */}
-                        {news.last_page > 1 && (
+                        {team.last_page > 1 && (
                             <div className="mt-6 flex items-center justify-between">
                                 <div className="text-sm text-gray-700 dark:text-gray-300">
-                                    Showing {(news.current_page - 1) * news.per_page + 1} to {Math.min(news.current_page * news.per_page, news.total)}{' '}
-                                    of {news.total} results
+                                    Showing {(team.current_page - 1) * team.per_page + 1} to{' '}
+                                    {Math.min(team.current_page * team.per_page, team.total)} of {team.total} results
                                 </div>
                                 <div className="flex gap-2">
-                                    {news.prev_page_url && (
-                                        <Link href={news.prev_page_url}>
+                                    {team.prev_page_url && (
+                                        <Link href={team.prev_page_url}>
                                             <Button variant="outline" size="sm">
                                                 Previous
                                             </Button>
                                         </Link>
                                     )}
                                     <span className="flex items-center px-4 py-2 text-sm">
-                                        Page {news.current_page} of {news.last_page}
+                                        Page {team.current_page} of {team.last_page}
                                     </span>
-                                    {news.next_page_url && (
-                                        <Link href={news.next_page_url}>
+                                    {team.next_page_url && (
+                                        <Link href={team.next_page_url}>
                                             <Button variant="outline" size="sm">
                                                 Next
                                             </Button>

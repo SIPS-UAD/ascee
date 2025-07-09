@@ -16,7 +16,22 @@ class EventsController extends Controller
     public function index()
     {
         $events = Events::with('admin')->orderBy('updated_at', 'desc')->paginate(9);
-        return Inertia::render('admin/events/index', ['events' => $events]);
+
+        $now = now();
+        $totalEvents = Events::count();
+        $upcoming = Events::whereDate('date', '>', $now->toDateString())->count();
+        $today = Events::whereDate('date', $now->toDateString())->count();
+        $withImages = Events::whereNotNull('image')->count();
+
+        return Inertia::render('admin/events/index', [
+            'events' => $events,
+            'stats' => [
+                'total' => $totalEvents,
+                'upcoming' => $upcoming,
+                'today' => $today,
+                'withImages' => $withImages,
+            ],
+        ]);
     }
 
     /**
