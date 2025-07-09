@@ -18,7 +18,7 @@ export const NameTagProvider: React.FC<NameTagProviderProps> = ({ name, children
     return <NameTagContext.Provider value={{ name }}>{children}</NameTagContext.Provider>;
 };
 
-// Custom hook to use the context
+
 export const useNameTag = (): NameTagContextType => {
     const context = useContext(NameTagContext);
     if (context === undefined) {
