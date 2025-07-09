@@ -1,66 +1,51 @@
+import { Journal } from '@/types';
 import { Link } from '@inertiajs/react';
-
-interface Journal {
-    id: number;
-    title: string;
-    image: string;
-    category?: string;
-}
 
 interface JournalSectionMainProps {
     journals?: Journal[];
 }
 
 const JournalSectionMain = ({ journals = [] }: JournalSectionMainProps) => {
-    // Default journals if no data is provided
     const defaultJournals = [
         {
-            id: 1,
+            id_journal: 1,
             title: 'International Journal of Translational Science',
             image: '/journal-1.jpg',
-            category: 'Translational Science',
         },
         {
-            id: 2,
+            id_journal: 2,
             title: 'Structure',
             image: '/journal-2.jpg',
-            category: 'Structural Biology',
         },
         {
-            id: 3,
+            id_journal: 3,
             title: 'Future Design',
             image: '/journal-3.jpg',
-            category: 'Design Science',
         },
         {
-            id: 4,
+            id_journal: 4,
             title: 'Structure',
             image: '/journal-4.jpg',
-            category: 'Materials Science',
         },
         {
-            id: 5,
+            id_journal: 5,
             title: 'Translational Medicine',
             image: '/journal-5.jpg',
-            category: 'Medical Research',
         },
-                {
-            id: 6,
+        {
+            id_journal: 6,
             title: 'Translational Medicine',
             image: '/journal-5.jpg',
-            category: 'Medical Research',
         },
-                {
-            id: 7,
+        {
+            id_journal: 7,
             title: 'Translational Medicine',
             image: '/journal-5.jpg',
-            category: 'Medical Research',
         },
-                {
-            id: 8,
+        {
+            id_journal: 8,
             title: 'Translational Medicine',
             image: '/journal-5.jpg',
-            category: 'Medical Research',
         },
     ];
 
@@ -81,7 +66,7 @@ const JournalSectionMain = ({ journals = [] }: JournalSectionMainProps) => {
                     <div className="scrollbar-hide flex gap-6 overflow-x-auto pb-4">
                         {displayJournals.map((journal) => (
                             <div
-                                key={journal.id}
+                                key={journal.id_journal}
                                 className="w-48 flex-none rounded-lg bg-white shadow-md transition-shadow duration-300 hover:shadow-lg"
                             >
                                 {/* Journal Cover Image */}
@@ -105,8 +90,6 @@ const JournalSectionMain = ({ journals = [] }: JournalSectionMainProps) => {
                                 {/* Journal Info */}
                                 <div className="p-4">
                                     <h3 className="mb-2 line-clamp-2 text-sm font-semibold text-gray-900">{journal.title}</h3>
-                                    {journal.category && <p className="mb-3 text-xs text-gray-600">{journal.category}</p>}
-
                                     {/* Action Button */}
                                     <button className="w-full rounded bg-blue-500 px-4 py-2 text-xs text-white transition-colors duration-200 hover:bg-blue-600">
                                         View Journal
@@ -124,7 +107,6 @@ const JournalSectionMain = ({ journals = [] }: JournalSectionMainProps) => {
                     </div>
                 </div>
             </div>
-
         </section>
     );
 };
