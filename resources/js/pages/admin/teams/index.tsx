@@ -35,6 +35,12 @@ interface TeamIndexProps {
         prev_page_url?: string;
         next_page_url?: string;
     };
+    stats: {
+        total: number;
+        executiveOfficers: number;
+        societyMembers: number;
+        categories: number;
+    };
     success?: string;
 }
 
@@ -43,21 +49,11 @@ const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Team Management', href: '/admin/teams' },
 ];
 
-export default function TeamIndex({ team, success }: TeamIndexProps) {
+export default function TeamIndex({ team, stats, success }: TeamIndexProps) {
     const handleDelete = (teamMember: TeamMember) => {
         if (confirm(`Are you sure you want to delete "${teamMember.name}"?`)) {
             router.delete(`/admin/teams/${teamMember.id_team}`);
         }
-    };
-
-    // Count members by category
-    const getCategoryCount = (category: string) => {
-        return team.data.filter(member => member.category === category).length;
-    };
-
-    // Count members by society
-    const getSocietyCount = () => {
-        return team.data.filter(member => member.society).length;
     };
 
     return (
@@ -94,7 +90,7 @@ export default function TeamIndex({ team, success }: TeamIndexProps) {
                             <Users className="h-4 w-4 text-muted-foreground" />
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold">{team.total}</div>
+                            <div className="text-2xl font-bold">{stats.total}</div>
                         </CardContent>
                     </Card>
                     <Card>
@@ -103,9 +99,7 @@ export default function TeamIndex({ team, success }: TeamIndexProps) {
                             <Award className="h-4 w-4 text-muted-foreground" />
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold text-blue-600">
-                                {getCategoryCount('Executive Officers')}
-                            </div>
+                            <div className="text-2xl font-bold text-blue-600">{stats.executiveOfficers}</div>
                         </CardContent>
                     </Card>
                     <Card>
@@ -114,7 +108,7 @@ export default function TeamIndex({ team, success }: TeamIndexProps) {
                             <Briefcase className="h-4 w-4 text-muted-foreground" />
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold text-purple-600">{getSocietyCount()}</div>
+                            <div className="text-2xl font-bold text-purple-600">{stats.societyMembers}</div>
                         </CardContent>
                     </Card>
                     <Card>
@@ -122,9 +116,7 @@ export default function TeamIndex({ team, success }: TeamIndexProps) {
                             <CardTitle className="text-sm font-medium">Categories</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold text-green-600">
-                                {new Set(team.data.map(item => item.category)).size}
-                            </div>
+                            <div className="text-2xl font-bold text-green-600">{stats.categories}</div>
                         </CardContent>
                     </Card>
                 </div>

@@ -17,7 +17,21 @@ class TeamController extends Controller
     public function index()
     {
         $team = Team::with('admin')->orderBy('category', 'asc')->paginate(10);
-        return Inertia::render('admin/teams/index', ['team' => $team]);
+
+        $total = Team::count();
+        $executiveOfficers = Team::where('category', 'Executive Officers')->count();
+        $societyMembers = Team::whereNotNull('society')->count();
+        $categories = Team::distinct('category')->count('category');
+
+        return Inertia::render('admin/teams/index', [
+            'team' => $team,
+            'stats' => [
+                'total' => $total,
+                'executiveOfficers' => $executiveOfficers,
+                'societyMembers' => $societyMembers,
+                'categories' => $categories,
+            ],
+        ]);
     }
 
     /**
