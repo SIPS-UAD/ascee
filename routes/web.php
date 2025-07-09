@@ -193,3 +193,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';
+
+// Add this route after the news index route (around line 28)
+Route::get('news/{id}', function ($id) {
+    // Find the news article
+    $news = \App\Models\News::with('admin')->findOrFail($id);
+    
+    // Get related news (exclude current one, get latest 5)
+    $relatedNews = \App\Models\News::where('id_news', '!=', $id)
+                    ->latest()
+                    ->take(5)
+                    ->get();
+    
+    return Inertia::render('details/news/index', [
+        'news' => $news,
+        'relatedNews' => $relatedNews
+    ]);
+})->name('public.news.show');
