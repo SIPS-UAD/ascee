@@ -1,9 +1,10 @@
 import { useSharedData } from '@/hooks/useSharedData';
-import WithImageOrganism from '../organisms/withImage-organism';
 import CardListNoImage from '../CardListNoImage';
+import WithImageOrganism from '../organisms/withImage-organism';
+import { Link } from '@inertiajs/react';
 
 const SecondHeroSectionHomepage = () => {
-        const { conferences } = useSharedData();
+    const { conferences } = useSharedData();
 
     return (
         <section className="bg-white pt-20 pb-8 sm:pt-24 sm:pb-12 lg:pt-28 lg:pb-16">
@@ -13,6 +14,11 @@ const SecondHeroSectionHomepage = () => {
                         <div className="border-b-4 border-blue-500"></div>
                         <h2 className="sm:text-md py-2 text-lg font-bold text-black">EVENTS</h2>
                         <WithImageOrganism />
+                        <div className="mt-6 text-right">
+                            <Link href="/events" className="text-sm font-medium text-blue-500 hover:text-blue-600">
+                                More Events →
+                            </Link>
+                        </div>
                     </div>
                     <div className="w-full lg:w-1/3">
                         <CardListNoImage items={conferences} sectionTitle="Conference" moreLinkText="More Conferences" moreLinkUrl="/conferences" />
