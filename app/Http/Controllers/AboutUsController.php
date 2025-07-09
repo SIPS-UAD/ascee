@@ -30,10 +30,10 @@ class AboutUsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'description' => 'required|string',
-            'visi_misi' => 'required|string',
-            'people' => 'nullable|string',
-            'contact' => 'nullable|string',
+            'overview' => 'required|string',
+            'vision' => 'required|string',
+            'mission' => 'required|string',
+            'corporate_offices' => 'required|string',
             'admin_id' => 'required|exists:admins,id_admin',
         ]);
 

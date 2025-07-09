@@ -16,7 +16,22 @@ class JournalController extends Controller
     public function index()
     {
         $journals = Journal::with('admin')->latest()->paginate(9);
-        return Inertia::render('admin/journal/index', ['journals' => $journals]);
+
+        $now = now();
+        $totalJournals = Journal::count();
+        $withImages = Journal::whereNotNull('image')->count();
+        $thisMonth = Journal::whereMonth('created_at', $now->month)->whereYear('created_at', $now->year)->count();
+        $admins = Journal::distinct('admin_id')->count('admin_id');
+
+        return Inertia::render('admin/journal/index', [
+            'journals' => $journals,
+            'stats' => [
+                'total' => $totalJournals,
+                'withImages' => $withImages,
+                'thisMonth' => $thisMonth,
+                'admins' => $admins,
+            ],
+        ]);
     }
 
     /**

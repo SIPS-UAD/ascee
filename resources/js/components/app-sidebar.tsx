@@ -3,7 +3,7 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { Calendar, GraduationCap, BookOpen as Journal, LayoutGrid, Newspaper, Users, Video } from 'lucide-react';
+import { Calendar, GraduationCap, BookOpen as Journal, LayoutGrid, Newspaper, Users, Video, UserCircle } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -44,8 +44,13 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'Careers',
-        href: '/admin/careers', // Tetap /careers
+        href: '/admin/careers',
         icon: GraduationCap,
+    },
+    {
+        title: 'Team',
+        href: '/admin/teams',
+        icon: UserCircle,
     },
 ];
 

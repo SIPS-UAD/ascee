@@ -93,44 +93,6 @@ export default function Dashboard({ counts, recentActivity, latestPosts = [] }: 
                     </Link>
                 </div>
 
-                {/* User Activity Table */}
-                <Card>
-                    <CardHeader>
-                        <CardTitle>Recent User Activity</CardTitle>
-                        <p className="text-sm text-muted-foreground">Latest user login activities</p>
-                    </CardHeader>
-                    <CardContent>
-                        <div className="relative overflow-x-auto">
-                            <table className="w-full text-left text-sm">
-                                <thead className="bg-gray-50 text-xs uppercase dark:bg-gray-700">
-                                    <tr>
-                                        <th className="px-6 py-3">Full Name</th>
-                                        <th className="px-6 py-3">Email</th>
-                                        <th className="px-6 py-3">Last Login</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {recentActivity.length > 0 ? (
-                                        recentActivity.map((user) => (
-                                            <tr key={user.id} className="border-b hover:bg-gray-50 dark:hover:bg-gray-700">
-                                                <td className="px-6 py-4 font-medium">{user.full_name}</td>
-                                                <td className="px-6 py-4">{user.email}</td>
-                                                <td className="px-6 py-4">{new Date(user.last_login_at).toLocaleString()}</td>
-                                            </tr>
-                                        ))
-                                    ) : (
-                                        <tr>
-                                            <td colSpan={3} className="px-6 py-4 text-center text-gray-500">
-                                                No recent activity found
-                                            </td>
-                                        </tr>
-                                    )}
-                                </tbody>
-                            </table>
-                        </div>
-                    </CardContent>
-                </Card>
-
                 {/* Latest Posts Table */}
                 <Card>
                     <CardHeader>

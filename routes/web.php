@@ -12,6 +12,7 @@ use App\Http\Controllers\EducationAndCareersController;
 use App\Http\Controllers\PencarianMemberController;
 use App\Http\Controllers\JenisMitraController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\TeamController;
 
 Route::get('/', function () {
     return Inertia::render('Landing/homePage/index', [
@@ -49,12 +50,14 @@ Route::get('journals', function () {
 })->name('public.journals.index');
 
 Route::get('about_us', function () {
-    $about_us = \App\Models\Journal::with('admin')->latest()->paginate(10);
-    return Inertia::render('Landing/about_us/index', ['about_us' => $about_us]);
-})->name('public.about_us.index');
+    $about_us = \App\Models\AboutUs::first(); // atau AboutUs::with('admin')->first();
+    return Inertia::render('Landing/about_us/index', [
+        'aboutUs' => $about_us
+    ]);
+});
 
 Route::get('team', function () {
-    $team = \App\Models\Journal::with('admin')->latest()->paginate(10);
+    $team = \App\Models\Team::all();
     return Inertia::render('Landing/team/index', ['team' => $team]);
 })->name('public.team.index');
 
@@ -171,6 +174,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // Conferences routes
         Route::resource('conferences', ConferencesController::class);
+
+        Route::resource('teams', TeamController::class);
 
         // Careers routes
         Route::resource('careers', EducationAndCareersController::class)

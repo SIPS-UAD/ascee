@@ -48,4 +48,9 @@ class Admin extends Model
     {
         return $this->hasMany(EducationAndCareers::class, 'admin_id', 'id_admin');
     }
+    
+    public function teams(): HasMany
+    {
+        return $this->hasMany(Team::class, 'admin_id', 'id_admin');
+    }
 }

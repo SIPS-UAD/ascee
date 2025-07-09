@@ -1,12 +1,14 @@
-import { Head, useForm } from '@inertiajs/react';
-import AppLayout from '@/layouts/app-layout';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { FileText, Users, Mail, Save } from 'lucide-react';
+import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
+import { Head, useForm } from '@inertiajs/react';
+import Link from '@tiptap/extension-link';
+import { EditorContent, useEditor } from '@tiptap/react';
+import StarterKit from '@tiptap/starter-kit';
+import { FileText, Mail, Save, Users } from 'lucide-react';
 import { FormEventHandler } from 'react';
 
 interface Admin {
@@ -17,11 +19,11 @@ interface Admin {
 
 interface AboutUsItem {
     id_about: number;
-    description: string;
-    visi_misi: string;
+    overview: string;
+    vision: string;
+    mission: string;
+    corporate_offices: string;
     section: string;
-    people: string;
-    contact: string;
     admin_id: number;
     admin: Admin;
     created_at: string;
@@ -39,12 +41,97 @@ const breadcrumbs: BreadcrumbItem[] = [
     { title: 'About Us Management', href: '/admin/about-us' },
 ];
 
+// Create a reusable RichTextEditor component
+function RichTextEditor({
+    value,
+    onChange,
+    placeholder,
+    className,
+    error = false,
+}: {
+    value: string;
+    onChange: (value: string) => void;
+    placeholder?: string;
+    className?: string;
+    error?: boolean;
+}) {
+    const editor = useEditor({
+        extensions: [
+            StarterKit.configure({
+                bulletList: {
+                    keepMarks: true,
+                    keepAttributes: false,
+                },
+                orderedList: {
+                    keepMarks: true,
+                    keepAttributes: false,
+                },
+            }),
+            Link.configure({
+                openOnClick: false,
+            }),
+        ],
+        content: value,
+        editorProps: {
+            attributes: {
+                class: `focus:outline-none min-h-[150px] ${className}`,
+                placeholder: placeholder,
+            },
+        },
+        onUpdate: ({ editor }) => {
+            onChange(editor.getHTML());
+        },
+    });
+
+    return (
+        <div className={`rounded-md border ${error ? 'border-red-500' : 'border-input'}`}>
+            <div className="flex flex-wrap gap-2 border-b p-2">
+                <button
+                    type="button"
+                    onClick={() => editor?.chain().focus().toggleBold().run()}
+                    className={`rounded p-1 hover:bg-gray-100 ${editor?.isActive('bold') ? 'bg-gray-100' : ''}`}
+                >
+                    Bold
+                </button>
+                <button
+                    type="button"
+                    onClick={() => editor?.chain().focus().toggleItalic().run()}
+                    className={`rounded p-1 hover:bg-gray-100 ${editor?.isActive('italic') ? 'bg-gray-100' : ''}`}
+                >
+                    Italic
+                </button>
+                <button
+                    type="button"
+                    onClick={() => {
+                        editor?.chain().focus().toggleBulletList().run();
+                        console.log('Bullet list toggled:', editor?.isActive('bulletList'));
+                    }}
+                    className={`rounded p-1 hover:bg-gray-100 ${editor?.isActive('bulletList') ? 'bg-gray-100' : ''}`}
+                >
+                    Bullet List
+                </button>
+                <button
+                    type="button"
+                    onClick={() => {
+                        editor?.chain().focus().toggleOrderedList().run();
+                        console.log('Ordered list toggled:', editor?.isActive('orderedList'));
+                    }}
+                    className={`rounded p-1 hover:bg-gray-100 ${editor?.isActive('orderedList') ? 'bg-gray-100' : ''}`}
+                >
+                    Ordered List
+                </button>
+            </div>
+            <EditorContent editor={editor} className="p-3" />
+        </div>
+    );
+}
+
 export default function AboutUsIndex({ aboutUs, admins, success }: AboutUsIndexProps) {
     const { data, setData, post, processing, errors } = useForm({
-        description: aboutUs?.description || '',
-        visi_misi: aboutUs?.visi_misi || '',
-        people: aboutUs?.people || '',
-        contact: aboutUs?.contact || '',
+        overview: aboutUs?.overview || '',
+        vision: aboutUs?.vision || '',
+        mission: aboutUs?.mission || '',
+        corporate_offices: aboutUs?.corporate_offices || '',
         admin_id: aboutUs?.admin_id?.toString() || '',
     });
 
@@ -56,15 +143,13 @@ export default function AboutUsIndex({ aboutUs, admins, success }: AboutUsIndexP
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="About Us Management" />
-            
+
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div>
                         <h1 className="text-2xl font-bold tracking-tight">About Us Management</h1>
-                        <p className="text-muted-foreground">
-                            {aboutUs ? 'Update' : 'Create'} the about us page information
-                        </p>
+                        <p className="text-muted-foreground">{aboutUs ? 'Update' : 'Create'} the about us page information</p>
                     </div>
                 </div>
 
@@ -81,74 +166,61 @@ export default function AboutUsIndex({ aboutUs, admins, success }: AboutUsIndexP
                         <Card>
                             <CardHeader>
                                 <CardTitle>About Us Information</CardTitle>
-                                <CardDescription>
-                                    {aboutUs ? 'Update the about us page content' : 'Create the about us page content'}
-                                </CardDescription>
+                                <CardDescription>{aboutUs ? 'Update the about us page content' : 'Create the about us page content'}</CardDescription>
                             </CardHeader>
-                            <CardContent>                                <form onSubmit={submit} className="space-y-6">
+                            <CardContent>
+                                <form onSubmit={submit} className="space-y-6">
                                     <div className="grid gap-4">
-                                        {/* Description */}
+                                        {/* Overview */}
                                         <div className="space-y-2">
-                                            <Label htmlFor="description">Description</Label>
-                                            <textarea
-                                                id="description"
-                                                value={data.description}
-                                                onChange={(e) => setData('description', e.target.value)}
-                                                placeholder="Enter about us description"
-                                                rows={4}
-                                                className={`flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${errors.description ? 'border-red-500' : ''}`}
+                                            <Label htmlFor="overview">Overview</Label>
+                                            <RichTextEditor
+                                                value={data.overview}
+                                                onChange={(value) => setData('overview', value)}
+                                                placeholder="Enter company overview"
+                                                className="min-h-[200px]"
+                                                error={!!errors.overview}
                                             />
-                                            {errors.description && (
-                                                <p className="text-sm text-red-600">{errors.description}</p>
-                                            )}
+                                            {errors.overview && <p className="text-sm text-red-600">{errors.overview}</p>}
                                         </div>
 
-                                        {/* Vision & Mission */}
+                                        {/* Vision */}
                                         <div className="space-y-2">
-                                            <Label htmlFor="visi_misi">Vision & Mission</Label>
-                                            <textarea
-                                                id="visi_misi"
-                                                value={data.visi_misi}
-                                                onChange={(e) => setData('visi_misi', e.target.value)}
-                                                placeholder="Enter vision and mission statement"
-                                                rows={3}
-                                                className={`flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${errors.visi_misi ? 'border-red-500' : ''}`}
+                                            <Label htmlFor="vision">Vision</Label>
+                                            <RichTextEditor
+                                                value={data.vision}
+                                                onChange={(value) => setData('vision', value)}
+                                                placeholder="Enter company vision"
+                                                className="min-h-[150px]"
+                                                error={!!errors.vision}
                                             />
-                                            {errors.visi_misi && (
-                                                <p className="text-sm text-red-600">{errors.visi_misi}</p>
-                                            )}
+                                            {errors.vision && <p className="text-sm text-red-600">{errors.vision}</p>}
                                         </div>
 
-                                        {/* People */}
+                                        {/* Mission */}
                                         <div className="space-y-2">
-                                            <Label htmlFor="people">People Information</Label>
-                                            <textarea
-                                                id="people"
-                                                value={data.people}
-                                                onChange={(e) => setData('people', e.target.value)}
-                                                placeholder="Enter information about people involved (optional)"
-                                                rows={3}
-                                                className={`flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${errors.people ? 'border-red-500' : ''}`}
+                                            <Label htmlFor="mission">Mission</Label>
+                                            <RichTextEditor
+                                                value={data.mission}
+                                                onChange={(value) => setData('mission', value)}
+                                                placeholder="Enter company mission"
+                                                className="min-h-[150px]"
+                                                error={!!errors.mission}
                                             />
-                                            {errors.people && (
-                                                <p className="text-sm text-red-600">{errors.people}</p>
-                                            )}
+                                            {errors.mission && <p className="text-sm text-red-600">{errors.mission}</p>}
                                         </div>
 
-                                        {/* Contact */}
+                                        {/* Corporate Offices */}
                                         <div className="space-y-2">
-                                            <Label htmlFor="contact">Contact Information</Label>
-                                            <textarea
-                                                id="contact"
-                                                value={data.contact}
-                                                onChange={(e) => setData('contact', e.target.value)}
-                                                placeholder="Enter contact information (optional)"
-                                                rows={2}
-                                                className={`flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${errors.contact ? 'border-red-500' : ''}`}
+                                            <Label htmlFor="corporate_offices">Corporate Offices</Label>
+                                            <RichTextEditor
+                                                value={data.corporate_offices}
+                                                onChange={(value) => setData('corporate_offices', value)}
+                                                placeholder="Enter corporate office locations"
+                                                className="min-h-[150px]"
+                                                error={!!errors.corporate_offices}
                                             />
-                                            {errors.contact && (
-                                                <p className="text-sm text-red-600">{errors.contact}</p>
-                                            )}
+                                            {errors.corporate_offices && <p className="text-sm text-red-600">{errors.corporate_offices}</p>}
                                         </div>
 
                                         {/* Admin Selection */}
@@ -166,17 +238,15 @@ export default function AboutUsIndex({ aboutUs, admins, success }: AboutUsIndexP
                                                     ))}
                                                 </SelectContent>
                                             </Select>
-                                            {errors.admin_id && (
-                                                <p className="text-sm text-red-600">{errors.admin_id}</p>
-                                            )}
+                                            {errors.admin_id && <p className="text-sm text-red-600">{errors.admin_id}</p>}
                                         </div>
                                     </div>
 
                                     {/* Submit Button */}
                                     <div className="flex items-center gap-4 pt-4">
                                         <Button type="submit" disabled={processing}>
-                                            <Save className="h-4 w-4 mr-2" />
-                                            {processing ? 'Saving...' : (aboutUs ? 'Update Information' : 'Create Information')}
+                                            <Save className="mr-2 h-4 w-4" />
+                                            {processing ? 'Saving...' : aboutUs ? 'Update Information' : 'Create Information'}
                                         </Button>
                                     </div>
                                 </form>
@@ -189,42 +259,36 @@ export default function AboutUsIndex({ aboutUs, admins, success }: AboutUsIndexP
                         <Card>
                             <CardHeader>
                                 <CardTitle>Information</CardTitle>
-                                <CardDescription>
-                                    About the about us page management
-                                </CardDescription>
+                                <CardDescription>About the about us page management</CardDescription>
                             </CardHeader>
                             <CardContent className="space-y-4">
                                 {aboutUs && (
                                     <>
                                         <div className="flex items-start gap-3">
-                                            <FileText className="h-5 w-5 text-blue-500 mt-0.5" />
+                                            <FileText className="mt-0.5 h-5 w-5 text-blue-500" />
                                             <div>
                                                 <h4 className="text-sm font-medium">Current Status</h4>
-                                                <p className="text-xs text-gray-600 dark:text-gray-400">
-                                                    Information exists and can be updated
-                                                </p>
+                                                <p className="text-xs text-gray-600 dark:text-gray-400">Information exists and can be updated</p>
                                             </div>
                                         </div>
-                                        
+
                                         <div className="flex items-start gap-3">
-                                            <Users className="h-5 w-5 text-green-500 mt-0.5" />
+                                            <Users className="mt-0.5 h-5 w-5 text-green-500" />
                                             <div>
                                                 <h4 className="text-sm font-medium">Created By</h4>
-                                                <p className="text-xs text-gray-600 dark:text-gray-400">
-                                                    {aboutUs.admin.username}
-                                                </p>
+                                                <p className="text-xs text-gray-600 dark:text-gray-400">{aboutUs.admin.username}</p>
                                             </div>
                                         </div>
-                                        
+
                                         <div className="flex items-start gap-3">
-                                            <Mail className="h-5 w-5 text-purple-500 mt-0.5" />
+                                            <Mail className="mt-0.5 h-5 w-5 text-purple-500" />
                                             <div>
                                                 <h4 className="text-sm font-medium">Last Updated</h4>
                                                 <p className="text-xs text-gray-600 dark:text-gray-400">
                                                     {new Date(aboutUs.updated_at).toLocaleDateString('en-US', {
                                                         year: 'numeric',
                                                         month: 'long',
-                                                        day: 'numeric'
+                                                        day: 'numeric',
                                                     })}
                                                 </p>
                                             </div>
@@ -232,7 +296,7 @@ export default function AboutUsIndex({ aboutUs, admins, success }: AboutUsIndexP
                                     </>
                                 )}
 
-                                <div className="mt-6 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                                <div className="mt-6 rounded-lg bg-blue-50 p-3 dark:bg-blue-900/20">
                                     <p className="text-xs text-blue-700 dark:text-blue-400">
                                         <strong>Note:</strong> This page manages a single about us information that will be displayed on the website.
                                     </p>

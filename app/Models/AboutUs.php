@@ -11,11 +11,11 @@ class AboutUs extends Model
     protected $primaryKey = 'id_about';
 
     protected $fillable = [
-        'description',
-        'visi_misi',
+        'overview',
+        'vision',
+        'mission',
+        'corporate_offices',
         'section',
-        'people',
-        'contact',
         'admin_id'
     ];
 
