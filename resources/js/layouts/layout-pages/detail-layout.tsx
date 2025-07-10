@@ -35,28 +35,28 @@ const DetailLayout: React.FC<DetailLayoutProps> = ({
       category: 'NEWS',
       sidebarTitle: 'MORE NEWS',
       sidebarLinkPath: '/news',
-      sidebarLinkText: 'More News',
+      sidebarLinkText: 'See More News',
       detailPath: '/news'
     },
     conferences: {
       category: 'CONFERENCES',
       sidebarTitle: 'MORE CONFERENCES',
       sidebarLinkPath: '/conferences',
-      sidebarLinkText: 'More Conferences',
+      sidebarLinkText: 'See More Conferences',
       detailPath: '/conferences'
     },
     events: {
       category: 'EVENTS',
       sidebarTitle: 'MORE EVENTS',
       sidebarLinkPath: '/events',
-      sidebarLinkText: 'More Events',
+      sidebarLinkText: 'See More Events',
       detailPath: '/events'
     },
     careers: {
       category: 'CAREERS',
       sidebarTitle: 'MORE CAREERS',
       sidebarLinkPath: '/careers',
-      sidebarLinkText: 'More Careers',
+      sidebarLinkText: 'See More Careers',
       detailPath: '/careers'
     }
   };
@@ -67,7 +67,7 @@ const DetailLayout: React.FC<DetailLayoutProps> = ({
     <>
       <HeaderLayout />
       
-      <main className="max-w-7xl mx-auto px-4 py-8 flex flex-col lg:flex-row gap-8 pt-20">
+      <main className="max-w-7xl mx-auto px-4 py-8 flex flex-col lg:flex-row gap-8 pt-24">
         {/* Main Content Area */}
         <div className="flex-1">
           {/* Category Tag */}
@@ -125,7 +125,7 @@ const DetailLayout: React.FC<DetailLayoutProps> = ({
                 ))}
               </div>
               
-              <div className="mt-4">
+              <div className="mt-4 text-right">
                 <Link href={config.sidebarLinkPath} className="text-blue-600 text-sm hover:underline">
                   {config.sidebarLinkText}
                 </Link>

@@ -131,4 +131,28 @@ class EventsController extends Controller
         return redirect()->route('events.index')
             ->with('success', 'Event deleted successfully.');
     }
+
+    /**
+     * Display the specified event for public view.
+     */
+    public function publicShow($id)
+    {
+        $event = Events::with('admin')->findOrFail($id);
+        $event->formatted_date = $event->formattedDate;
+        
+        // Get related events with formatted dates
+        $relatedEvents = Events::where('id_events', '!=', $id)
+                    ->latest()
+                    ->take(5)
+                    ->get()
+                    ->map(function ($item) {
+                        $item->formatted_date = $item->formattedDate;
+                        return $item;
+                    });
+        
+        return Inertia::render('details/events/index', [
+            'event' => $event,
+            'relatedEvents' => $relatedEvents
+        ]);
+    }
 }
