@@ -71,12 +71,13 @@ const DetailLayout: React.FC<DetailLayoutProps> = ({
         {/* Main Content Area */}
         <div className="flex-1">
           {/* Category Tag */}
-          <div className="inline-block border-2 border-blue-600 text-blue-600 font-bold px-3 py-1 mb-4">
-            {config.category}
-          </div>
+          <div className="flex w-auto bg-white">
+            <div className="mr-3 h-8 w-1 bg-blue-500"></div>
+            <h1 className="text-lg font-bold">{config.category}</h1>
+        </div>
           
           {/* Article Title */}
-          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2">
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 pt-10">
             {title}
           </h1>
           
@@ -131,19 +132,6 @@ const DetailLayout: React.FC<DetailLayoutProps> = ({
               </div>
             </div>
           )}
-          
-          {/* Subscription Sections */}
-          <div className="space-y-4">
-            <div className="bg-blue-500 text-white p-4 text-center rounded-md">
-              <div className="text-sm mb-1">SUBSCRIBE</div>
-              <div className="text-2xl font-bold">CROSSREF</div>
-            </div>
-            
-            <div className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white p-4 text-center rounded-md">
-              <div className="text-sm mb-1">SUBSCRIBE</div>
-              <div className="text-2xl font-bold">GRAMMARLY</div>
-            </div>
-          </div>
         </div>
       </main>
       

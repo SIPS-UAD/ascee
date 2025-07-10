@@ -1,5 +1,6 @@
 import { Head } from '@inertiajs/react';
 import DetailLayout from '@/layouts/layout-pages/detail-layout';
+import { formatDate } from '@/lib/formatDate';
 
 interface NewsDetail {
   id_news: number;
@@ -28,13 +29,13 @@ export default function NewsDetails({ news, relatedNews }: NewsDetailsProps) {
       <DetailLayout
         contentType="news"
         title={news.title}
-        date={news.date}
+        date={formatDate(news.date)}
         publisher={news.publisher}
         image={news.image ? `/storage/${news.image}` : undefined}
         content={news.description}
         relatedItems={relatedNews.map(item => ({
           id: item.id_news,
-          date: item.date,
+          date: formatDate(item.date),
           title: item.title,
           publisher: item.publisher
         }))}
