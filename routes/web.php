@@ -45,8 +45,13 @@ Route::get('conference', function () {
 })->name('public.conference.index');
 
 Route::get('journals', function () {
-    $journals = \App\Models\Journal::with('admin')->latest()->paginate(10);
-    return Inertia::render('Landing/journals/index', ['journals' => $journals]);
+    $journals = \App\Models\Journal::with('admin')
+                ->latest()
+                ->get();
+    
+    return Inertia::render('Landing/journals/index', [
+        'journals' => $journals
+    ]);
 })->name('public.journals.index');
 
 Route::get('about_us', function () {
