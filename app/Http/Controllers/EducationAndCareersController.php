@@ -121,4 +121,28 @@ class EducationAndCareersController extends Controller
         return redirect()->route('careers.index')
             ->with('success', 'Education & Career content deleted successfully.');
     }
+
+    /**
+     * Display the specified career for public view.
+     */
+    public function publicShow($id)
+    {
+        $career = EducationAndCareers::with('admin')->findOrFail($id);
+        $career->formatted_date = $career->formattedDate;
+        
+        // Get related careers with formatted dates
+        $relatedCareers = EducationAndCareers::where('id_education', '!=', $id)
+                    ->latest()
+                    ->take(5)
+                    ->get()
+                    ->map(function ($item) {
+                        $item->formatted_date = $item->formattedDate;
+                        return $item;
+                    });
+        
+        return Inertia::render('details/careers/index', [
+            'career' => $career,
+            'relatedCareers' => $relatedCareers
+        ]);
+    }
 }
