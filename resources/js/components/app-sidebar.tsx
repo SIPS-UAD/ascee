@@ -3,7 +3,7 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { Calendar, GraduationCap, BookOpen as Journal, LayoutGrid, Newspaper, Users, Video, UserCircle } from 'lucide-react';
+import { Calendar, GraduationCap, BookOpen as Journal, LayoutGrid, Newspaper, Users, Video, UserCircle, UserRoundPen, Building } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -15,12 +15,12 @@ const mainNavItems: NavItem[] = [
     {
         title: 'Admin Management',
         href: '/admin/admins',
-        icon: Users,
+        icon: UserRoundPen,
     },
     {
         title: 'About Us',
         href: '/admin/about-us',
-        icon: Newspaper,
+        icon: Building,
     },
     {
         title: 'News',
@@ -50,7 +50,7 @@ const mainNavItems: NavItem[] = [
     {
         title: 'Team',
         href: '/admin/teams',
-        icon: UserCircle,
+        icon: Users,
     },
 ];
 
