@@ -1,7 +1,7 @@
 import { useSharedData } from '@/hooks/useSharedData';
+import { Link } from '@inertiajs/react';
 import CardListNoImage from '../CardListNoImage';
 import WithImageOrganism from '../organisms/withImage-organism';
-import { Link } from '@inertiajs/react';
 
 const SecondHeroSectionHomepage = () => {
     const { conferences } = useSharedData();
@@ -21,7 +21,17 @@ const SecondHeroSectionHomepage = () => {
                         </div>
                     </div>
                     <div className="w-full lg:w-1/3">
-                        <CardListNoImage items={conferences} sectionTitle="Conference" moreLinkText="More Conferences" moreLinkUrl="/conferences" />
+                        <CardListNoImage
+                            items={conferences.map((item) => ({
+                                id: item.id_conferences,
+                                date: item.date,
+                                title: item.title,
+                                category: 'conference',
+                            }))}
+                            sectionTitle="Conference"
+                            moreLinkText="More Conferences"
+                            moreLinkUrl="/conferences"
+                        />
                     </div>
                 </div>
             </div>
