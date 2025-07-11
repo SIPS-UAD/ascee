@@ -45,7 +45,6 @@ const breadcrumbs: BreadcrumbItem[] = [
 function RichTextEditor({
     value,
     onChange,
-    placeholder,
     className,
     error = false,
 }: {
@@ -75,7 +74,6 @@ function RichTextEditor({
         editorProps: {
             attributes: {
                 class: `focus:outline-none min-h-[150px] ${className}`,
-                placeholder: placeholder,
             },
         },
         onUpdate: ({ editor }) => {
@@ -137,7 +135,7 @@ export default function AboutUsIndex({ aboutUs, admins, success }: AboutUsIndexP
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post('/about-us');
+        post('/admin/about-us');
     };
 
     return (
