@@ -1,6 +1,7 @@
 import FooterLayout from '@/layouts/layout-pages/footer-layout';
 import HeaderLayout from '@/layouts/layout-pages/header-layout';
-import PageMainLayout from '@/layouts/layout-pages/page-main-layout';
+import JournalPageMainLayout from '@/layouts/layout-pages/journal-page-main-layout';
+
 import { Head } from '@inertiajs/react';
 
 export default function Index() {
@@ -8,7 +9,7 @@ export default function Index() {
         <>
             <Head title="JOURNALS" />
             <HeaderLayout />
-            <PageMainLayout nameTag='JOURNALS'/>
+            <JournalPageMainLayout/>
             <FooterLayout />
         </>
     );
