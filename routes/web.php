@@ -75,7 +75,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
                     'title' => $item->title,
                     'category' => 'news',
                     'date' => $item->date,
-                    'url' => '/news/' . $item->id,
+                    'url' => '/admin/news/' . $item->id,
                 ];
             });
 
@@ -90,7 +90,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
                     'title' => $item->title,
                     'category' => 'events',
                     'date' => $item->date,
-                    'url' => '/events/' . $item->id,
+                    'url' => '/admin/events/' . $item->id,
                 ];
             });
 
@@ -105,7 +105,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
                     'title' => $item->title,
                     'category' => 'conferences',
                     'date' => $item->date,
-                    'url' => '/conferences/' . $item->id,
+                    'url' => '/admin/conferences/' . $item->id,
                 ];
             });
 
@@ -120,7 +120,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
                     'title' => $item->title,
                     'category' => 'careers',
                     'date' => $item->date,
-                    'url' => '/careers/' . $item->id,
+                    'url' => '/admin/careers/' . $item->id,
                 ];
             });
 
