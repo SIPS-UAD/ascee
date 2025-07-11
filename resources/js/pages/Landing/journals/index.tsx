@@ -1,8 +1,7 @@
 import FooterLayout from '@/layouts/layout-pages/footer-layout';
 import HeaderLayout from '@/layouts/layout-pages/header-layout';
-
+import Quotes from '@/components/atoms/quotes';
 import { Head } from '@inertiajs/react';
-import { Search, Filter } from 'lucide-react';
 import { useState } from 'react';
 
 interface Admin {
@@ -84,19 +83,7 @@ export default function Index({ journals }: JournalsProps) {
           
           {/* Right side - Search and subscription */}
           <div className="w-full md:w-64 flex-shrink-0 space-y-6">
-                        
-            {/* Subscription boxes */}
-            <div className="space-y-4 mt-8">
-              <div className="bg-blue-500 text-white p-4 text-center rounded-md">
-                <div className="text-sm mb-1">SUBSCRIBE</div>
-                <div className="text-2xl font-bold">CROSSREF</div>
-              </div>
-              
-              <div className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white p-4 text-center rounded-md">
-                <div className="text-sm mb-1">SUBSCRIBE</div>
-                <div className="text-2xl font-bold">GRAMMARLY</div>
-              </div>
-            </div>
+            <Quotes/>
           </div>
         </div>
       </div>
