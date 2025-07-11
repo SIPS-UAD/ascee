@@ -1,25 +1,10 @@
 import FooterLayout from '@/layouts/layout-pages/footer-layout';
 import HeaderLayout from '@/layouts/layout-pages/header-layout';
-<<<<<<< HEAD
-import JournalPageMainLayout from '@/layouts/layout-pages/journal-page-main-layout';
 
-=======
->>>>>>> 1ad5fc7a5782033a28fde1f9c364e225d02e8914
 import { Head } from '@inertiajs/react';
 import { Search, Filter } from 'lucide-react';
 import { useState } from 'react';
 
-<<<<<<< HEAD
-export default function Index() {
-    return (
-        <>
-            <Head title="JOURNALS" />
-            <HeaderLayout />
-            <JournalPageMainLayout/>
-            <FooterLayout />
-        </>
-    );
-=======
 interface Admin {
   id_admin: number;
   email: string;
@@ -119,5 +104,5 @@ export default function Index({ journals }: JournalsProps) {
       <FooterLayout />
     </>
   );
->>>>>>> 1ad5fc7a5782033a28fde1f9c364e225d02e8914
+
 }
