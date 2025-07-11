@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Admin extends Model
+class Admin extends Authenticatable
 {
     protected $primaryKey = 'id_admin';
 
@@ -16,7 +16,8 @@ class Admin extends Model
     ];
 
     protected $hidden = [
-        'password'
+        'password',
+        'remember_token'
     ];
 
     public function aboutUs(): HasMany
@@ -48,7 +49,7 @@ class Admin extends Model
     {
         return $this->hasMany(EducationAndCareers::class, 'admin_id', 'id_admin');
     }
-    
+
     public function teams(): HasMany
     {
         return $this->hasMany(Team::class, 'admin_id', 'id_admin');
