@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class News extends Model
 {
@@ -19,8 +20,20 @@ class News extends Model
     ];
 
     protected $casts = [
-        'date' => 'date'
+        'date' => 'datetime'
     ];
+    
+    /**
+     * Format date attribute to DD-MM-YYYY
+     */
+    protected function formattedDate(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return $this->date->format('d-m-Y');
+            }
+        );
+    }
 
     public function admin(): BelongsTo
     {

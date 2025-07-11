@@ -45,8 +45,13 @@ Route::get('conference', function () {
 })->name('public.conference.index');
 
 Route::get('journals', function () {
-    $journals = \App\Models\Journal::with('admin')->latest()->paginate(10);
-    return Inertia::render('Landing/journals/index', ['journals' => $journals]);
+    $journals = \App\Models\Journal::with('admin')
+                ->latest()
+                ->get();
+    
+    return Inertia::render('Landing/journals/index', [
+        'journals' => $journals
+    ]);
 })->name('public.journals.index');
 
 Route::get('about_us', function () {
@@ -193,3 +198,28 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';
+
+// Add this route after the news index route (around line 28)
+Route::get('news/{id}', function ($id) {
+    // Find the news article
+    $news = \App\Models\News::with('admin')->findOrFail($id);
+    
+    // Get related news (exclude current one, get latest 5)
+    $relatedNews = \App\Models\News::where('id_news', '!=', $id)
+                    ->latest()
+                    ->take(5)
+                    ->get();
+    
+    return Inertia::render('details/news/index', [
+        'news' => $news,
+        'relatedNews' => $relatedNews
+    ]);
+})->name('public.news.show');
+
+Route::get('conference/{id}', [ConferencesController::class, 'publicShow'])->name('public.conferences.show');
+
+// Events detail route
+Route::get('events/{id}', [EventsController::class, 'publicShow'])->name('public.events.show');
+
+// Careers detail route
+Route::get('careers/{id}', [EducationAndCareersController::class, 'publicShow'])->name('public.careers.show');

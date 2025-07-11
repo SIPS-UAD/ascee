@@ -17,6 +17,12 @@ class NewsController extends Controller
     {
         $news = News::with('admin')->latest()->paginate(10);
 
+        // Append formatted_date to each news item
+        $news->through(function ($item) {
+            $item->formatted_date = $item->formattedDate;
+            return $item;
+        });
+
         $now = now();
         $totalNewsCount = News::count();
         $thisMonthCount = News::whereMonth('created_at', $now->month)->whereYear('created_at', $now->year)->count();
@@ -75,6 +81,7 @@ class NewsController extends Controller
     public function show(News $news)
     {
         $news->load('admin');
+        $news->formatted_date = $news->formattedDate;
         return Inertia::render('admin/news/show', compact('news'));
     }
 
@@ -129,5 +136,27 @@ class NewsController extends Controller
         
         return redirect()->route('news.index')
             ->with('success', 'News deleted successfully.');
+    }
+
+    // Format date for public news show route
+    public function publicShow($id)
+    {
+        $news = News::with('admin')->findOrFail($id);
+        $news->formatted_date = $news->formattedDate;
+        
+        // Get related news with formatted dates
+        $relatedNews = News::where('id_news', '!=', $id)
+                    ->latest()
+                    ->take(5)
+                    ->get()
+                    ->map(function ($item) {
+                        $item->formatted_date = $item->formattedDate;
+                        return $item;
+                    });
+        
+        return Inertia::render('details/news/index', [
+            'news' => $news,
+            'relatedNews' => $relatedNews
+        ]);
     }
 }

@@ -17,6 +17,12 @@ class ConferencesController extends Controller
     {
         $conferences = Conferences::with('admin')->orderBy('updated_at', 'desc')->paginate(9);
 
+        // Append formatted_date to each conference item
+        $conferences->through(function ($item) {
+            $item->formatted_date = $item->formattedDate;
+            return $item;
+        });
+
         $now = now();
         $totalConferences = Conferences::count();
         $thisMonth = Conferences::whereMonth('created_at', $now->month)->whereYear('created_at', $now->year)->count();
@@ -74,6 +80,7 @@ class ConferencesController extends Controller
     public function show(Conferences $conference)
     {
         $conference->load('admin');
+        $conference->formatted_date = $conference->formattedDate;
         return Inertia::render('admin/conferences/show', ['conference' => $conference]);
     }
 
@@ -130,5 +137,29 @@ class ConferencesController extends Controller
         
         return redirect()->route('conferences.index')
             ->with('success', 'Conference deleted successfully.');
+    }
+
+    /**
+     * Display the specified conference for public view.
+     */
+    public function publicShow($id)
+    {
+        $conference = Conferences::with('admin')->findOrFail($id);
+        $conference->formatted_date = $conference->formattedDate;
+        
+        // Get related conferences with formatted dates
+        $relatedConferences = Conferences::where('id_conferences', '!=', $id)
+                    ->latest()
+                    ->take(5)
+                    ->get()
+                    ->map(function ($item) {
+                        $item->formatted_date = $item->formattedDate;
+                        return $item;
+                    });
+        
+        return Inertia::render('details/conferences/index', [
+            'conference' => $conference,
+            'relatedConferences' => $relatedConferences
+        ]);
     }
 }
