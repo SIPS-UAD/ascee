@@ -1,0 +1,43 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+
+class EducationAndCareers extends Model
+{
+    protected $table = 'education_and_careers';
+    protected $primaryKey = 'id_education';
+
+    protected $fillable = [
+        'title',
+        'date',
+        'publisher',
+        'description',
+        'image',
+        'admin_id'
+    ];
+
+    protected $casts = [
+        'date' => 'datetime'
+    ];
+    
+    /**
+     * Format date attribute to DD-MM-YYYY
+     */
+    protected function formattedDate(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return $this->date->format('d-m-Y');
+            }
+        );
+    }
+
+    public function admin(): BelongsTo
+    {
+        return $this->belongsTo(Admin::class, 'admin_id', 'id_admin');
+    }
+}

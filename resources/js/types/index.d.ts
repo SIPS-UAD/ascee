@@ -41,3 +41,65 @@ export interface User {
     updated_at: string;
     [key: string]: unknown; // This allows for additional properties...
 }
+
+export interface News {
+    id_news: number;
+    title: string;
+    date: string;
+    publisher: string;
+    description: string;
+    image?: string;
+    admin_id: number;
+    admin: Admin;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface Event {
+    id_events: number;
+    title: string;
+    date: string;
+    description: string;
+    image?: string;
+    admin_id: number;
+    admin: Admin;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface Conference {
+    id_conferences: number;
+    title: string;
+    date: string;
+    description: string;
+    image?: string;
+    admin_id: number;
+    admin: Admin;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface Journal {
+    id_journal: number;
+    title: string;
+    image?: string;
+    admin_id: number;
+    admin: Admin;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface Admin {
+    id_admin: number;
+    email: string;
+    username: string;
+}
+
+export interface CardLandscape{
+    id: number;
+    title: string;
+    description: string;
+    image?: string;
+    date?: string;
+    publisher?: string;
+}

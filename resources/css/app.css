@@ -5,6 +5,8 @@
 @source '../views';
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 
+@import url('https://fonts.googleapis.com/css2?family=Hurricane&family=Quicksand:wght@300..700&display=swap');
+
 @custom-variant dark (&:is(.dark *));
 
 @theme {
@@ -57,6 +59,8 @@
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-ring: var(--sidebar-ring);
+
+    --text-tiny: 0.75rem;
 }
 
 /*
@@ -156,4 +160,23 @@
     body {
         @apply bg-background text-foreground;
     }
+}
+
+.font-quote {
+    font-family: 'Hurricane', serif;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+
 }
