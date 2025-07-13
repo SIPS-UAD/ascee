@@ -29,7 +29,7 @@ const SecondHeroSectionHomepage = () => {
                                 category: 'conference',
                             }))}
                             sectionTitle="Conference"
-                            moreLinkText="More Conferences"
+                            moreLinkText="More Conferences →"
                             moreLinkUrl="/conferences"
                         />
                     </div>

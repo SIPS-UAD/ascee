@@ -18,7 +18,7 @@ Route::get('/', function () {
     return Inertia::render('Landing/homePage/index', [
     ])->with([
         'sharedNews' => \App\Models\News::with('admin')->latest()->take(6)->get(),
-        'sharedEvents' => \App\Models\Events::with('admin')->latest()->take(3)->get(),
+        'sharedEvents' => \App\Models\Events::with('admin')->latest()->take(8)->get(),
         'sharedConferences' => \App\Models\Conferences::with('admin')->latest()->take(6)->get(),
         'sharedJournals' => \App\Models\Journal::with('admin')->latest()->take(3)->get(),
     ]);
@@ -39,7 +39,7 @@ Route::get('careers', function () {
     return Inertia::render('Landing/careers/index', ['careers' => $careers]);
 })->name('public.careers.index');
 
-Route::get('conference', function () {
+Route::get('conferences', function () {
     $conferences = \App\Models\Conferences::with('admin')->latest()->paginate(10);
     return Inertia::render('Landing/conference/index', ['conferences' => $conferences]);
 })->name('public.conference.index');

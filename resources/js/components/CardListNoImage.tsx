@@ -3,8 +3,8 @@ import { Link } from '@inertiajs/react';
 import React from 'react';
 
 interface Item {
-    id?: string|number;
-    date?: string|undefined;
+    id?: string | number;
+    date?: string | undefined;
     title?: string;
     publisher?: string;
     category?: string;
@@ -20,12 +20,12 @@ interface CardListNoImagePro {
 
 const CardListNoImage: React.FC<CardListNoImagePro> = ({ sectionTitle, moreLinkText, moreLinkUrl, items = [], accentColor = 'blue-500' }) => {
     const defaultItems = [
-        {id:1, date: '14 JUNI 2024', title: 'Pengumuman Penerima ASCEE Grants', publisher: 'ASCEE', category: 'conference' },
-        {id:2, date: '10 JUNI 2024', title: 'Call for Papers: ASCEE Conference 2024', publisher: 'ASCEE', category: 'conference' },
-        {id:3, date: '5 JUNI 2024', title: 'Workshop: Research Methodology', publisher: 'ASCEE', category: 'conference' },
-        {id:4, date: '1 JUNI 2024', title: 'New Partnership Announcement', publisher: 'ASCEE', category: 'news' },
-        {id:5, date: '25 MAY 2024', title: 'ASCEE Community Meeting', publisher: 'ASCEE', category: 'news' },
-        {id:6, date: '20 MAY 2024', title: 'Publication Guidelines Update', publisher: 'ASCEE', category: 'news' },
+        { id: 1, date: '14 JUNI 2024', title: 'Pengumuman Penerima ASCEE Grants', publisher: 'ASCEE', category: 'conference' },
+        { id: 2, date: '10 JUNI 2024', title: 'Call for Papers: ASCEE Conference 2024', publisher: 'ASCEE', category: 'conference' },
+        { id: 3, date: '5 JUNI 2024', title: 'Workshop: Research Methodology', publisher: 'ASCEE', category: 'conference' },
+        { id: 4, date: '1 JUNI 2024', title: 'New Partnership Announcement', publisher: 'ASCEE', category: 'news' },
+        { id: 5, date: '25 MAY 2024', title: 'ASCEE Community Meeting', publisher: 'ASCEE', category: 'news' },
+        { id: 6, date: '20 MAY 2024', title: 'Publication Guidelines Update', publisher: 'ASCEE', category: 'news' },
     ];
     console.log('CardListNoImage items:', items);
     const displayItems = items.length > 0 ? items : defaultItems;
@@ -46,7 +46,7 @@ const CardListNoImage: React.FC<CardListNoImagePro> = ({ sectionTitle, moreLinkT
                             key={index}
                             className={`w-full rounded-sm border-b border-gray-200 bg-gray-200 p-2 py-2 transition-colors hover:bg-gray-50 ${index >= 3 ? 'hidden lg:block' : ''}`}
                         >
-                            <Link href={`/${item.category}/${item.id}`} className="block">
+                            <Link href={item.id && item.category ? `/${item.category}/${item.id}` : '#'} className="block">
                                 <p className="text-xs text-gray-500">{item.date ? formatDate(item.date) : ''}</p>
                                 <h3 className="text-md font-bold text-black">{item.title}</h3>
                                 <p className="text-xs text-gray-600">{item.publisher}</p>

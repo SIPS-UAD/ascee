@@ -1,5 +1,5 @@
 import CardMain from '../atoms/card-main';
-import ContainerCardsWithImage from '../containers/container-cards-with-image';
+import CardWithImage from '../atoms/card-with-image';
 
 const HeroOrganism = () => {
     return (
@@ -8,7 +8,11 @@ const HeroOrganism = () => {
             <CardMain />
 
             {/* Cards grid */}
-            <ContainerCardsWithImage />
+            <div className="grid grid-cols-2 gap-3 pb-2 sm:gap-4 md:grid-cols-2 lg:grid-cols-4">
+                {Array.from({ length: 4 }, (_, index) => (
+                    <CardWithImage key={index} type="NEWS" useRandomImage={true} />
+                ))}
+            </div>
         </div>
     );
 };

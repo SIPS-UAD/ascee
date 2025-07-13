@@ -3,7 +3,7 @@ export const formatDate = (isoString: string) => {
     return date
         .toLocaleDateString('id-ID', {
             day: '2-digit',
-            month: 'long',
+            month: 'short',
             year: 'numeric',
         })
         .toUpperCase();
