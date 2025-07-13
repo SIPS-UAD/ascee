@@ -15,7 +15,7 @@ const NavHomepage = () => {
         { name: 'NEWS', href: '/news' },
         { name: 'EVENTS', href: '/events' },
         { name: 'CAREERS', href: '/careers' },
-        { name: 'CONFERENCE', href: '/conference' },
+        { name: 'CONFERENCES', href: '/conferences' },
         { name: 'JOURNALS', href: '/journals' },
     ];
 
