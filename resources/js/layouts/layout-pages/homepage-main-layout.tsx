@@ -5,6 +5,7 @@ import HeroSectionHomepage from '../../components/common/hero-section-homepage';
 import SecondHeroSectionHomepage from '../../components/common/secondHero-section-homepage';
 import JournalSectionMain from '@/components/organisms/journal-section-main';
 import { useSharedData } from '@/hooks/useSharedData';
+import PartnerSection from '@/components/organisms/partner-section';
 
 const HomepageMainLayout = () => {
     const { journals } = useSharedData()    
@@ -14,6 +15,7 @@ const HomepageMainLayout = () => {
             <Quotes />
             <SecondHeroSectionHomepage />
             <JournalSectionMain journals={journals} />
+            <PartnerSection />
         </main>
     );
 };

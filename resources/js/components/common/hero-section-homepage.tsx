@@ -1,6 +1,6 @@
 import { useSharedData } from '@/hooks/useSharedData';
-import HeroOrganism from '../organisms/hero-organism';
 import CardListNoImage from '../CardListNoImage';
+import HeroOrganism from '../organisms/hero-organism';
 
 const HeroSectionHomepage = () => {
     const { news } = useSharedData();
@@ -12,7 +12,12 @@ const HeroSectionHomepage = () => {
                         <HeroOrganism />
                     </div>
                     <div className="w-full lg:w-1/3">
-                        <CardListNoImage items={news} sectionTitle="NEWS" moreLinkText="More News" moreLinkUrl="/news" />
+                        <CardListNoImage
+                            items={news.map((item) => ({ id: item.id_news, date: item.date, title: item.title, publisher: item.publisher, category: 'news' }))}
+                            sectionTitle="NEWS"
+                            moreLinkText="More News"
+                            moreLinkUrl="/news"
+                        />
                     </div>
                 </div>
             </div>
