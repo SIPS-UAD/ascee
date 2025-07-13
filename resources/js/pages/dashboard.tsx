@@ -11,12 +11,6 @@ interface DashboardProps {
         conferences: number;
         careers: number;
     };
-    recentActivity: Array<{
-        id: number;
-        email: string;
-        full_name: string;
-        last_login_at: string;
-    }>;
     latestPosts: Array<{
         id: number;
         title: string;
@@ -33,7 +27,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-export default function Dashboard({ counts, recentActivity, latestPosts = [] }: DashboardProps) {
+export default function Dashboard({ counts, latestPosts = [] }: DashboardProps) {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard" />
