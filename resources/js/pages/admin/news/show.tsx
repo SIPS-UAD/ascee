@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link, router } from '@inertiajs/react';
-import { ArrowLeft, Edit, Trash2, Calendar, User } from 'lucide-react';
+import { ArrowLeft, Calendar, Edit, Trash2, User } from 'lucide-react';
 
 interface Admin {
     id_admin: number;
@@ -92,16 +92,16 @@ export default function NewsShow({ news }: NewsShowProps) {
                             </div>
                             <div className="grid gap-2">
                                 <Label className="text-sm font-medium">Publisher</Label>
-                                <div className="rounded bg-muted p-2 text-sm flex items-center gap-2">
+                                <div className="flex items-center gap-2 rounded bg-muted p-2 text-sm">
                                     <User className="h-4 w-4" />
                                     {news.publisher}
                                 </div>
                             </div>
                             <div className="grid gap-2">
-                                <Label className="text-sm font-medium">Publication Date</Label>
-                                <div className="rounded bg-muted p-2 text-sm flex items-center gap-2">
+                                <Label className="text-sm font-medium">Last Updated</Label>
+                                <div className="flex items-center gap-2 rounded bg-muted p-2 text-sm">
                                     <Calendar className="h-4 w-4" />
-                                    {new Date(news.date).toLocaleDateString()}
+                                    {new Date(news.updated_at).toLocaleDateString()}
                                 </div>
                             </div>
                             <div className="grid gap-2">
@@ -110,7 +110,7 @@ export default function NewsShow({ news }: NewsShowProps) {
                             </div>
                             <div className="grid gap-2">
                                 <Label className="text-sm font-medium">Assigned Admin</Label>
-                                <div className="rounded bg-muted p-2 text-sm flex items-center gap-2">
+                                <div className="flex items-center gap-2 rounded bg-muted p-2 text-sm">
                                     <User className="h-4 w-4" />
                                     {news.admin.username}
                                 </div>
@@ -126,14 +126,10 @@ export default function NewsShow({ news }: NewsShowProps) {
                         <CardContent>
                             {news.image ? (
                                 <div>
-                                    <img
-                                        src={`/storage/${news.image}`}
-                                        alt={news.title}
-                                        className="w-full h-auto rounded-lg"
-                                    />
+                                    <img src={`/storage/${news.image}`} alt={news.title} className="h-auto w-full rounded-lg" />
                                 </div>
                             ) : (
-                                <div className="aspect-video rounded-lg bg-muted flex items-center justify-center">
+                                <div className="flex aspect-video items-center justify-center rounded-lg bg-muted">
                                     <p className="text-sm text-muted-foreground">No image available</p>
                                 </div>
                             )}
