@@ -21,6 +21,7 @@ Route::get('/', function () {
         'sharedEvents' => \App\Models\Events::with('admin')->latest()->take(8)->get(),
         'sharedConferences' => \App\Models\Conferences::with('admin')->latest()->take(6)->get(),
         'sharedJournals' => \App\Models\Journal::with('admin')->latest()->take(3)->get(),
+        'sharedCareers' => \App\Models\EducationAndCareers::with('admin')->latest()->take(4)->get(),
     ]);
 })->name('homePage.index');
 
