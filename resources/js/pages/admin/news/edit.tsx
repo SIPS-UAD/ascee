@@ -44,7 +44,7 @@ export default function NewsEdit({ news, admins }: NewsEditProps) {
 
     const { data, setData, post, processing, errors } = useForm({
         title: news.title,
-        date: news.date,
+        date: news.date ? new Date(news.date).toISOString().split('T')[0] : '',
         publisher: news.publisher,
         description: news.description,
         image: null as File | null,
@@ -68,6 +68,8 @@ export default function NewsEdit({ news, admins }: NewsEditProps) {
         setData('image', null);
         setImagePreview(null);
     };
+
+    console.log(data)
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();

@@ -92,7 +92,6 @@ class NewsController extends Controller
     {
         $admins = Admin::all();
 
-        // Format the date to YYYY-MM-DD for the input field
         $news->date = $news->date->format('Y-m-d');
 
         return Inertia::render('admin/news/edit', [
