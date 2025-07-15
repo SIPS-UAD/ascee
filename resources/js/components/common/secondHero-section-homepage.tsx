@@ -26,9 +26,9 @@ const SecondHeroSectionHomepage = () => {
                                 id: item.id_conferences,
                                 date: item.date,
                                 title: item.title,
-                                category: 'conference',
+                                category: 'conferences', // Changed to plural to match route pattern
                             }))}
-                            sectionTitle="Conference"
+                            sectionTitle="Conferences"
                             moreLinkText="More Conferences →"
                             moreLinkUrl="/conferences"
                         />

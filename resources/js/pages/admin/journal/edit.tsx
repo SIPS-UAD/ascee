@@ -66,7 +66,7 @@ export default function JournalEdit({ journal, admins }: JournalEditProps) {
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post(`/journal/${journal.id_journal}`);
+        post(`/admin/journal/${journal.id_journal}`);
     };
 
     return (

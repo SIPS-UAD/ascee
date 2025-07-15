@@ -55,7 +55,7 @@ export default function ConferenceCreate({ admins }: ConferenceCreateProps) {
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post('/conferences');
+        post('/admin/conferences');
     };
 
     return (

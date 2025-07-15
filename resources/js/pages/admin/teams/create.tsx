@@ -37,7 +37,7 @@ export default function TeamCreate({ admins }: TeamCreateProps) {
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post('/teams');
+        post('/admin/teams');
     };
 
     return (

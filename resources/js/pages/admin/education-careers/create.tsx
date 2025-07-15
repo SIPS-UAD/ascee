@@ -57,7 +57,7 @@ export default function EducationCareersCreate({ admins }: EducationCareersCreat
     // Ubah form submit endpoint
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post('/careers'); // Ubah ke /careers
+        post('/admin/careers'); // Ubah ke /careers
     };
 
     return (

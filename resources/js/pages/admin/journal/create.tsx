@@ -53,7 +53,7 @@ export default function JournalCreate({ admins }: JournalCreateProps) {
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post('/journal');
+        post('/admin/journal');
     };
 
     return (

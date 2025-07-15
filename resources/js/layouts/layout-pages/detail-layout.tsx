@@ -27,28 +27,28 @@ const DetailLayout: React.FC<DetailLayoutProps> = ({ contentType = 'news', title
             category: 'NEWS',
             sidebarTitle: 'MORE NEWS',
             sidebarLinkPath: '/news',
-            sidebarLinkText: 'See More News',
+            sidebarLinkText: 'See More News →',
             detailPath: '/news',
         },
         conferences: {
             category: 'CONFERENCES',
             sidebarTitle: 'MORE CONFERENCES',
-            sidebarLinkPath: '/conference',
-            sidebarLinkText: 'See More Conferences',
-            detailPath: '/conference',
+            sidebarLinkPath: '/conferences', // Fixed: changed from /conference to /conferences
+            sidebarLinkText: 'See More Conferences →',
+            detailPath: '/conferences', // Fixed: changed from /conference to /conferences
         },
         events: {
             category: 'EVENTS',
             sidebarTitle: 'MORE EVENTS',
             sidebarLinkPath: '/events',
-            sidebarLinkText: 'See More Events',
+            sidebarLinkText: 'See More Events →',
             detailPath: '/events',
         },
         careers: {
             category: 'CAREERS',
             sidebarTitle: 'MORE CAREERS',
             sidebarLinkPath: '/careers',
-            sidebarLinkText: 'See More Careers',
+            sidebarLinkText: 'See More Careers →',
             detailPath: '/careers',
         },
     };
@@ -56,11 +56,27 @@ const DetailLayout: React.FC<DetailLayoutProps> = ({ contentType = 'news', title
     const config = contentTypeConfig[contentType];
 
     // Transform relatedItems to match CardListNoImage expected format
-    const transformedItems = relatedItems.map((item) => ({
-        date: item.date,
-        title: item.title,
-        publisher: item.publisher || 'ASCEE',
-    }));
+    const transformedItems = relatedItems.map((item) => {
+        // Ensure date is in a valid format
+        let formattedDate = item.date;
+        
+        // Try to standardize the date format if it's not already ISO format
+        if (item.date && !isNaN(new Date(item.date).getTime())) {
+            // Date is valid - keep it as is
+            formattedDate = item.date;
+        } else {
+            // Date is invalid - provide a fallback
+            formattedDate = new Date().toISOString();
+        }
+        
+        return {
+            id: item.id,
+            date: formattedDate,
+            title: item.title,
+            publisher: item.publisher || 'ASCEE',
+            category: contentType, // Adding this so the CardListNoImage component can create proper links
+        };
+    });
 
     return (
         <>

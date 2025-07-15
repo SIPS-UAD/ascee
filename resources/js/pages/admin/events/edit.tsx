@@ -44,7 +44,7 @@ export default function EventsEdit({ event, admins }: EventsEditProps) {
 
     const { data, setData, post, processing, errors } = useForm({
         title: event.title,
-        date: event.date,
+        date: event.date ? new Date(event.date).toISOString().split('T')[0] : '',
         description: event.description,
         image: null as File | null,
         admin_id: event.admin_id.toString(),
@@ -70,7 +70,7 @@ export default function EventsEdit({ event, admins }: EventsEditProps) {
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post(`/events/${event.id_events}`);
+        post(`/admin/events/${event.id_events}`);
     };
 
     return (

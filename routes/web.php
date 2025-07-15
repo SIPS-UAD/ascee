@@ -216,7 +216,7 @@ Route::get('news/{id}', function ($id) {
     ]);
 })->name('public.news.show');
 
-Route::get('conference/{id}', [ConferencesController::class, 'publicShow'])->name('public.conferences.show');
+Route::get('conferences/{id}', [ConferencesController::class, 'publicShow'])->name('public.conferences.show');
 
 // Events detail route
 Route::get('events/{id}', [EventsController::class, 'publicShow'])->name('public.events.show');
