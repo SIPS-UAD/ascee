@@ -5,12 +5,12 @@ import CardWithImage from './atoms/card-with-image';
 import { formatDate } from '@/lib/formatDate';
 
 interface CardListWithImageProps {
-    type?: 'NEWS' | 'EVENTS' | 'CONFERENCES';
+    type?: 'NEWS' | 'EVENTS' | 'CONFERENCES' | 'CAREERS';
     useRandomImage?: boolean;
 }
 
 const CardListWithImage: React.FC<CardListWithImageProps> = ({ type = 'NEWS', useRandomImage = false }) => {
-    const { news, events, conferences } = useSharedData();
+    const { news, events, conferences, careers } = useSharedData();
 
     let items = [];
     let category = '';
@@ -28,14 +28,18 @@ const CardListWithImage: React.FC<CardListWithImageProps> = ({ type = 'NEWS', us
             items = conferences || [];
             category = 'conferences';
             break;
+        case 'CAREERS':
+            items = careers || [];
+            category = 'careers';
+            break;
     }
 
     return (
         <>
             {items.slice(0, 4).map((item, index) => (
                 <Link
-                    key={`${category}-${item.id_news || item.id_events || item.id_conferences || index}`}
-                    href={`/${category}/${item.id_news || item.id_events || item.id_conferences}`}
+                    key={`${category}-${item.id_news || item.id_events || item.id_conferences || item.id_education || index}`}
+                    href={`/${category}/${item.id_news || item.id_events || item.id_conferences || item.id_education}`}
                 >
                     <CardWithImage
                         type={type}

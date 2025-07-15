@@ -16,7 +16,7 @@ const HeroSectionHomepage = () => {
 
                             {/* Cards grid */}
                             <div className="grid grid-cols-2 gap-3 pb-2 sm:gap-4 md:grid-cols-2 lg:grid-cols-4">
-                                <CardListWithImage type="NEWS" useRandomImage={true} />
+                                <CardListWithImage type="CAREERS" useRandomImage={true} />
                             </div>
                         </div>
                     </div>

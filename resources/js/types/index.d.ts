@@ -103,3 +103,16 @@ export interface CardLandscape{
     date?: string;
     publisher?: string;
 }
+
+export interface Career {
+    id_education: number;
+    title: string;
+    date: string;
+    publisher: string;
+    description: string;
+    image?: string;
+    admin_id: number;
+    admin: Admin;
+    created_at: string;
+    updated_at: string;
+}
