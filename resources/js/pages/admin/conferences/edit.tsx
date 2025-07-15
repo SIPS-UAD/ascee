@@ -44,7 +44,7 @@ export default function ConferenceEdit({ conference, admins }: ConferenceEditPro
 
     const { data, setData, post, processing, errors } = useForm({
         title: conference.title,
-        date: conference.date,
+        date: conference.date ? new Date(conference.date).toISOString().split('T')[0] : '',
         description: conference.description,
         image: null as File | null,
         admin_id: conference.admin_id.toString(),
@@ -70,7 +70,7 @@ export default function ConferenceEdit({ conference, admins }: ConferenceEditPro
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post(`/conferences/${conference.id_conferences}`);
+        post(`/admin/conferences/${conference.id_conferences}`);
     };
 
     return (

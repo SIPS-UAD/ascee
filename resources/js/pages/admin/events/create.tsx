@@ -55,7 +55,7 @@ export default function EventsCreate({ admins }: EventsCreateProps) {
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post('/events');
+        post('/admin/events');
     };
 
     return (

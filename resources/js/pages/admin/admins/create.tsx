@@ -24,7 +24,7 @@ export default function AdminCreate() {
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post('/admins');
+        post('/admin/admins');
     };
 
     return (

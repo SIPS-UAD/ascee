@@ -46,7 +46,7 @@ export default function EducationCareersEdit({ educationCareer, admins }: Educat
 
     const { data, setData, post, processing, errors } = useForm({
         title: educationCareer.title,
-        date: educationCareer.date,
+        date: educationCareer.date ? new Date(educationCareer.date).toISOString().split('T')[0] : '',
         publisher: educationCareer.publisher,
         description: educationCareer.description,
         image: null as File | null,
@@ -73,7 +73,7 @@ export default function EducationCareersEdit({ educationCareer, admins }: Educat
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post(`/careers/${educationCareer.id_education}`);
+        post(`/admin/careers/${educationCareer.id_education}`);
     };
 
     return (

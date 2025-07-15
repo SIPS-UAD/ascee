@@ -36,7 +36,7 @@ export default function AdminEdit({ admin }: AdminEditProps) {
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        put(`/admins/${admin.id_admin}`);
+        put(`/admin/admins/${admin.id_admin}`);
     };
 
     return (
