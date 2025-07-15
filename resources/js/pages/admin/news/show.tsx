@@ -125,11 +125,11 @@ export default function NewsShow({ news }: NewsShowProps) {
                         </CardHeader>
                         <CardContent>
                             {news.image ? (
-                                <div className="aspect-video rounded-lg overflow-hidden">
+                                <div>
                                     <img
                                         src={`/storage/${news.image}`}
                                         alt={news.title}
-                                        className="w-full h-full object-cover"
+                                        className="w-full h-auto rounded-lg"
                                     />
                                 </div>
                             ) : (
