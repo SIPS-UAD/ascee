@@ -56,7 +56,7 @@ export default function NewsCreate({ admins }: NewsCreateProps) {
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post('/news');
+        post('/admin/news');
     };
 
     return (
