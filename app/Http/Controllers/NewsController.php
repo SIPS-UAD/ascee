@@ -63,7 +63,7 @@ class NewsController extends Controller
             'admin_id' => 'required|exists:admins,id_admin',
         ]);
 
-        $data = $request->all();
+        $data = $request->except('image');
 
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('news', 'public');
@@ -91,7 +91,13 @@ class NewsController extends Controller
     public function edit(News $news)
     {
         $admins = Admin::all();
-        return Inertia::render('admin/news/edit', compact('news', 'admins'));
+
+        $news->date = $news->date->format('Y-m-d');
+
+        return Inertia::render('admin/news/edit', [
+            'news' => $news,
+            'admins' => $admins
+        ]);
     }
 
     /**
@@ -108,7 +114,7 @@ class NewsController extends Controller
             'admin_id' => 'required|exists:admins,id_admin',
         ]);
 
-        $data = $request->all();
+        $data = $request->except('image');
 
         if ($request->hasFile('image')) {
             if ($news->image && Storage::disk('public')->exists($news->image)) {
@@ -133,7 +139,7 @@ class NewsController extends Controller
         }
 
         $news->delete();
-        
+
         return redirect()->route('news.index')
             ->with('success', 'News deleted successfully.');
     }
@@ -143,17 +149,17 @@ class NewsController extends Controller
     {
         $news = News::with('admin')->findOrFail($id);
         $news->formatted_date = $news->formattedDate;
-        
+
         // Get related news with formatted dates
         $relatedNews = News::where('id_news', '!=', $id)
-                    ->latest()
-                    ->take(5)
-                    ->get()
-                    ->map(function ($item) {
-                        $item->formatted_date = $item->formattedDate;
-                        return $item;
-                    });
-        
+            ->latest()
+            ->take(5)
+            ->get()
+            ->map(function ($item) {
+                $item->formatted_date = $item->formattedDate;
+                return $item;
+            });
+
         return Inertia::render('details/news/index', [
             'news' => $news,
             'relatedNews' => $relatedNews
