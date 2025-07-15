@@ -56,14 +56,13 @@ class NewsController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'date' => 'required|date',
             'publisher' => 'required|string|max:255',
             'description' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'admin_id' => 'required|exists:admins,id_admin',
         ]);
 
-        $data = $request->except('image');
+        $data = $request->all();
 
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('news', 'public');
@@ -91,13 +90,7 @@ class NewsController extends Controller
     public function edit(News $news)
     {
         $admins = Admin::all();
-
-        $news->date = $news->date->format('Y-m-d');
-
-        return Inertia::render('admin/news/edit', [
-            'news' => $news,
-            'admins' => $admins
-        ]);
+        return Inertia::render('admin/news/edit', compact('news', 'admins'));
     }
 
     /**
@@ -107,14 +100,13 @@ class NewsController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'date' => 'required|date',
             'publisher' => 'required|string|max:255',
             'description' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'admin_id' => 'required|exists:admins,id_admin',
         ]);
 
-        $data = $request->except('image');
+        $data = $request->all();
 
         if ($request->hasFile('image')) {
             if ($news->image && Storage::disk('public')->exists($news->image)) {

@@ -12,7 +12,6 @@ class News extends Model
 
     protected $fillable = [
         'title',
-        'date',
         'publisher',
         'description',
         'image',
@@ -20,17 +19,17 @@ class News extends Model
     ];
 
     protected $casts = [
-        'date' => 'datetime'
+        'updated_at' => 'datetime'
     ];
-    
+
     /**
-     * Format date attribute to DD-MM-YYYY
+     * Format updated_at attribute to DD-MM-YYYY
      */
     protected function formattedDate(): Attribute
     {
         return Attribute::make(
             get: function () {
-                return $this->date->format('d-m-Y');
+                return $this->updated_at->format('d-m-Y');
             }
         );
     }

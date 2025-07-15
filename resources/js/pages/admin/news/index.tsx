@@ -132,7 +132,7 @@ export default function NewsIndex({ news, success, stats }: NewsIndexProps) {
                                         <th className="px-6 py-3">ID</th>
                                         <th className="px-6 py-3">Title</th>
                                         <th className="px-6 py-3">Publisher</th>
-                                        <th className="px-6 py-3">Date</th>
+                                        <th className="px-6 py-3">Last Updated</th>
                                         <th className="px-6 py-3">Admin</th>
                                         <th className="px-6 py-3">Actions</th>
                                     </tr>
@@ -146,7 +146,7 @@ export default function NewsIndex({ news, success, stats }: NewsIndexProps) {
                                                 </td>
                                                 <td className="px-6 py-4 font-medium">{newsItem.title}</td>
                                                 <td className="px-6 py-4">{newsItem.publisher}</td>
-                                                <td className="px-6 py-4">{new Date(newsItem.date).toLocaleDateString()}</td>
+                                                <td className="px-6 py-4">{new Date(newsItem.updated_at).toLocaleDateString()}</td>
                                                 <td className="px-6 py-4">{newsItem.admin.username}</td>
                                                 <td className="px-6 py-4">
                                                     <div className="flex items-center gap-2">

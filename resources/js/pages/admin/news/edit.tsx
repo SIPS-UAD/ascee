@@ -11,21 +11,17 @@ import { FormEventHandler, useState } from 'react';
 
 interface Admin {
     id_admin: number;
-    email: string;
     username: string;
+    email: string;
 }
 
 interface NewsItem {
     id_news: number;
     title: string;
-    date: string;
     publisher: string;
     description: string;
     image?: string;
     admin_id: number;
-    admin: Admin;
-    created_at: string;
-    updated_at: string;
 }
 
 interface NewsEditProps {
@@ -44,7 +40,6 @@ export default function NewsEdit({ news, admins }: NewsEditProps) {
 
     const { data, setData, post, processing, errors } = useForm({
         title: news.title,
-        date: news.date ? new Date(news.date).toISOString().split('T')[0] : '',
         publisher: news.publisher,
         description: news.description,
         image: null as File | null,
@@ -69,11 +64,9 @@ export default function NewsEdit({ news, admins }: NewsEditProps) {
         setImagePreview(null);
     };
 
-    console.log(data)
-
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post(`/admin/news/${news.id_news}`, { forceFormData: true });
+        post(`/admin/news/${news.id_news}`);
     };
 
     return (
@@ -120,31 +113,18 @@ export default function NewsEdit({ news, admins }: NewsEditProps) {
                                             {errors.title && <p className="text-sm text-red-600">{errors.title}</p>}
                                         </div>
 
-                                        {/* Date and Publisher */}
-                                        <div className="grid gap-4 md:grid-cols-2">
-                                            <div className="space-y-2">
-                                                <Label htmlFor="date">Publication Date</Label>
-                                                <Input
-                                                    id="date"
-                                                    type="date"
-                                                    value={data.date}
-                                                    onChange={(e) => setData('date', e.target.value)}
-                                                    className={errors.date ? 'border-red-500' : ''}
-                                                />
-                                                {errors.date && <p className="text-sm text-red-600">{errors.date}</p>}
-                                            </div>
-                                            <div className="space-y-2">
-                                                <Label htmlFor="publisher">Publisher</Label>
-                                                <Input
-                                                    id="publisher"
-                                                    type="text"
-                                                    value={data.publisher}
-                                                    onChange={(e) => setData('publisher', e.target.value)}
-                                                    placeholder="Publisher name"
-                                                    className={errors.publisher ? 'border-red-500' : ''}
-                                                />
-                                                {errors.publisher && <p className="text-sm text-red-600">{errors.publisher}</p>}
-                                            </div>
+                                        {/* Publisher */}
+                                        <div className="space-y-2">
+                                            <Label htmlFor="publisher">Publisher</Label>
+                                            <Input
+                                                id="publisher"
+                                                type="text"
+                                                value={data.publisher}
+                                                onChange={(e) => setData('publisher', e.target.value)}
+                                                placeholder="Publisher name"
+                                                className={errors.publisher ? 'border-red-500' : ''}
+                                            />
+                                            {errors.publisher && <p className="text-sm text-red-600">{errors.publisher}</p>}
                                         </div>
 
                                         {/* Description */}
@@ -222,7 +202,7 @@ export default function NewsEdit({ news, admins }: NewsEditProps) {
                                         </div>
                                     ) : (
                                         <div className="relative">
-                                            <img src={imagePreview} alt="Preview" className="w-full rounded-lg object-cover" />
+                                            <img src={imagePreview} alt="Preview" className="h-48 w-full rounded-lg object-cover" />
                                             <Button
                                                 type="button"
                                                 variant="destructive"

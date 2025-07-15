@@ -15,8 +15,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\TeamController;
 
 Route::get('/', function () {
-    return Inertia::render('Landing/homePage/index', [
-    ])->with([
+    return Inertia::render('Landing/homePage/index', [])->with([
         'sharedNews' => \App\Models\News::with('admin')->latest()->take(6)->get(),
         'sharedEvents' => \App\Models\Events::with('admin')->latest()->take(8)->get(),
         'sharedConferences' => \App\Models\Conferences::with('admin')->latest()->take(6)->get(),
@@ -25,7 +24,7 @@ Route::get('/', function () {
     ]);
 })->name('homePage.index');
 
-Route::get('news' , function () {
+Route::get('news', function () {
     $news = \App\Models\News::with('admin')->latest()->paginate(10);
     return Inertia::render('Landing/news/index', ['news' => $news]);
 })->name('public.news.index');
@@ -47,9 +46,9 @@ Route::get('conferences', function () {
 
 Route::get('journals', function () {
     $journals = \App\Models\Journal::with('admin')
-                ->latest()
-                ->get();
-    
+        ->latest()
+        ->get();
+
     return Inertia::render('Landing/journals/index', [
         'journals' => $journals
     ]);
@@ -204,13 +203,13 @@ require __DIR__ . '/auth.php';
 Route::get('news/{id}', function ($id) {
     // Find the news article
     $news = \App\Models\News::with('admin')->findOrFail($id);
-    
+
     // Get related news (exclude current one, get latest 5)
     $relatedNews = \App\Models\News::where('id_news', '!=', $id)
-                    ->latest()
-                    ->take(5)
-                    ->get();
-    
+        ->latest()
+        ->take(5)
+        ->get();
+
     return Inertia::render('details/news/index', [
         'news' => $news,
         'relatedNews' => $relatedNews

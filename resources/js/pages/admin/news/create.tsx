@@ -1,18 +1,18 @@
-import { Head, Link, useForm } from '@inertiajs/react';
-import AppLayout from '@/layouts/app-layout';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { ArrowLeft, Upload, X } from 'lucide-react';
+import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
+import { Head, Link, useForm } from '@inertiajs/react';
+import { ArrowLeft, Upload, X } from 'lucide-react';
 import { FormEventHandler, useState } from 'react';
 
 interface Admin {
     id_admin: number;
-    email: string;
     username: string;
+    email: string;
 }
 
 interface NewsCreateProps {
@@ -27,10 +27,9 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function NewsCreate({ admins }: NewsCreateProps) {
     const [imagePreview, setImagePreview] = useState<string | null>(null);
-    
+
     const { data, setData, post, processing, errors } = useForm({
         title: '',
-        date: new Date().toISOString().split('T')[0],
         publisher: '',
         description: '',
         image: null as File | null,
@@ -62,21 +61,19 @@ export default function NewsCreate({ admins }: NewsCreateProps) {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Create News" />
-            
+
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 {/* Header */}
                 <div className="flex items-center gap-4">
                     <Link href="/admin/news">
                         <Button variant="ghost" size="sm">
-                            <ArrowLeft className="h-4 w-4 mr-2" />
+                            <ArrowLeft className="mr-2 h-4 w-4" />
                             Back to News
                         </Button>
                     </Link>
                     <div>
                         <h1 className="text-2xl font-bold tracking-tight">Create News</h1>
-                        <p className="text-muted-foreground">
-                            Add a new news article or publication
-                        </p>
+                        <p className="text-muted-foreground">Add a new news article or publication</p>
                     </div>
                 </div>
 
@@ -86,9 +83,7 @@ export default function NewsCreate({ admins }: NewsCreateProps) {
                         <Card>
                             <CardHeader>
                                 <CardTitle>News Information</CardTitle>
-                                <CardDescription>
-                                    Fill in the details for the new news article
-                                </CardDescription>
+                                <CardDescription>Fill in the details for the new news article</CardDescription>
                             </CardHeader>
                             <CardContent>
                                 <form onSubmit={submit} className="space-y-6">
@@ -104,41 +99,21 @@ export default function NewsCreate({ admins }: NewsCreateProps) {
                                                 placeholder="Enter news title"
                                                 className={errors.title ? 'border-red-500' : ''}
                                             />
-                                            {errors.title && (
-                                                <p className="text-sm text-red-600">{errors.title}</p>
-                                            )}
+                                            {errors.title && <p className="text-sm text-red-600">{errors.title}</p>}
                                         </div>
 
-                                        {/* Date and Publisher */}
-                                        <div className="grid gap-4 md:grid-cols-2">
-                                            <div className="space-y-2">
-                                                <Label htmlFor="date">Publication Date</Label>
-                                                <Input
-                                                    id="date"
-                                                    type="date"
-                                                    value={data.date}
-                                                    onChange={(e) => setData('date', e.target.value)}
-                                                    className={errors.date ? 'border-red-500' : ''}
-                                                />
-                                                {errors.date && (
-                                                    <p className="text-sm text-red-600">{errors.date}</p>
-                                                )}
-                                            </div>
-
-                                            <div className="space-y-2">
-                                                <Label htmlFor="publisher">Publisher</Label>
-                                                <Input
-                                                    id="publisher"
-                                                    type="text"
-                                                    value={data.publisher}
-                                                    onChange={(e) => setData('publisher', e.target.value)}
-                                                    placeholder="Publisher name"
-                                                    className={errors.publisher ? 'border-red-500' : ''}
-                                                />
-                                                {errors.publisher && (
-                                                    <p className="text-sm text-red-600">{errors.publisher}</p>
-                                                )}
-                                            </div>
+                                        {/* Publisher */}
+                                        <div className="space-y-2">
+                                            <Label htmlFor="publisher">Publisher</Label>
+                                            <Input
+                                                id="publisher"
+                                                type="text"
+                                                value={data.publisher}
+                                                onChange={(e) => setData('publisher', e.target.value)}
+                                                placeholder="Publisher name"
+                                                className={errors.publisher ? 'border-red-500' : ''}
+                                            />
+                                            {errors.publisher && <p className="text-sm text-red-600">{errors.publisher}</p>}
                                         </div>
 
                                         {/* Description */}
@@ -150,11 +125,9 @@ export default function NewsCreate({ admins }: NewsCreateProps) {
                                                 onChange={(e) => setData('description', e.target.value)}
                                                 placeholder="Enter news description"
                                                 rows={4}
-                                                className={`flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${errors.description ? 'border-red-500' : ''}`}
+                                                className={`flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 ${errors.description ? 'border-red-500' : ''}`}
                                             />
-                                            {errors.description && (
-                                                <p className="text-sm text-red-600">{errors.description}</p>
-                                            )}
+                                            {errors.description && <p className="text-sm text-red-600">{errors.description}</p>}
                                         </div>
 
                                         {/* Admin Selection */}
@@ -172,9 +145,7 @@ export default function NewsCreate({ admins }: NewsCreateProps) {
                                                     ))}
                                                 </SelectContent>
                                             </Select>
-                                            {errors.admin_id && (
-                                                <p className="text-sm text-red-600">{errors.admin_id}</p>
-                                            )}
+                                            {errors.admin_id && <p className="text-sm text-red-600">{errors.admin_id}</p>}
                                         </div>
                                     </div>
 
@@ -199,14 +170,12 @@ export default function NewsCreate({ admins }: NewsCreateProps) {
                         <Card>
                             <CardHeader>
                                 <CardTitle>Featured Image</CardTitle>
-                                <CardDescription>
-                                    Upload an image for this news article (optional)
-                                </CardDescription>
+                                <CardDescription>Upload an image for the news article (optional)</CardDescription>
                             </CardHeader>
                             <CardContent>
                                 <div className="space-y-4">
                                     {!imagePreview ? (
-                                        <div className="border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg p-6">
+                                        <div className="rounded-lg border-2 border-dashed border-gray-300 p-6 dark:border-gray-700">
                                             <div className="text-center">
                                                 <Upload className="mx-auto h-12 w-12 text-gray-400" />
                                                 <div className="mt-4">
@@ -214,27 +183,15 @@ export default function NewsCreate({ admins }: NewsCreateProps) {
                                                         <span className="mt-2 block text-sm font-medium text-gray-900 dark:text-gray-100">
                                                             Click to upload image
                                                         </span>
-                                                        <span className="mt-1 block text-xs text-gray-500">
-                                                            PNG, JPG, GIF up to 2MB
-                                                        </span>
+                                                        <span className="mt-1 block text-xs text-gray-500">PNG, JPG, GIF up to 2MB</span>
                                                     </Label>
-                                                    <Input
-                                                        id="image"
-                                                        type="file"
-                                                        accept="image/*"
-                                                        onChange={handleImageChange}
-                                                        className="hidden"
-                                                    />
+                                                    <Input id="image" type="file" accept="image/*" onChange={handleImageChange} className="hidden" />
                                                 </div>
                                             </div>
                                         </div>
                                     ) : (
                                         <div className="relative">
-                                            <img
-                                                src={imagePreview}
-                                                alt="Preview"
-                                                className="w-full h-48 object-cover rounded-lg"
-                                            />
+                                            <img src={imagePreview} alt="Preview" className="h-48 w-full rounded-lg object-cover" />
                                             <Button
                                                 type="button"
                                                 variant="destructive"
@@ -246,9 +203,7 @@ export default function NewsCreate({ admins }: NewsCreateProps) {
                                             </Button>
                                         </div>
                                     )}
-                                    {errors.image && (
-                                        <p className="text-sm text-red-600">{errors.image}</p>
-                                    )}
+                                    {errors.image && <p className="text-sm text-red-600">{errors.image}</p>}
                                 </div>
                             </CardContent>
                         </Card>
