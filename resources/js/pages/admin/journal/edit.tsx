@@ -19,6 +19,7 @@ interface Journal {
     id_journal: number;
     title: string;
     image?: string;
+    link: string | null; // Change this to be explicit about null
     admin_id: number;
     created_at: string;
     updated_at: string;
@@ -43,6 +44,7 @@ export default function JournalEdit({ journal, admins }: JournalEditProps) {
     const { data, setData, post, processing, errors } = useForm({
         title: journal.title,
         image: null as File | null,
+        link: journal.link ?? '', // Add this line to include existing link
         admin_id: journal.admin_id.toString(),
         _method: 'PUT',
     });
@@ -115,6 +117,21 @@ export default function JournalEdit({ journal, admins }: JournalEditProps) {
                                             )}
                                         </div>
 
+                                        {/* Link */}
+                                        <div className="space-y-2">
+                                            <Label htmlFor="link">Journal Link</Label>
+                                            <Input
+                                                id="link"
+                                                type="url"
+                                                value={data.link || ''}
+                                                onChange={(e) => setData('link', e.target.value)}
+                                                placeholder="https://journal-link.com"
+                                            />
+                                            {errors.link && (
+                                                <p className="text-sm text-red-600">{errors.link}</p>
+                                            )}
+                                        </div>
+
                                         {/* Admin Selection */}
                                         <div className="space-y-2">
                                             <Label htmlFor="admin_id">Assigned Admin</Label>
@@ -134,18 +151,18 @@ export default function JournalEdit({ journal, admins }: JournalEditProps) {
                                                 <p className="text-sm text-red-600">{errors.admin_id}</p>
                                             )}
                                         </div>
+                                    </div>
 
-                                        {/* Submit Buttons */}
-                                        <div className="flex items-center gap-4 pt-4">
-                                            <Button type="submit" disabled={processing}>
-                                                {processing ? 'Updating...' : 'Update Journal'}
+                                    {/* Submit Buttons */}
+                                    <div className="flex items-center gap-4 pt-4">
+                                        <Button type="submit" disabled={processing}>
+                                            {processing ? 'Updating...' : 'Update Journal'}
+                                        </Button>
+                                        <Link href="/admin/journal">
+                                            <Button variant="outline" type="button">
+                                                Cancel
                                             </Button>
-                                            <Link href="/admin/journal">
-                                                <Button variant="outline" type="button">
-                                                    Cancel
-                                                </Button>
-                                            </Link>
-                                        </div>
+                                        </Link>
                                     </div>
                                 </form>
                             </CardContent>

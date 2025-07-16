@@ -13,6 +13,7 @@ interface Admin {
 }
 
 interface Journal {
+    link: string;
     id_journal: number;
     title: string;
     image?: string;
@@ -151,6 +152,16 @@ export default function JournalsIndex({ journals, stats, success }: JournalsInde
                                             <User className="h-3 w-3" />
                                             {journal.admin.username}
                                         </div>
+                                        {journal.link && (
+                                            <a
+                                                href={journal.link}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-blue-600 underline ml-2"
+                                            >
+                                                Journal Link
+                                            </a>
+                                        )}
                                     </div>
                                 </CardHeader>
                                 <CardContent className="pt-0">

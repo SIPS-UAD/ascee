@@ -106,6 +106,21 @@ export default function JournalCreate({ admins }: JournalCreateProps) {
                                             )}
                                         </div>
 
+                                        {/* Link */}
+                                        <div className="space-y-2">
+                                            <Label htmlFor="link">Journal Link</Label>
+                                            <Input
+                                                id="link"
+                                                type="url"
+                                                value={data.link || ''}
+                                                onChange={(e) => setData('link', e.target.value)}
+                                                placeholder="https://journal-link.com"
+                                            />
+                                            {errors.link && (
+                                                <p className="text-sm text-red-600">{errors.link}</p>
+                                            )}
+                                        </div>
+
                                         {/* Admin Selection */}
                                         <div className="space-y-2">
                                             <Label htmlFor="admin_id">Assigned Admin</Label>
