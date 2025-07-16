@@ -1,6 +1,5 @@
-
 interface CardWithImageProps {
-    type?: 'EVENT' | 'NEWS' | 'ANNOUNCEMENT';
+    type?: 'NEWS' | 'EVENTS' | 'CONFERENCES' | 'CAREERS';
     date?: string;
     title: string;
     organization?: string;
@@ -14,18 +13,19 @@ const CardWithImage: React.FC<CardWithImageProps> = ({
     date = '14 JUNI 2024',
     title = 'Pengumuman Penerima ASCEE Grants',
     organization = 'ASCEE',
+    imageSrc,
+    useRandomImage = false,
     className = '',
 }) => {
-
     return (
         <div className={`group overflow-hidden rounded-lg border border-gray-100 transition-shadow hover:shadow-md ${className}`}>
             <div className="relative h-32 overflow-hidden">
                 <img
-                    src='astronout.png'
+                    src={imageSrc || (useRandomImage ? 'astronout.png' : '/images/event-placeholder.jpg')}
                     alt={title}
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     onError={(e) => {
-                        e.currentTarget.src = '/images/event-placeholder.jpg';
+                        e.currentTarget.src = 'https://placehold.co/600x400';
                     }}
                 />
             </div>

@@ -72,7 +72,7 @@ const JournalSectionMain = ({ journals = [] }: JournalSectionMainProps) => {
                                 {/* Journal Cover Image */}
                                 <div className="aspect-[3/4] overflow-hidden rounded-t-lg">
                                     <img
-                                        src={journal.image}
+                                         src={`/storage/${journal.image}`}
                                         alt={journal.title}
                                         className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
                                         onError={(e) => {

@@ -19,7 +19,7 @@ Route::get('/', function () {
         'sharedNews' => \App\Models\News::with('admin')->latest()->take(6)->get(),
         'sharedEvents' => \App\Models\Events::with('admin')->latest()->take(8)->get(),
         'sharedConferences' => \App\Models\Conferences::with('admin')->latest()->take(6)->get(),
-        'sharedJournals' => \App\Models\Journal::with('admin')->latest()->take(3)->get(),
+        'sharedJournals' => \App\Models\Journal::with('admin')->latest()->take(9)->get(),
         'sharedCareers' => \App\Models\EducationAndCareers::with('admin')->latest()->take(4)->get(),
     ]);
 })->name('homePage.index');
@@ -55,7 +55,7 @@ Route::get('journals', function () {
 })->name('public.journals.index');
 
 Route::get('about_us', function () {
-    $about_us = \App\Models\AboutUs::first(); // atau AboutUs::with('admin')->first();
+    $about_us = \App\Models\AboutUs::first();       
     return Inertia::render('Landing/about_us/index', [
         'aboutUs' => $about_us
     ]);
