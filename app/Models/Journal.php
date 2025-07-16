@@ -13,7 +13,8 @@ class Journal extends Model
     protected $fillable = [
         'title',
         'image',
-        'admin_id'
+        'admin_id',
+        'link'
     ];
 
     public function admin(): BelongsTo

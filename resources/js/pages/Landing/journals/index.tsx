@@ -11,6 +11,7 @@ interface Admin {
 }
 
 interface Journal {
+  link: string;
   id_journal: number;
   title: string;
   image?: string;
@@ -55,7 +56,12 @@ export default function Index({ journals }: JournalsProps) {
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12">
                 {journals.map(journal => (
                   <div key={journal.id_journal} className="flex flex-col">
-                    <a href="#" className="block overflow-hidden">
+                    <a 
+                      href={journal.link || "#"} 
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block overflow-hidden"
+                    >
                       {!failedImages[journal.id_journal] && journal.image ? (
                         <img 
                           src={`/storage/${journal.image}`}

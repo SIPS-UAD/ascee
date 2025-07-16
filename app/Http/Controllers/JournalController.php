@@ -51,6 +51,7 @@ class JournalController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'link' => 'nullable|url|max:255', // Add link validation
             'admin_id' => 'required|exists:admins,id_admin',
         ]);
 
@@ -95,16 +96,29 @@ class JournalController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'link' => 'nullable|url|max:255',
             'admin_id' => 'required|exists:admins,id_admin',
         ]);
 
         $data = $request->all();
 
-        if ($request->hasFile('image')) {
+        // Handle image removal if explicitly requested
+        if ($request->has('remove_image') && $request->remove_image === 'true') {
+            if ($journal->image && Storage::disk('public')->exists($journal->image)) {
+                Storage::disk('public')->delete($journal->image);
+            }
+            $data['image'] = null;
+        }
+        // Handle new image upload
+        elseif ($request->hasFile('image')) {
             if ($journal->image && Storage::disk('public')->exists($journal->image)) {
                 Storage::disk('public')->delete($journal->image);
             }
             $data['image'] = $request->file('image')->store('journal', 'public');
+        }
+        // If no image is provided, keep the existing one
+        else {
+            unset($data['image']);
         }
 
         $journal->update($data);

@@ -20,6 +20,7 @@ interface Journal {
     admin: Admin;
     created_at: string;
     updated_at: string;
+    link?: string;
 }
 
 interface JournalShowProps {
@@ -119,6 +120,28 @@ export default function JournalShow({ journal }: JournalShowProps) {
                         </CardContent>
                     </Card>
                 </div>
+
+                {/* Journal Link */}
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Journal Link</CardTitle>
+                        <CardDescription>External link to the journal</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        {journal.link ? (
+                            <a
+                                href={journal.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-blue-600 underline"
+                            >
+                                {journal.link}
+                            </a>
+                        ) : (
+                            <span className="text-muted-foreground">No link provided</span>
+                        )}
+                    </CardContent>
+                </Card>
 
                 {/* Journal Activity */}
                 <Card>

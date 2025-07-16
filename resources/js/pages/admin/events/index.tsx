@@ -221,15 +221,64 @@ export default function EventsIndex({ events, stats, success }: EventsIndexProps
                                 {Math.min(events.current_page * events.per_page, events.total)} of{' '}
                                 {events.total} results
                             </div>
-                            <div className="flex gap-2">
+                            <div className="flex items-center gap-2">
+                                {/* Previous button */}
                                 {events.prev_page_url && (
                                     <Link href={events.prev_page_url}>
                                         <Button variant="outline" size="sm">Previous</Button>
                                     </Link>
                                 )}
-                                <span className="flex items-center px-4 py-2 text-sm">
-                                    Page {events.current_page} of {events.last_page}
-                                </span>
+
+                                {/* Page numbers */}
+                                <div className="flex gap-1">
+                                    {[...Array(events.last_page)].map((_, index) => {
+                                        const pageNumber = index + 1;
+                                        
+                                        // Show first page, current page, last page, and pages around current
+                                        if (
+                                            pageNumber === 1 ||
+                                            pageNumber === events.last_page ||
+                                            (pageNumber >= events.current_page - 1 && pageNumber <= events.current_page + 1)
+                                        ) {
+                                            return (
+                                                <Link 
+                                                    key={pageNumber}
+                                                    href={`/admin/events?page=${pageNumber}`}
+                                                >
+                                                    <Button 
+                                                        variant={pageNumber === events.current_page ? "default" : "outline"}
+                                                        size="sm"
+                                                        className="min-w-[40px]"
+                                                    >
+                                                        {pageNumber}
+                                                    </Button>
+                                                </Link>
+                                            );
+                                        }
+
+                                        // Show ellipsis for gaps
+                                        if (
+                                            pageNumber === events.current_page - 2 ||
+                                            pageNumber === events.current_page + 2
+                                        ) {
+                                            return (
+                                                <Button 
+                                                    key={pageNumber}
+                                                    variant="ghost" 
+                                                    size="sm"
+                                                    disabled
+                                                    className="min-w-[40px]"
+                                                >
+                                                    ...
+                                                </Button>
+                                            );
+                                        }
+
+                                        return null;
+                                    })}
+                                </div>
+
+                                {/* Next button */}
                                 {events.next_page_url && (
                                     <Link href={events.next_page_url}>
                                         <Button variant="outline" size="sm">Next</Button>
