@@ -90,7 +90,7 @@ const CardListWithImage: React.FC<CardListWithImageProps> = ({
                     >
                         <CardWithImage
                             type={type}
-                            date={item.date ? formatDate(item.date) : ''}
+                            date={item.date }
                             title={item.title}
                             organization={item.publisher || 'ASCEE'}
                             imageSrc={item.image ? `/storage/${item.image}` : undefined}
