@@ -1,7 +1,8 @@
-import CardListNoImage from '@/components/CardListNoImage'; // Fixed import path
+import CardListNoImage from '@/components/molecules/CardListNoImage'; // Updated import path
 import React from 'react';
 import FooterLayout from './footer-layout';
 import HeaderLayout from './header-layout';
+import { formatDate } from '@/lib/formatDate';
 
 interface RelatedContentItem {
     id: number;
@@ -60,13 +61,13 @@ const DetailLayout: React.FC<DetailLayoutProps> = ({ contentType = 'news', title
         // Ensure date is in a valid format
         let formattedDate = item.date;
         
-        // Try to standardize the date format if it's not already ISO format
+        // Try to standardize the date format if its notalready ISO format
         if (item.date && !isNaN(new Date(item.date).getTime())) {
-            // Date is valid - keep it as is
-            formattedDate = item.date;
+            // Date is valid - format it using formatDate utility
+            formattedDate = formatDate(item.date);
         } else {
             // Date is invalid - provide a fallback
-            formattedDate = new Date().toISOString();
+            formattedDate = formatDate(new Date().toISOString());
         }
         
         return {

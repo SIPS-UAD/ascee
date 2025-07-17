@@ -1,7 +1,7 @@
 import { useSharedData } from '@/hooks/useSharedData';
 import CardMain from '../atoms/card-main';
-import CardListNoImage from '../CardListNoImage';
-import CardListWithImage from '../CardListWithImage'; // Add this import
+import CardListNoImage from '../molecules/CardListNoImage';
+import CardListWithImage from '../molecules/CardListWithImage'; // Updated import path
 
 const HeroSectionHomepage = () => {
     const { news } = useSharedData();

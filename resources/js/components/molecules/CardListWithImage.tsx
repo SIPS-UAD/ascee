@@ -1,7 +1,8 @@
 import { useSharedData } from '@/hooks/useSharedData';
 import { Link } from '@inertiajs/react';
 import React from 'react';
-import CardWithImage from './atoms/card-with-image';
+import CardWithImage from '../atoms/card-with-image';
+import { formatDate } from '@/lib/formatDate';
 
 interface Item {
     id_news?: number;

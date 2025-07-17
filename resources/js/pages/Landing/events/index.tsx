@@ -1,5 +1,6 @@
 import React from 'react';
 import PageMainLayout from '@/layouts/layout-pages/page-main-layout';
+import { formatDate } from '@/lib/formatDate';
 
 interface EventItem {
     id_events: number;
@@ -24,16 +25,12 @@ const EventsPage: React.FC<EventsPageProps> = ({ events }) => {
     const items = events.data.map(item => ({
         ...item,
         type: 'EVENT' as const,
-        date: item.date || new Date().toLocaleDateString('id-ID', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric'
-        })
+        date: item.date ? formatDate(item.date) : formatDate(new Date().toISOString())
     }));
 
     return (
         <PageMainLayout
-            nameTag="Events"
+            nameTag="EVENTS"
             items={items}
             pagination={{
                 current_page: events.current_page,

@@ -1,5 +1,6 @@
 import React from 'react';
 import PageMainLayout from '@/layouts/layout-pages/page-main-layout';
+import { formatDate } from '@/lib/formatDate';
 
 interface CareerItem {
     id_education: number;
@@ -24,16 +25,12 @@ const CareersPage: React.FC<CareersPageProps> = ({ careers }) => {
     const items = careers.data.map(item => ({
         ...item,
         type: 'ANNOUNCEMENT' as const,
-        date: item.date || new Date().toLocaleDateString('id-ID', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric'
-        })
+        date: item.date ? formatDate(item.date) : formatDate(new Date().toISOString())
     }));
 
     return (
         <PageMainLayout
-            nameTag="Careers"
+            nameTag="CAREERS"
             items={items}
             pagination={{
                 current_page: careers.current_page,
