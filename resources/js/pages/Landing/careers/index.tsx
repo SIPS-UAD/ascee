@@ -2,7 +2,7 @@ import React from 'react';
 import PageMainLayout from '@/layouts/layout-pages/page-main-layout';
 
 interface CareerItem {
-    id: number;
+    id_education: number;
     title: string;
     date?: string;
     organization?: string;
@@ -42,6 +42,7 @@ const CareersPage: React.FC<CareersPageProps> = ({ careers }) => {
                 total: careers.total
             }}
             baseUrl="/careers"
+            itemType="careers"
         />
     );
 };

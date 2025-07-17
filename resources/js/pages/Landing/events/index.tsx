@@ -2,7 +2,7 @@ import React from 'react';
 import PageMainLayout from '@/layouts/layout-pages/page-main-layout';
 
 interface EventItem {
-    id: number;
+    id_events: number;
     title: string;
     date?: string;
     organization?: string;
@@ -42,6 +42,7 @@ const EventsPage: React.FC<EventsPageProps> = ({ events }) => {
                 total: events.total
             }}
             baseUrl="/events"
+            itemType="events"
         />
     );
 };

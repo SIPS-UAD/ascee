@@ -12,7 +12,11 @@ import React from 'react';
 
 interface ListItemsPageProps {
     items?: Array<{
-        id: number;
+        id?: number;
+        id_news?: number;
+        id_events?: number;
+        id_conferences?: number;
+        id_education?: number;
         title: string;
         date?: string;
         organization?: string;
@@ -26,24 +30,50 @@ interface ListItemsPageProps {
         total: number;
     };
     baseUrl?: string;
+    itemType?: 'news' | 'events' | 'careers' | 'conferences';
 }
 
 const ListItemsPage: React.FC<ListItemsPageProps> = ({ 
     items = [], 
     pagination, 
-    baseUrl = '' 
+    baseUrl = '',
+    itemType = 'news'
 }) => {
+    // Generate detail URL berdasarkan tipe item dan field ID yang benar
+    const getDetailUrl = (item: any) => {
+        let itemId: number | undefined;
+        
+        switch (itemType) {
+            case 'news':
+                itemId = item.id_news || item.id;
+                return itemId ? `/news/${itemId}` : '#';
+            case 'events':
+                itemId = item.id_events || item.id;
+                return itemId ? `/events/${itemId}` : '#';
+            case 'careers':
+                itemId = item.id_education || item.id;
+                return itemId ? `/careers/${itemId}` : '#';
+            case 'conferences':
+                itemId = item.id_conferences || item.id;
+                return itemId ? `/conferences/${itemId}` : '#';
+            default:
+                itemId = item.id_news || item.id;
+                return itemId ? `/news/${itemId}` : '#';
+        }
+    };
+
     return (
         <div className="flex w-2/3 flex-col">
             <div className="flex flex-col gap-2">
                 {items.map((item) => (
                     <CardWithImageLandscape
-                        key={item.id}
+                        key={item.id || item.id_news || item.id_events || item.id_conferences || item.id_education}
                         title={item.title}
                         date={item.date}
                         organization={item.organization}
                         imageSrc={item.imageSrc}
                         type={item.type}
+                        url={getDetailUrl(item)}
                     />
                 ))}
             </div>

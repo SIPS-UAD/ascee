@@ -2,7 +2,7 @@ import React from 'react';
 import PageMainLayout from '@/layouts/layout-pages/page-main-layout';
 
 interface NewsItem {
-    id: number;
+    id_news: number;
     title: string;
     date?: string;
     organization?: string;
@@ -42,6 +42,7 @@ const NewsPage: React.FC<NewsPageProps> = ({ news }) => {
                 total: news.total
             }}
             baseUrl="/news"
+            itemType="news"
         />
     );
 };

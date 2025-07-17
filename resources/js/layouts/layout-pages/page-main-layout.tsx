@@ -10,7 +10,11 @@ import React from 'react';
 interface PageMainLayoutProps {
     nameTag: string;
     items?: Array<{
-        id: number;
+        id?: number;
+        id_news?: number;
+        id_events?: number;
+        id_conferences?: number;
+        id_education?: number;
         title: string;
         date?: string;
         organization?: string;
@@ -24,13 +28,15 @@ interface PageMainLayoutProps {
         total: number;
     };
     baseUrl?: string;
+    itemType?: 'news' | 'events' | 'careers' | 'conferences';
 }
 
 const PageMainLayout: React.FC<PageMainLayoutProps> = ({ 
     nameTag, 
     items = [], 
     pagination, 
-    baseUrl = '' 
+    baseUrl = '',
+    itemType = 'news'
 }) => {
     return (
         <>
@@ -46,6 +52,7 @@ const PageMainLayout: React.FC<PageMainLayoutProps> = ({
                             items={items}
                             pagination={pagination}
                             baseUrl={baseUrl}
+                            itemType={itemType}
                         />
                         <SideSearchPage/>
                     </div>

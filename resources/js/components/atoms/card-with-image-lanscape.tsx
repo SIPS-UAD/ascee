@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from '@inertiajs/react';
 
 interface CardWithImageProps {
     type?: 'EVENT' | 'NEWS' | 'ANNOUNCEMENT';
@@ -8,6 +9,7 @@ interface CardWithImageProps {
     imageSrc?: string;
     useRandomImage?: boolean;
     className?: string;
+    url?: string;
 }
 
 const CardWithImageLandscape: React.FC<CardWithImageProps> = ({
@@ -16,9 +18,10 @@ const CardWithImageLandscape: React.FC<CardWithImageProps> = ({
     title = 'Pengumuman Penerima ASCEE Grants',
     organization = 'ASCEE',
     className = '',
+    url,
 }) => {
-    return (
-        <div className={`group overflow-hidden rounded-lg border border-gray-100 transition-shadow hover:shadow-md ${className} flex`}>
+    const cardContent = (
+        <div className={`group overflow-hidden rounded-lg border border-gray-100 transition-shadow hover:shadow-md ${className} flex cursor-pointer`}>
             <div className="relative h-32 overflow-hidden">
                 <img
                     src="astronout.png"
@@ -40,6 +43,17 @@ const CardWithImageLandscape: React.FC<CardWithImageProps> = ({
             </div>
         </div>
     );
+
+    // Jika ada URL, wrap dengan Link, jika tidak return card biasa
+    if (url) {
+        return (
+            <Link href={url} className="block">
+                {cardContent}
+            </Link>
+        );
+    }
+
+    return cardContent;
 };
 
 export default CardWithImageLandscape;

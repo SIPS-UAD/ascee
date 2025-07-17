@@ -2,7 +2,7 @@ import React from 'react';
 import PageMainLayout from '@/layouts/layout-pages/page-main-layout';
 
 interface ConferenceItem {
-    id: number;
+    id_conferences: number;
     title: string;
     date?: string;
     organization?: string;
@@ -42,6 +42,7 @@ const ConferencesPage: React.FC<ConferencesPageProps> = ({ conferences }) => {
                 total: conferences.total
             }}
             baseUrl="/conferences"
+            itemType="conferences"
         />
     );
 };
