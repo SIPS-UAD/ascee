@@ -4,8 +4,7 @@ import CardWithImageLandscape from '@/components/atoms/card-with-image-landscape
 const ContainerCardsWithImageLandscape = () => {
   return (
     <div>
-        <CardWithImageLandscape />
-        <CardWithImageLandscape />
+        
     </div>
   )
 }
