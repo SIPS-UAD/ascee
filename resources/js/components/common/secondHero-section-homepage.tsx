@@ -1,6 +1,6 @@
 import { useSharedData } from '@/hooks/useSharedData';
 import { Link } from '@inertiajs/react';
-import CardListNoImage from '../CardListNoImage';
+import CardListNoImage from '../molecules/CardListNoImage';
 import WithImageOrganism from '../organisms/withImage-organism';
 
 const SecondHeroSectionHomepage = () => {

@@ -1,3 +1,5 @@
+import React from 'react';
+
 interface CardWithImageProps {
     type?: 'NEWS' | 'EVENTS' | 'CONFERENCES' | 'CAREERS';
     date?: string;

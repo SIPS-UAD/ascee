@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from '@inertiajs/react';
 
 interface CardWithImageProps {
     type?: 'EVENT' | 'NEWS' | 'ANNOUNCEMENT';
@@ -8,6 +9,7 @@ interface CardWithImageProps {
     imageSrc?: string;
     useRandomImage?: boolean;
     className?: string;
+    url?: string;
 }
 
 const CardWithImageLandscape: React.FC<CardWithImageProps> = ({
@@ -16,9 +18,10 @@ const CardWithImageLandscape: React.FC<CardWithImageProps> = ({
     title = 'Pengumuman Penerima ASCEE Grants',
     organization = 'ASCEE',
     className = '',
+    url,
 }) => {
-    return (
-        <div className={`group overflow-hidden rounded-lg border border-gray-100 transition-shadow hover:shadow-md ${className} flex`}>
+    const cardContent = (
+        <div className={`group overflow-hidden rounded-lg border border-gray-100 transition-shadow hover:shadow-md ${className} flex cursor-pointer`}>
             <div className="relative h-32 overflow-hidden">
                 <img
                     src="astronout.png"
@@ -32,7 +35,7 @@ const CardWithImageLandscape: React.FC<CardWithImageProps> = ({
             <div className="p-3 sm:p-4">
                 <div className="mb-1 flex items-center gap-1">
                     <h2 className={`text-xs font-bold ${type === 'EVENT' ? 'text-red-600' : 'text-blue-600'}`}>{type}</h2>
-                    <div className="text-blue-500 ">|</div>
+                    <div className="text-blue-500">|</div>
                     <span className="text-xs text-gray-500">{date}</span>
                 </div>
                 <h3 className="line-clamp-2 text-sm font-bold text-gray-900 sm:text-base">{title}</h3>
@@ -40,6 +43,17 @@ const CardWithImageLandscape: React.FC<CardWithImageProps> = ({
             </div>
         </div>
     );
+
+    // Jika ada URL, wrap dengan Link, jika tidak return card biasa
+    if (url) {
+        return (
+            <Link href={url} className="block">
+                {cardContent}
+            </Link>
+        );
+    }
+
+    return cardContent;
 };
 
 export default CardWithImageLandscape;
