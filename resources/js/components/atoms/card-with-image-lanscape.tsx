@@ -8,16 +8,17 @@ interface CardWithImageProps {
     description?: string;
     imageSrc?: string;
     useRandomImage?: boolean;
-    className?: string;
     url?: string;
+    className?: string;
 }
 
 function CardWithImageLandscape({
-    type = 'EVENT',
-    date = '14 JUNI 2024',
-    title = 'Pengumuman Penerima ASCEE Grants',
-    description = '',
-    className = '',
+    type,
+    date,
+    title,
+    description,
+    imageSrc,
+    className,
     url,
 }: CardWithImageProps) {
     // Helper function to strip HTML tags for clean text truncation
@@ -33,12 +34,13 @@ function CardWithImageLandscape({
         }
         return plainText.substring(0, 100) + '...';
     };
+    console.log('imageSrc:', imageSrc);
 
     const cardContent = (
         <div className={`group overflow-hidden rounded-lg border border-gray-100 transition-shadow hover:shadow-md ${className} flex cursor-pointer`}>
-            <div className="relative h-32 overflow-hidden">
+            <div className="relative flex-shrink-0 w-40 h-28 sm:w-48 sm:h-32 overflow-hidden bg-gray-100">
                 <img
-                    src="astronout.png"
+                    src={imageSrc}
                     alt={title}
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     onError={(e) => {
@@ -46,7 +48,7 @@ function CardWithImageLandscape({
                     }}
                 />
             </div>
-            <div className="p-3 sm:p-4">
+            <div className="p-3 sm:p-4 flex-1">
                 <div className="mb-1 flex items-center gap-1">
                     <span className="text-xs font-bold text-gray-500">{date}</span>
                     <div className="text-gray-500">|</div>

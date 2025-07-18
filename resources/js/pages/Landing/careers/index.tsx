@@ -24,9 +24,10 @@ interface CareersPageProps {
 const CareersPage: React.FC<CareersPageProps> = ({ careers }) => {
     const items = careers.data.map(item => ({
         ...item,
-        type: 'ANNOUNCEMENT' as const,
+        type: 'CAREER' as const,
         date: item.date ? formatDate(item.date) : formatDate(new Date().toISOString())
     }));
+    
 
     return (
         <PageMainLayout
