@@ -5,6 +5,7 @@ import { formatDate } from '@/lib/formatDate';
 interface NewsItem {
     id_news: number;
     title: string;
+    description: string;
     date?: string;
     organization?: string;
     imageSrc?: string;

@@ -70,6 +70,7 @@ const ListItemsPage: React.FC<ListItemsPageProps> = ({
                         key={item.id || item.id_news || item.id_events || item.id_conferences || item.id_education}
                         title={item.title}
                         date={item.date}
+                        description={item.description}
                         organization={item.organization}
                         imageSrc={item.imageSrc}
                         type={item.type}

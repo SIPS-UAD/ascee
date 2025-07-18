@@ -17,6 +17,7 @@ interface PageMainLayoutProps {
         id_education?: number;
         title: string;
         date?: string;
+        description?: string;
         organization?: string;
         imageSrc?: string;
         type?: 'EVENT' | 'NEWS' | 'ANNOUNCEMENT';
