@@ -88,6 +88,15 @@ export interface Journal {
     created_at: string;
     updated_at: string;
 }
+export interface Partners {
+    id_partner: number;
+    name: string;
+    logo?: string;
+    website?: string;
+    admin_id: number;
+    created_at: string;
+    updated_at: string;
+}
 
 export interface Admin {
     id_admin: number;

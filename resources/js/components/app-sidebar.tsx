@@ -3,7 +3,7 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { Calendar, GraduationCap, BookOpen as Journal, LayoutGrid, Newspaper, Users, Video, UserCircle, UserRoundPen, Building } from 'lucide-react';
+import { Calendar, GraduationCap, BookOpen as Journal, LayoutGrid, Newspaper, Users, Video, UserRoundPen, Building } from 'lucide-react';
 import AppLogo from '@/components/atoms/app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -52,6 +52,11 @@ const mainNavItems: NavItem[] = [
         href: '/admin/teams',
         icon: Users,
     },
+    {
+        title: 'Partners', 
+        href: '/admin/partners',
+        icon: Users,
+    }
 ];
 
 export function AppSidebar() {
