@@ -21,7 +21,7 @@ class EducationAndCareersSeeder extends Seeder
                 'date' => fake()->dateTimeBetween('-3 months', '+6 months')->format('Y-m-d'),
                 'publisher' => fake()->company(),
                 'description' => fake()->paragraphs(rand(2, 4), true),
-                'image' => fake()->image(null, 640, 480, null, false),
+                'image' => null, // Leave as null for now, images can be added through admin panel
                 'admin_id' => $admins->random()->id_admin
             ]);
         }

@@ -7,6 +7,7 @@ interface CareerItem {
     title: string;
     date?: string;
     organization?: string;
+    image?: string;
     imageSrc?: string;
     type?: 'ANNOUNCEMENT';
 }
@@ -25,7 +26,8 @@ const CareersPage: React.FC<CareersPageProps> = ({ careers }) => {
     const items = careers.data.map(item => ({
         ...item,
         type: 'CAREER' as const,
-        date: item.date ? formatDate(item.date) : formatDate(new Date().toISOString())
+        date: item.date ? formatDate(item.date) : formatDate(new Date().toISOString()),
+        imageSrc: item.image // Convert 'image' field to 'imageSrc' for frontend components
     }));
     
 

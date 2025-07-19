@@ -40,11 +40,11 @@ function CardWithImageLandscape({
         <div className={`group overflow-hidden rounded-lg border border-gray-100 transition-shadow hover:shadow-md ${className} flex cursor-pointer`}>
             <div className="relative flex-shrink-0 w-40 h-28 sm:w-48 sm:h-32 overflow-hidden bg-gray-100">
                 <img
-                    src={imageSrc}
+                    src={imageSrc ? `/storage/${imageSrc}` : '/astronout.png'}
                     alt={title}
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     onError={(e) => {
-                        e.currentTarget.src = '/images/event-placeholder.jpg';
+                        e.currentTarget.src = '/astronout.png';
                     }}
                 />
             </div>
