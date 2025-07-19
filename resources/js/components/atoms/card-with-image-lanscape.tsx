@@ -34,17 +34,20 @@ function CardWithImageLandscape({
         }
         return plainText.substring(0, 100) + '...';
     };
-    console.log('imageSrc:', imageSrc);
+
+    const isLogoImage = !imageSrc;
 
     const cardContent = (
         <div className={`group overflow-hidden rounded-lg border border-gray-100 transition-shadow hover:shadow-md ${className} flex cursor-pointer`}>
-            <div className="relative flex-shrink-0 w-40 h-28 sm:w-48 sm:h-32 overflow-hidden bg-gray-100">
+            <div className="relative flex-shrink-0 w-40 h-28 sm:w-48 sm:h-32 overflow-hidden bg-gray-50 flex items-center justify-center">
                 <img
-                    src={imageSrc ? `/storage/${imageSrc}` : '/astronout.png'}
+                    src={imageSrc ? `/storage/${imageSrc}` : '/logoascee.png'}
                     alt={title}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className={`${isLogoImage ? 'transform scale-80 object-contain' : 'h-auto w-auto object-cover'} transition-transform duration-500 group-hover:scale-105`}
                     onError={(e) => {
-                        e.currentTarget.src = '/astronout.png';
+                        e.currentTarget.src = '/logoascee.png';
+                        e.currentTarget.classList.add('transform', 'scale-80', 'object-contain');
+                        e.currentTarget.classList.remove('object-cover');
                     }}
                 />
             </div>
