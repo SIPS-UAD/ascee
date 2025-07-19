@@ -21,19 +21,21 @@ const CardWithImage: React.FC<CardWithImageProps> = ({
 }) => {
     return (
         <div className={`group overflow-hidden rounded-lg border border-gray-100 transition-shadow hover:shadow-md ${className}`}>
-            <div className="relative h-32 overflow-hidden">
+            <div className="relative h-32 overflow-hidden bg-gray-50">
                 <img
-                    src={imageSrc || (useRandomImage ? '/astronout.png' : '/astronout.png')}
+                    src={imageSrc || (useRandomImage ? '/logoascee.png' : '/logoascee.png')}
                     alt={title}
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     onError={(e) => {
-                        e.currentTarget.src = '/astronout.png';
+                        e.currentTarget.src = '/logoascee.png';
+                        e.currentTarget.classList.add('transform', 'scale-80', 'object-contain');
+                        e.currentTarget.classList.remove('object-cover');
                     }}
                 />
             </div>
             <div className="p-3 sm:p-4">
                 <div className="mb-1 flex items-center justify-between">
-                    <h2 className={`text-xs font-bold ${type === 'EVENT' ? 'text-red-600' : 'text-blue-600'}`}>{type}</h2>
+                    <h2 className={`text-xs font-bold ${type === 'EVENT' ? 'text-red-600' : 'text-red-600'}`}>{type}</h2>
                     <span className="text-xs text-gray-500">{date}</span>
                 </div>
                 <h3 className="line-clamp-2 text-sm font-bold text-gray-900 sm:text-base">{title}</h3>
