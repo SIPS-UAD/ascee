@@ -8,6 +8,7 @@ interface NewsItem {
     description: string;
     date?: string;
     organization?: string;
+    image?: string;
     imageSrc?: string;
     type?: 'NEWS';
 }
@@ -26,7 +27,8 @@ const NewsPage: React.FC<NewsPageProps> = ({ news }) => {
     const items = news.data.map(item => ({
         ...item,
         type: 'NEWS' as const,
-        date: item.date ? formatDate(item.date) : formatDate(new Date().toISOString())
+        date: item.date ? formatDate(item.date) : formatDate(new Date().toISOString()),
+        imageSrc: item.image // Convert 'image' field to 'imageSrc' for frontend components
     }));
 
     return (

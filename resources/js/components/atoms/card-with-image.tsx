@@ -23,11 +23,11 @@ const CardWithImage: React.FC<CardWithImageProps> = ({
         <div className={`group overflow-hidden rounded-lg border border-gray-100 transition-shadow hover:shadow-md ${className}`}>
             <div className="relative h-32 overflow-hidden">
                 <img
-                    src={imageSrc || (useRandomImage ? 'astronout.png' : '/images/event-placeholder.jpg')}
+                    src={imageSrc || (useRandomImage ? '/astronout.png' : '/astronout.png')}
                     alt={title}
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     onError={(e) => {
-                        e.currentTarget.src = 'https://placehold.co/600x400';
+                        e.currentTarget.src = '/astronout.png';
                     }}
                 />
             </div>

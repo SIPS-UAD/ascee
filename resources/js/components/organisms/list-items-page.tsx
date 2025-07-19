@@ -21,7 +21,7 @@ interface ListItemsPageProps {
         date?: string;
         organization?: string;
         imageSrc?: string;
-        type?: 'EVENT' | 'NEWS' | 'ANNOUNCEMENT';
+        type?: 'EVENT' | 'NEWS' | 'CAREER' | 'CONFERENCE';
     }>;
     pagination?: {
         current_page: number;
@@ -39,7 +39,7 @@ const ListItemsPage: React.FC<ListItemsPageProps> = ({
     baseUrl = '',
     itemType = 'news'
 }) => {
-    // Generate detail URL berdasarkan tipe item dan field ID yang benar
+    console.log('Items imageaaa:', items[7].imageSrc, items[7].type);
     const getDetailUrl = (item: any) => {
         let itemId: number | undefined;
         
@@ -63,7 +63,7 @@ const ListItemsPage: React.FC<ListItemsPageProps> = ({
     };
 
     return (
-        <div className="flex w-2/3 flex-col">
+        <div className="flex w-full lg:w-2/3 flex-col ">
             <div className="flex flex-col gap-2">
                 {items.map((item) => (
                     <CardWithImageLandscape
@@ -71,12 +71,12 @@ const ListItemsPage: React.FC<ListItemsPageProps> = ({
                         title={item.title}
                         date={item.date}
                         description={item.description}
-                        organization={item.organization}
                         imageSrc={item.imageSrc}
                         type={item.type}
                         url={getDetailUrl(item)}
                     />
                 ))}
+                
             </div>
             
             {pagination && (
@@ -123,6 +123,7 @@ const ListItemsPage: React.FC<ListItemsPageProps> = ({
                     </Pagination>
                 </div>
             )}
+            
         </div>
     );
 };

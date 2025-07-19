@@ -20,7 +20,7 @@ interface PageMainLayoutProps {
         description?: string;
         organization?: string;
         imageSrc?: string;
-        type?: 'EVENT' | 'NEWS' | 'ANNOUNCEMENT';
+        type?: 'EVENT' | 'NEWS'|'CAREER' | 'CONFERENCE';
     }>;
     pagination?: {
         current_page: number;
@@ -39,23 +39,29 @@ const PageMainLayout: React.FC<PageMainLayoutProps> = ({
     baseUrl = '',
     itemType = 'news'
 }) => {
+    
     return (
         <>
             <Head title={nameTag.toUpperCase()} />
             <HeaderLayout />
             <main>
                 <section className="m-auto max-w-7xl bg-white pt-20 pb-8 sm:pt-22 sm:pb-12 lg:pt-24 lg:pb-16">
-                    <NameTagProvider name={nameTag}>
-                        <NameTag />
-                    </NameTagProvider>
-                    <div className="py-10 flex gap-5">
+                    <div className="px-5">
+                        <NameTagProvider name={nameTag} >
+                            <NameTag />
+                        </NameTagProvider>
+                    </div>
+                    
+                    <div className="py-10 flex flex-col lg:flex-row gap-5 px-5">
                         <ListItemsPage 
                             items={items}
                             pagination={pagination}
                             baseUrl={baseUrl}
                             itemType={itemType}
                         />
-                        <SideSearchPage/>
+                        <div className="hidden lg:flex lg:w-1/3">
+                            <SideSearchPage />
+                        </div>
                     </div>
                 </section>
             </main>

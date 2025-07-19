@@ -7,6 +7,7 @@ interface ConferenceItem {
     title: string;
     date?: string;
     organization?: string;
+    image?: string;
     imageSrc?: string;
     type?: 'EVENT';
 }
@@ -25,7 +26,8 @@ const ConferencesPage: React.FC<ConferencesPageProps> = ({ conferences }) => {
     const items = conferences.data.map(item => ({
         ...item,
         type: 'EVENT' as const,
-        date: item.date ? formatDate(item.date) : formatDate(new Date().toISOString())
+        date: item.date ? formatDate(item.date) : formatDate(new Date().toISOString()),
+        imageSrc: item.image // Convert 'image' field to 'imageSrc' for frontend components
     }));
 
     return (
