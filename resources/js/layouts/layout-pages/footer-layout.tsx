@@ -35,7 +35,7 @@ const FooterLayout = () => {
                         </div>
                         <div className="mb-6 flex justify-center space-x-4 sm:justify-start">
                             <a
-                                href="#"
+                                href="https://www.youtube.com/@ASCEE"
                                 className="flex h-10 w-10 items-center justify-center rounded-full border border-white transition-colors hover:bg-white hover:text-[#00A0FF]"
                             >
                                 <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">

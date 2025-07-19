@@ -2,6 +2,7 @@ import { useSharedData } from '@/hooks/useSharedData';
 import { Link } from '@inertiajs/react';
 import CardListNoImage from '../molecules/CardListNoImage';
 import WithImageOrganism from '../organisms/withImage-organism';
+import { formatDate } from '@/lib/formatDate'; // Add this import
 
 const SecondHeroSectionHomepage = () => {
     const { conferences } = useSharedData();
@@ -22,13 +23,16 @@ const SecondHeroSectionHomepage = () => {
                     </div>
                     <div className="w-full lg:w-1/3">
                         <CardListNoImage
-                            items={conferences.map((item) => ({
-                                id: item.id_conferences,
-                                date: item.date,
-                                title: item.title,
-                                category: 'conferences', // Changed to plural to match route pattern
-                            }))}
-                            sectionTitle="Conferences"
+                            items={
+                                conferences?.map((item) => ({
+                                    id: item.id_conferences,
+                                    date: item.formatted_date || formatDate(item.date || new Date().toISOString()),
+                                    title: item.title,
+                                    publisher: item.publisher || 'ASCEE',
+                                    category: 'conferences',
+                                })) || []
+                            }
+                            sectionTitle="CONFERENCES"
                             moreLinkText="More Conferences →"
                             moreLinkUrl="/conferences"
                         />

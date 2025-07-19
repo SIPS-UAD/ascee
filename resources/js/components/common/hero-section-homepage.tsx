@@ -1,7 +1,8 @@
 import { useSharedData } from '@/hooks/useSharedData';
 import CardMain from '../atoms/card-main';
 import CardListNoImage from '../molecules/CardListNoImage';
-import CardListWithImage from '../molecules/CardListWithImage'; // Updated import path
+import CardListWithImage from '../molecules/CardListWithImage';
+import { formatDate } from '@/lib/formatDate'; // Add this import
 
 const HeroSectionHomepage = () => {
     const { news } = useSharedData();
@@ -25,9 +26,9 @@ const HeroSectionHomepage = () => {
                             items={
                                 news?.map((item) => ({
                                     id: item.id_news,
-                                    date: item.date,
+                                    date: item.formatted_date || formatDate(item.created_at || new Date().toISOString()),
                                     title: item.title,
-                                    publisher: item.publisher,
+                                    publisher: item.publisher || 'ASCEE',
                                     category: 'news',
                                 })) || []
                             }
