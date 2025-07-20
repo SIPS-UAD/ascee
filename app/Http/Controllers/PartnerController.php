@@ -40,7 +40,7 @@ class PartnerController extends Controller
     $request->validate([
       'name' => 'required|string|max:255',
       'website' => 'nullable|url|max:255',
-      'logo' => 'nullable|image|max:2048', // 2MB max
+      'logo' => 'nullable|image|max:2048', 
       'admin_id' => 'required|exists:admins,id_admin',
     ]);
 
@@ -56,7 +56,7 @@ class PartnerController extends Controller
 
     $partner->save();
 
-    return redirect()->route('admin.partners.index')
+    return redirect()->route('partners.index')
       ->with('success', 'Partner created successfully.');
   }
 
@@ -94,7 +94,7 @@ class PartnerController extends Controller
 
     $partner->save();
 
-    return redirect()->route('admin.partners.index')
+    return redirect()->route('partners.index')
       ->with('success', 'Partner updated successfully.');
   }
 
@@ -106,7 +106,7 @@ class PartnerController extends Controller
 
     $partner->delete();
 
-    return redirect()->route('admin.partners.index')
+    return redirect()->route('partners.index')
       ->with('success', 'Partner deleted successfully.');
   }
 
