@@ -1,5 +1,5 @@
 import { usePage } from '@inertiajs/react';
-import { News, Journal, Event, Conference, Career } from '@/types';
+import { News, Journal, Event, Conference, Career, Partners } from '@/types';
 
 interface SharedData {
     sharedNews: News[];
@@ -7,6 +7,7 @@ interface SharedData {
     sharedConferences: Conference[];
     sharedJournals: Journal[];
     sharedCareers: Career[];
+    sharedPartners: Partners[];
     [key: string]: unknown;
 }
 
@@ -18,6 +19,7 @@ export function useSharedData() {
         events: props.sharedEvents || [],
         conferences: props.sharedConferences || [],
         journals: props.sharedJournals || [],
-        careers: props.sharedCareers || [], // Ensure careers is included     
+        careers: props.sharedCareers || [],
+        partners: props.sharedPartners || [],
     };
 }

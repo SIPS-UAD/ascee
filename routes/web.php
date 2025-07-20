@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AboutUsController;
+use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\JournalController;
 use App\Http\Controllers\EventsController;
@@ -21,6 +22,7 @@ Route::get('/', function () {
         'sharedConferences' => \App\Models\Conferences::with('admin')->latest()->take(6)->get(),
         'sharedJournals' => \App\Models\Journal::with('admin')->latest()->take(9)->get(),
         'sharedCareers' => \App\Models\EducationAndCareers::with('admin')->latest()->take(4)->get(),
+        'sharedPartners' => \App\Models\Partner::with('admin')->latest()->take(9)->get(),
     ]);
 })->name('homePage.index');
 
@@ -55,7 +57,7 @@ Route::get('journals', function () {
 })->name('public.journals.index');
 
 Route::get('about_us', function () {
-    $about_us = \App\Models\AboutUs::first();       
+    $about_us = \App\Models\AboutUs::first();
     return Inertia::render('Landing/about_us/index', [
         'aboutUs' => $about_us
     ]);
@@ -193,6 +195,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // Admin Management Routes
         Route::resource('admins', AdminController::class);
+
+        // Partner Management Routes
+        Route::resource('partners', PartnerController::class);
     });
 });
 

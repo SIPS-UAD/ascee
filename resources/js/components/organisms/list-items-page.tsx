@@ -39,7 +39,6 @@ const ListItemsPage: React.FC<ListItemsPageProps> = ({
     baseUrl = '',
     itemType = 'news'
 }) => {
-    console.log('Items imageaaa:', items[7].imageSrc, items[7].type);
     const getDetailUrl = (item: any) => {
         let itemId: number | undefined;
         
