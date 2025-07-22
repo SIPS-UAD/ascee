@@ -83,6 +83,7 @@ export interface Journal {
     id_journal: number;
     title: string;
     image?: string;
+    link?: string;
     admin_id: number;
     admin: Admin;
     created_at: string;

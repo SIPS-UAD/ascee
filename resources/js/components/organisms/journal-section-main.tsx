@@ -11,41 +11,49 @@ const JournalSectionMain = ({ journals = [] }: JournalSectionMainProps) => {
             id_journal: 1,
             title: 'International Journal of Translational Science',
             image: '/journal-1.jpg',
+            link: '',
         },
         {
             id_journal: 2,
             title: 'Structure',
             image: '/journal-2.jpg',
+            link: '',
         },
         {
             id_journal: 3,
             title: 'Future Design',
             image: '/journal-3.jpg',
+            link: '',
         },
         {
             id_journal: 4,
             title: 'Structure',
             image: '/journal-4.jpg',
+            link: '',
         },
         {
             id_journal: 5,
             title: 'Translational Medicine',
             image: '/journal-5.jpg',
+            link: '',
         },
         {
             id_journal: 6,
             title: 'Translational Medicine',
             image: '/journal-5.jpg',
+            link: '',
         },
         {
             id_journal: 7,
             title: 'Translational Medicine',
             image: '/journal-5.jpg',
+            link: '',
         },
         {
             id_journal: 8,
             title: 'Translational Medicine',
             image: '/journal-5.jpg',
+            link: '',
         },
     ];
 
@@ -90,10 +98,19 @@ const JournalSectionMain = ({ journals = [] }: JournalSectionMainProps) => {
                                 {/* Journal Info */}
                                 <div className="p-4">
                                     <h3 className="mb-2 line-clamp-2 text-sm font-semibold text-gray-900">{journal.title}</h3>
-                                    {/* Action Button */}
-                                    <button className="w-full rounded bg-blue-500 px-4 py-2 text-xs text-white transition-colors duration-200 hover:bg-blue-600">
-                                        View Journal
-                                    </button>
+                                    {/* Action Button - Replace with link */}
+                                    <a 
+                                        href={journal.link || "#"}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className={`block w-full rounded text-center px-4 py-2 text-xs text-white transition-colors duration-200 ${
+                                            journal.link 
+                                                ? 'bg-blue-500 hover:bg-blue-600' 
+                                                : 'bg-gray-400 cursor-not-allowed'
+                                        }`}
+                                    >
+                                        {journal.link ? "View Journal" : "No Link Available"}
+                                    </a>
                                 </div>
                             </div>
                         ))}

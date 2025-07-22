@@ -45,11 +45,11 @@ const PartnerSection = () => {
                                                 className="flex h-full w-full items-center justify-center"
                                             >
                                                 <img
-                                                    src={logoAscee}
+                                                    src={partner.logo ? `/storage/${partner.logo}` : logoAscee}
                                                     alt={partner.name}
                                                     className="max-h-full max-w-full object-contain grayscale filter transition-all duration-300 hover:grayscale-0"
                                                     onError={(e) => {
-                                                        e.currentTarget.src = '/placeholder-logo.png';
+                                                        e.currentTarget.src = logoAscee;
                                                     }}
                                                 />
                                             </a>
